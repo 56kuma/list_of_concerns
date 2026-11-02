@@ -1,0 +1,44 @@
+/* 一覧ページ */
+
+.home-head { padding-top: clamp(48px, 8vw, 120px); }
+.home-head h1 { font-size: var(--step-display); letter-spacing: -0.035em; }
+.home-lead { margin-top: 20px; font-size: var(--step-lead); max-width: 26em; line-height: 1.7; }
+
+.filter { margin-top: clamp(40px, 6vw, 72px); }
+.count { margin-top: 16px; font-size: var(--step-small); color: var(--muted); min-height: 1.8em; }
+
+.entries { list-style: none; margin: 24px 0 0; padding: 0; display: grid; gap: 24px; }
+.entry { background: var(--paper); border-radius: var(--radius); overflow: hidden; }
+.entry[hidden] { display: none; }
+.entry-link {
+  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  text-decoration: none; color: inherit;
+}
+.entry-photo { width: 100%; height: 100%; aspect-ratio: 4 / 3; object-fit: cover; transition: transform .6s var(--ease); }
+.entry-link:hover .entry-photo { transform: scale(1.03); }
+.entry-link:hover h2 { color: var(--accent); }
+.entry-body { padding: clamp(24px, 4vw, 56px); display: flex; flex-direction: column; gap: 16px; }
+.entry-body h2 { font-size: var(--step-head); transition: color .2s var(--ease); }
+.entry-body p { max-width: var(--measure); }
+.entry-date { margin-top: auto; font-size: var(--step-small); color: var(--muted); }
+.entry-tags { padding: 0 clamp(24px, 4vw, 56px) clamp(24px, 4vw, 40px); }
+@media (min-width: 861px) {
+  .entry { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+  .entry-link { grid-column: 1 / -1; grid-row: 1; }
+  .entry-tags { grid-column: 2; grid-row: 1; align-self: end; }
+  .entry-body { padding-bottom: 104px; }
+}
+
+.home-foot { padding-block: clamp(96px, 12vw, 200px) 48px; }
+.home-foot-name { font-family: var(--font-display); font-weight: 700; font-size: var(--step-display); line-height: 1.05; letter-spacing: -0.035em; }
+.home-foot p:last-child { margin-top: 16px; color: var(--muted); font-size: var(--step-small); }
+
+@media (max-width: 860px) {
+  .entry-link { grid-template-columns: 1fr; }
+  .entry-photo { aspect-ratio: 16 / 10; }
+}
+
+@media (min-width: 861px) {
+  .home-head { display: grid; grid-template-columns: auto minmax(0, 26em); justify-content: space-between; align-items: end; gap: 48px; }
+  .home-lead { margin-top: 0; }
+}

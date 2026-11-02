@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>気になったこと</title>
+<meta name="description" content="気になったことを調べた記録。タグでまとめている。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css">
+<link rel="stylesheet" href="css/home.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+
+<header class="home-head wrap">
+  <h1 class="rise">気になったこと</h1>
+  <p class="home-lead rise" style="--i:1">気になったことを調べて、わかったところまで書いておく場所。タグで絞り込める。</p>
+</header>
+
+<main class="wrap">
+  <nav class="filter rise" style="--i:2" aria-label="タグで絞り込む">
+    <ul class="tags" id="tag-filter">
+      <li><button class="tag" type="button" data-tag="" aria-pressed="true">すべて</button></li>
+    </ul>
+  </nav>
+
+  <p class="count" id="count" aria-live="polite"></p>
+
+  <ol class="entries" id="entries" reversed>
+    <li class="entry rise" data-tags="Apple,ガジェット,買うか迷い中">
+      <a class="entry-link" href="posts/mac-mini-2026/">
+        <img class="entry-photo" src="img/mac-mini/mac-mini-2024-m4.jpg" width="1920" height="1613" alt="木の机に置かれたMac mini">
+        <div class="entry-body">
+          <h2>Mac mini（M6）は買いか</h2>
+          <p>M4のときより5万5千円上がった新型。どの構成なら後悔しないか、価格表と見積もりで整理した。</p>
+          <p class="entry-date"><time datetime="2026-11-02">2026年11月2日</time></p>
+        </div>
+      </a>
+      <ul class="tags entry-tags" aria-label="タグ">
+        <li><a class="tag" href="?tag=Apple">Apple</a></li>
+        <li><a class="tag" href="?tag=ガジェット">ガジェット</a></li>
+        <li><a class="tag" href="?tag=買うか迷い中">買うか迷い中</a></li>
+      </ul>
+    </li>
+  </ol>
+</main>
+
+<footer class="home-foot wrap">
+  <p class="home-foot-name">気になったこと</p>
+  <p>調べた時点の情報。値段や仕様は変わるので、買う前に公式で確認すること。</p>
+</footer>
+
+<script src="js/tags.js"></script>
+<script src="js/rise.js"></script>
+</body>
+</html>
