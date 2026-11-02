@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>iOS開発に買うならどのMac ｜ 気になったこと</title>
+<meta name="description" content="iOSアプリ開発用に、Mac mini（M6）と最新のMacBook Air（M5）・MacBook Pro（M6）のどれを買うか比べた記録。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic&family=Libre+Franklin:wght@700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/site.css">
+<link rel="stylesheet" href="../../css/article.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+
+<header class="hero">
+  <img class="hero-photo" src="../../img/macbook/m3-macbook-pro-14-inch-space-grey.jpg" width="1920" height="1440" alt="家電量販店に置かれた14インチMacBook Pro。M3世代で、M6も同じ形">
+  <div class="hero-card">
+    <div class="hero-top">
+      <a class="hero-home" href="../../">気になったこと</a>
+      <ul class="tags" aria-label="タグ">
+        <li><a class="tag" href="../../?tag=Apple">Apple</a></li>
+        <li><a class="tag" href="../../?tag=iOS開発">iOS開発</a></li>
+        <li><a class="tag" href="../../?tag=買うか迷い中">買うか迷い中</a></li>
+      </ul>
+    </div>
+    <h1>iOS開発に買うならどのMac</h1>
+    <p class="hero-lead">iOSアプリを作る前提で、新しいMac miniと最新のMacBookのどれを買うかを比べた。同じM6でも、画面とバッテリーが付くだけで10万円違う。</p>
+    <dl class="hero-facts">
+      <div><dt>比べた3台</dt><dd>mini・Air・Pro</dd></div>
+      <div><dt>価格</dt><dd><span class="num">149,800</span>〜<span class="num">339,800</span>円</dd></div>
+      <div><dt>前提</dt><dd>Xcode <span class="num">27.2</span></dd></div>
+    </dl>
+    <div class="hero-foot">
+      <a class="btn" href="#flow-h">判断フローを見る</a>
+      <a href="#conclusion">結論だけ読む</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section class="learn wrap" aria-labelledby="learn-h">
+  <h2 id="learn-h" class="rise">この記事でわかること</h2>
+  <div class="learn-body">
+    <ul class="learn-list">
+      <li class="rise" style="--i:1"><a href="#need-h">iOS開発に何が要るか</a><span>Xcodeの条件と、メモリ・SSDの目安</span></li>
+      <li class="rise" style="--i:2"><a href="#spec-h">3台のスペック</a><span>Mac mini・MacBook Air・MacBook Proを1枚の表に</span></li>
+      <li class="rise" style="--i:3"><a href="#cost-h">同じ構成にそろえた値段</a><span>メモリとSSDをそろえて差額を出した</span></li>
+      <li class="rise" style="--i:4"><a href="#dev-h">開発で効いてくる違い</a><span>ビルド、熱、画面、実機テスト、持ち運び</span></li>
+      <li class="rise" style="--i:5"><a href="#flow-h">どれを買うか</a><span>作業する場所別の判断フロー</span></li>
+    </ul>
+    <p class="learn-short rise" style="--i:3"><strong>先に結論。</strong>家の机で作るならMac mini（M6、24GB／512GB、221,800円）。外でも作るならMacBook Air（M5）。MacBook Proは、外で長いビルドを回す人向け。</p>
+  </div>
+</section>
+
+<section class="intro wrap" aria-labelledby="need-h">
+  <div class="intro-text">
+    <h2 id="need-h" class="rise">iOS開発に何が要るか</h2>
+    <p class="rise" style="--i:1">まず前提から。iOSアプリはXcodeでしか作れないので、Xcodeがまともに動くことが最低条件になる。2026年11月時点の最新はXcode 27.2。</p>
+    <ul class="intro-points rise" style="--i:2">
+      <li><strong>macOS</strong>：Tahoe 26.6以降が必要（Apple公式）</li>
+      <li><strong>SDK</strong>：iOS 27.2。対応するデプロイ先はiOS 15〜27</li>
+      <li><strong>シミュレータ</strong>：iOS 17以降</li>
+      <li><strong>メモリ</strong>：公式の下限は書かれていない。Xcodeとシミュレータとブラウザを同時に開くなら、16GBが下限で、24GBあれば余裕があると思う</li>
+      <li><strong>SSD</strong>：Xcode本体とシミュレータのランタイムでかなり埋まる。256GBは避けたい</li>
+    </ul>
+    <p class="rise" style="--i:3">要するに、今売っているApple siliconのMacならどれでもXcode自体は動く。差が出るのはメモリ、ビルドを回し続けたときの熱、画面の広さ、持ち運べるかどうか。</p>
+  </div>
+  <figure class="intro-plates">
+    <div class="plate rise" style="--i:2">
+      <img src="../../img/macbook/xcode-screenshot.png" width="1920" height="1247" alt="XcodeでSwiftUIのコードを編集している画面" loading="lazy" decoding="async">
+      <figcaption>Xcodeの編集画面。左にファイル、真ん中にコード</figcaption>
+    </div>
+    <div class="plate rise" style="--i:3">
+      <img src="../../img/mac-mini/mac-mini-2024-m4.jpg" width="1920" height="1613" alt="木の机に置かれたMac mini（M4世代の筐体）" loading="lazy" decoding="async">
+      <figcaption>Mac mini。M6も同じ筐体</figcaption>
+    </div>
+  </figure>
+</section>
+
+<section class="pro wrap" aria-labelledby="spec-h">
+  <h2 id="spec-h" class="rise">3台のスペック</h2>
+  <p class="pro-lead rise" style="--i:1">一番安い構成どうしで並べた。MacBook Proは14インチのM6モデル（11月6日発売）。</p>
+  <div class="table-scroll rise" style="--i:2">
+    <table class="pro-table">
+      <caption class="visually-hidden">Mac mini、MacBook Air、MacBook Proのスペック比較</caption>
+      <thead><tr><th scope="col">項目</th><th scope="col">Mac mini（M6）</th><th scope="col">Air 13（M5）</th><th scope="col">Pro 14（M6）</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">最安構成</th><td data-label="Mac mini">149,800円（16GB／256GB）</td><td data-label="Air 13">224,800円（16GB／512GB）</td><td data-label="Pro 14">339,800円（16GB／1TB）</td></tr>
+        <tr><th scope="row">CPU／GPU</th><td data-label="Mac mini">12／12コア</td><td data-label="Air 13">10／8コア（10コアGPUは上位）</td><td data-label="Pro 14">12／12コア</td></tr>
+        <tr><th scope="row">メモリ</th><td data-label="Mac mini">16〜32GB</td><td data-label="Air 13">16〜32GB</td><td data-label="Pro 14">16〜32GB</td></tr>
+        <tr><th scope="row">メモリ帯域</th><td data-label="Mac mini">153〜170GB/s</td><td data-label="Air 13">153GB/s</td><td data-label="Pro 14">153〜170GB/s</td></tr>
+        <tr><th scope="row">画面</th><td data-label="Mac mini">なし（外部3台まで）</td><td data-label="Air 13">13.6型 60Hz（外部2台まで）</td><td data-label="Pro 14">14.2型 120Hz XDR（外部2台まで）</td></tr>
+        <tr><th scope="row">重さ</th><td data-label="Mac mini">0.67kg</td><td data-label="Air 13">1.23kg</td><td data-label="Pro 14">1.55kg</td></tr>
+        <tr><th scope="row">バッテリー</th><td data-label="Mac mini">なし</td><td data-label="Air 13">最大18時間</td><td data-label="Pro 14">最大24時間</td></tr>
+        <tr><th scope="row">端子</th><td data-label="Mac mini">TB4×3、USB-C×2、HDMI、2.5GbE</td><td data-label="Air 13">TB4×2、MagSafe</td><td data-label="Pro 14">TB4×3、HDMI、SD、MagSafe</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="pro-note rise" style="--i:3">MacBook Neo（119,800円）も候補に入れかけたが、メモリが8GB固定なので外した。Xcodeとシミュレータを並べるには足りないと思う。</p>
+</section>
+
+<section id="cost" class="prices wrap" aria-labelledby="cost-h">
+  <div class="prices-head">
+    <h2 id="cost-h" class="rise">そろえた値段</h2>
+    <p class="rise" style="--i:1">最安構成どうしだと条件がバラバラなので、メモリとSSDをそろえて比べ直した。</p>
+    <img class="prices-photo rise" style="--i:2" src="../../img/macbook/m2-macbook-air-starlight-model.jpg" width="1920" height="1920" alt="展示台に置かれたスターライトのMacBook Air（M2世代）" loading="lazy" decoding="async">
+  </div>
+  <div class="menu">
+    <div class="menu-group rise">
+      <h3>16GB／512GB</h3>
+      <ul>
+        <li><div class="row"><span>Mac mini（M6）</span><span class="num">185,800</span></div><p>画面・キーボードは別</p></li>
+        <li><div class="row"><span>MacBook Air 13（M5）</span><span class="num">224,800</span></div><p>miniとの差は39,000円</p></li>
+      </ul>
+    </div>
+    <div class="menu-group rise" style="--i:1">
+      <h3>16GB／1TB</h3>
+      <ul>
+        <li><div class="row"><span>Mac mini（M6）</span><span class="num">239,800</span></div><p>Proと同じM6チップ</p></li>
+        <li><div class="row"><span>MacBook Pro 14（M6）</span><span class="num">339,800</span></div><p>miniとの差は100,000円</p></li>
+      </ul>
+    </div>
+    <div class="menu-group rise" style="--i:2">
+      <h3>24GB／512GB</h3>
+      <ul>
+        <li><div class="row"><span>Mac mini（M6）</span><span class="num">221,800</span></div><p>iOS開発ならこれが本命だと思う</p></li>
+        <li><div class="row"><span>MacBook Air 13（M5）</span><span class="num">未確認</span></div><p>標準構成にあるが、値段は確認できていない</p></li>
+      </ul>
+    </div>
+    <div class="menu-group rise" style="--i:3">
+      <h3>2台持ちにすると</h3>
+      <ul>
+        <li><div class="row"><span>mini 16GB／512GB＋Neo</span><span class="num">305,600</span></div><p>家ではmini、外ではNeoで軽作業</p></li>
+        <li><div class="row"><span>MacBook Pro 14（M6）</span><span class="num">339,800</span></div><p>1台で済ませるならこちら</p></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="changes" aria-labelledby="dev-h">
+  <div class="wrap changes-inner">
+    <div class="changes-head">
+      <h2 id="dev-h" class="rise">開発で効く違い</h2>
+      <p class="rise" style="--i:1">スペック表だとわかりにくいので、iOS開発の場面ごとに比べた。◎が一番いい。</p>
+      <img class="changes-photo rise" style="--i:2" src="../../img/mac-mini/mac-mini-m4-2024-backside.jpg" width="1920" height="1309" alt="Mac miniの背面。電源、Ethernet、HDMI、Thunderbolt3基" loading="lazy" decoding="async">
+      <p class="changes-cap">Mac miniの背面。モニターは後ろに、iPhoneは前のUSB-Cに挿せる</p>
+    </div>
+    <table class="diff stack">
+      <caption class="visually-hidden">iOS開発の場面ごとの比較</caption>
+      <thead><tr><th scope="col">場面</th><th scope="col">mini</th><th scope="col">Air</th><th scope="col">Pro</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">ビルドの速さ</th><td data-label="mini">◎ 12コア</td><td data-label="Air">○ 10コア</td><td data-label="Pro">◎ 12コア</td></tr>
+        <tr><th scope="row">長いビルド</th><td data-label="mini">◎ ファンあり</td><td data-label="Air">△ ファンなし。熱で落ちやすい</td><td data-label="Pro">◎ ファンあり</td></tr>
+        <tr><th scope="row">Xcode＋シミュレータの画面</th><td data-label="mini">◎ 外部モニター3台まで</td><td data-label="Air">△ 13.6型は狭い</td><td data-label="Pro">○ 14.2型＋外部2台</td></tr>
+        <tr><th scope="row">実機テスト</th><td data-label="mini">○ 前面USB-Cが便利</td><td data-label="Air">○ 無線デバッグで十分</td><td data-label="Pro">○ 同左</td></tr>
+        <tr><th scope="row">持ち運び</th><td data-label="mini">×</td><td data-label="Air">◎ 1.23kg</td><td data-label="Pro">○ 1.55kg</td></tr>
+        <tr><th scope="row">値段（16GB／512GB以上）</th><td data-label="mini">◎ 185,800円</td><td data-label="Air">○ 224,800円</td><td data-label="Pro">△ 339,800円</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="body-figure wrap" aria-labelledby="desk-h">
+  <div class="body-text">
+    <h2 id="desk-h" class="rise">机の上の大きさ</h2>
+    <p class="rise" style="--i:1">上から見た大きさを同じ縮尺で並べた。miniはノートの4分の1くらいしか場所を取らない。ただしminiの場合、この横にモニターとキーボードが要る。</p>
+    <ul class="rise" style="--i:2">
+      <li><strong>Mac mini</strong>：12.7×12.7cm、高さ5.0cm</li>
+      <li><strong>MacBook Air 13</strong>：30.41×21.5cm、厚さ1.13cm</li>
+      <li><strong>MacBook Pro 14</strong>：31.26×22.12cm、厚さ1.55cm</li>
+    </ul>
+    <p class="rise" style="--i:3">AirとProはほぼ同じ大きさで、違いは厚さと重さ。カバンに入れるなら、差は320gだけ。</p>
+  </div>
+  <figure class="drawing rise" style="--i:2">
+    <svg viewBox="0 0 480 560" role="img" aria-labelledby="desk-t">
+      <title id="desk-t">上から見た大きさの比較。Mac miniは12.7cm角、MacBook Air 13は30.41×21.5cm、MacBook Pro 14は31.26×22.12cm</title>
+      <g font-family="Noto Sans JP, sans-serif" font-size="24" fill="#2a1d17">
+        <rect x="24" y="24" width="438" height="310" rx="18" fill="#c9c3b6"/>
+        <rect x="24" y="24" width="426" height="301" rx="18" fill="#b5ad9c"/>
+        <rect x="24" y="24" width="178" height="178" rx="28" fill="#456f3a"/>
+        <text x="113" y="108" text-anchor="middle" fill="#ffffff" font-weight="700">mini</text>
+        <text x="113" y="140" text-anchor="middle" fill="#ffffff" font-size="20">12.7cm角</text>
+        <text x="236" y="290" font-weight="700">Air 13</text>
+        <text x="236" y="318" font-size="20">30.41×21.5cm</text>
+        <text x="24" y="380" font-weight="700">Pro 14 は一回り外側の枠</text>
+        <text x="24" y="412" font-size="20" fill="#5e4f45">31.26×22.12cm。Airとの差は縦横1cm未満</text>
+        <rect x="24" y="450" width="30" height="30" rx="6" fill="#456f3a"/>
+        <text x="66" y="474" font-size="20">Mac mini</text>
+        <rect x="190" y="450" width="30" height="30" rx="6" fill="#b5ad9c"/>
+        <text x="232" y="474" font-size="20">Air 13</text>
+        <rect x="330" y="450" width="30" height="30" rx="6" fill="#c9c3b6"/>
+        <text x="372" y="474" font-size="20">Pro 14</text>
+        <text x="24" y="534" font-size="20" fill="#5e4f45">3台とも同じ縮尺</text>
+      </g>
+    </svg>
+    <figcaption>上から見た大きさ（自分で描いた図。AirとProの寸法は同じ筐体の前モデルの値）</figcaption>
+  </figure>
+</section>
+
+<section class="verdict wrap" aria-labelledby="flow-h">
+  <h2 id="flow-h" class="rise">どれを買うか</h2>
+  <figure class="flow rise" style="--i:1">
+<pre aria-label="判断フロー：外で作業するなら、長いビルドをよく回す場合はMacBook Pro、そうでなければMacBook Air。ほぼ家の机なら、モニターがあればMac mini 24GB、モニターがなければMac miniとモニターを一緒に買う。">どこで作る？
+├─ 外でも作る
+│　├─ 長いビルドをよく回す → Pro 14
+│　└─ そこまでじゃない　　 → Air 13
+└─ ほぼ家の机
+　　├─ モニターがある → mini 24GB
+　　└─ モニターもない → mini＋モニター</pre>
+    <figcaption>自分用の判断フロー</figcaption>
+  </figure>
+  <div class="verdict-cols">
+    <div class="verdict-col rise" style="--i:1">
+      <h3>Mac miniがいい人</h3>
+      <ul>
+        <li>開発するのはほぼ家の机。モニターとキーボードはもうある</li>
+        <li>Xcodeとシミュレータとブラウザを大きい画面に並べたい</li>
+        <li>浮いたお金をメモリ24GBに回したい。Air 16GBより安い</li>
+      </ul>
+    </div>
+    <div class="verdict-col rise" style="--i:2">
+      <h3>MacBookがいい人</h3>
+      <ul>
+        <li>カフェや会社でも書く。勉強会やもくもく会に持っていく</li>
+        <li>Air：たまに外で書く程度。長いビルドは家で回す</li>
+        <li>Pro：外でも重いビルドやテストを回す。画面もいいものがほしい</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="faq" aria-labelledby="faq-h">
+  <div class="wrap faq-inner">
+    <div class="faq-left">
+      <h2 id="faq-h" class="rise">気になる点</h2>
+      <dl class="faq-facts rise" style="--i:1">
+        <div><dt>Xcode</dt><dd>27.2。macOS Tahoe 26.6以降</dd></div>
+        <div><dt>実機</dt><dd>iOS 17以降の端末に対応</dd></div>
+        <div><dt>価格</dt><dd>2026年11月2日時点、税込</dd></div>
+      </dl>
+      <div class="qa">
+        <details class="rise">
+          <summary>MacBook Neoで開発はできる？</summary>
+          <p>動くことは動くと思う。A18 ProもApple siliconなので。ただメモリが8GB固定で増やせない。シミュレータを立ち上げた時点できつくなるはずなので、メインの開発機にはしない方がいい。</p>
+        </details>
+        <details class="rise">
+          <summary>Airのファンなしはそんなに困る？</summary>
+          <p>普段のビルドなら困らない。気になるのは、クリーンビルドやテストを何度も回したとき。熱がこもると速度を落として冷やすので、Proやminiより時間がかかる。ここは割り切りだと思う。</p>
+        </details>
+        <details class="rise">
+          <summary>M5 ProのMac miniまで要る？</summary>
+          <p>iOS開発だけなら要らないと思う。299,800円からで、M6との差は150,000円。動画編集や大きいローカルLLMも一緒にやるなら考える、くらい。</p>
+        </details>
+        <details class="rise">
+          <summary>miniを選ぶと、周辺機器でいくらかかる？</summary>
+          <p>モニター、キーボード、マウスかトラックパッドが要る。持っていなければその分が上乗せになるので、Airとの差39,000円はすぐ埋まる。手持ちがあるかどうかで答えが変わる部分。</p>
+        </details>
+        <details class="rise">
+          <summary>実機テストはどれでも同じ？</summary>
+          <p>同じ。どれもUSB-Cでつなげるし、Wi‑Fi経由のデバッグもできる。miniは前面にUSB-Cがあるので、iPhoneを挿しっぱなしにしやすいのは少しうれしい。</p>
+        </details>
+      </div>
+      <a class="btn faq-btn" href="https://www.apple.com/jp/mac/compare/" rel="noopener">Appleの比較ページを見る</a>
+    </div>
+    <div class="faq-photos">
+      <img class="faq-tall" src="../../img/macbook/m2-macbook-air-starlight-model.jpg" width="1920" height="1920" alt="正面から見たMacBook Air。日本語キーボード" loading="lazy" decoding="async">
+      <img class="faq-square" src="../../img/mac-mini/m4-mac-mini-1.jpg" width="1920" height="2560" alt="斜め上から見たMac mini" loading="lazy" decoding="async">
+    </div>
+  </div>
+</section>
+
+<section id="conclusion" class="conclusion wrap" aria-labelledby="conclusion-h">
+  <h2 id="conclusion-h" class="rise">結論</h2>
+  <ul class="conclusion-list">
+    <li class="rise"><strong>家の机で作るなら、Mac mini（M6）の24GB／512GB。</strong>221,800円で、Air 16GBより安くメモリが多い</li>
+    <li class="rise" style="--i:1"><strong>外でも作るなら、MacBook Air（M5）。</strong>長いビルドは熱で遅くなるが、iOS開発の大半は困らない</li>
+    <li class="rise" style="--i:2"><strong>MacBook Pro（M6）は、外で重い作業を回す人向け。</strong>中身はminiと同じM6で、差の10万円は画面とバッテリーの値段</li>
+    <li class="rise" style="--i:3">要するに「どこで書くか」と「モニターを持っているか」でほぼ決まる。チップの差はそこまで効かない</li>
+  </ul>
+  <p class="conclusion-close rise">スペック表を眺めていたときは悩んだが、場面ごとに並べたら腹落ちした。同じ値段なら、持ち歩かない画面に払うよりメモリに払った方がいい、ということにしておく。</p>
+</section>
+
+</main>
+
+<footer class="back">
+  <div class="back-card">
+    <div class="back-msg">
+      <h2>調べたところ</h2>
+      <ul class="sources">
+        <li><a href="https://developer.apple.com/xcode/system-requirements/" rel="noopener">Apple Developer　Xcode System Requirements</a></li>
+        <li><a href="https://www.apple.com/jp/macbook-air/specs/" rel="noopener">Apple　MacBook Air 技術仕様</a></li>
+        <li><a href="https://www.apple.com/jp/macbook-pro/specs/" rel="noopener">Apple　MacBook Pro 技術仕様</a></li>
+        <li><a href="https://www.watch.impress.co.jp/docs/news/2151704.html" rel="noopener">Impress Watch　新「MacBook Pro」登場 M6チップ搭載で339800円から</a></li>
+        <li><a href="https://gori.me/macbookpro/171819" rel="noopener">ゴリミー　M6搭載14インチMacBook Proが登場</a></li>
+        <li><a href="https://www.itmedia.co.jp/news/articles/2606/25/news138.html" rel="noopener">ITmedia NEWS　「Mac」「iPad」突然の一斉値上げ（2026年6月25日）</a></li>
+        <li><a href="../mac-mini-2026/">Mac mini（M6）は買いか（この記録の1本目）</a></li>
+      </ul>
+    </div>
+    <div class="back-addr">
+      <img class="stamp" src="../../img/macbook/m3-macbook-pro-14-inch-space-grey.jpg" width="1920" height="1440" alt="" loading="lazy" decoding="async">
+      <p class="back-sign">気になったこと</p>
+      <ul class="back-links">
+        <li><a href="../../">記録の一覧へ</a></li>
+        <li><a href="../../?tag=iOS開発">iOS開発の記録</a></li>
+        <li><a href="../mac-mini-2026/">Mac miniの見積もり</a></li>
+      </ul>
+    </div>
+    <p class="imprint">写真：“M3 Macbook Pro 14 inch Space Grey model” Kyu3a, CC BY-SA 4.0 ／ “M2 Macbook Air Starlight model” KKPCW（Kyu3）, CC BY-SA 4.0 ／ “XCode Screenshot” Wittawin Panta, CC BY-SA 4.0 ／ “Mac mini 2024 M4” Seasider53, CC BY 4.0 ／ “Mac mini (M4, 2024) - Backside” AzureSaturn, CC0 ／ “M4 Mac mini - 1” Kyu3a, CC BY-SA 4.0 ／ いずれもWikimedia Commons経由。写真は前世代の同じ形のモデル。</p>
+  </div>
+</footer>
+
+<script src="../../js/rise.js"></script>
+</body>
+</html>

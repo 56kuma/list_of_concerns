@@ -262,3 +262,13 @@
 .total-lead { margin-bottom: 16px; max-width: var(--measure); }
 @media (max-width: 860px) { .total-lead { font-size: var(--step-body); } }
 .drawing svg { max-width: 560px; margin-inline: auto; }
+
+/* 緑の比較表も、スマホでは行ごとのまとまりに */
+@media (max-width: 640px) {
+  .diff.stack thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .diff.stack, .diff.stack tbody, .diff.stack tr, .diff.stack th, .diff.stack td { display: block; }
+  .diff.stack tr { padding: 14px 16px; }
+  .diff.stack th, .diff.stack td { padding: 2px 0; }
+  .diff.stack tbody th { font-size: var(--step-lead); margin-bottom: 4px; white-space: normal; }
+  .diff.stack td::before { content: attr(data-label) "："; color: #e3eedd; font-weight: 400; }
+}
