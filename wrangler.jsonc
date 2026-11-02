@@ -1,0 +1,8 @@
+// Cloudflare Workers の静的アセットとして site/ をそのまま配信する
+{
+  "name": "list-of-concerns",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./site"
+  }
+}

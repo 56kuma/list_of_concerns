@@ -48,4 +48,6 @@ GitHub 連携で、`main` に push すると自動で公開される。
 4. Build output directory: `site`
 5. Save and Deploy
 
+「Import a repository」から Worker として作った場合は、ルートの `wrangler.jsonc` が `site/` を静的アセットとして配信する（Deploy command は `npx wrangler deploy` のまま）。URL は Settings → Domains & Routes の `workers.dev` で確認・有効化する。
+
 ローカルで確認するときは `npx serve site` か、`site/index.html` をブラウザで直接開く。
