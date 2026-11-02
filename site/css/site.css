@@ -1,31 +1,47 @@
-/* 気になったこと — shared styles
-   Readability first: Japanese body 18px+, line-height 1.85, measure ~38字. */
+/* 気になったこと — 全ページ共通
+   視認性が最優先。比率はすべて白銀比（1 : √2 ≒ 1.414）で刻む。
+   雰囲気はApple寄り：白と薄いグレーの面、黒い帯、青いボタン、余白で区切る。 */
 
 :root {
-  --bg: #e5e1d8;
-  --surface: #dad5ca;
-  --paper: #efeeeb;
-  --ink: #2a1d17;
-  --muted: #5e4f45;
-  --accent: #456f3a;
+  --bg: #ffffff;
+  --surface: #f5f5f7;
+  --paper: #ffffff;
+  --line: #d2d2d7;
+  --ink: #1d1d1f;
+  --muted: #6e6e73;
+  --accent: #0071e3;
   --accent-ink: #ffffff;
-  --accent-deep: #34552c;
+  --accent-deep: #0062c4;
+  --link: #0066cc;
+  --night: #000000;
+  --night-2: #1d1d1f;
+  --night-ink: #f5f5f7;
+  --night-muted: #a1a1a6;
 
-  --font-display: "Libre Franklin", "Noto Sans JP", system-ui, sans-serif;
-  --font-text: "Noto Sans JP", "Hiragino Sans", "Yu Gothic UI", system-ui, sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, "Inter", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", system-ui, sans-serif;
+  --font-text: -apple-system, BlinkMacSystemFont, "Inter", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic UI", system-ui, sans-serif;
 
-  --step-small: clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem);
-  --step-body: clamp(1.0625rem, 1rem + 0.3vw, 1.1875rem);
-  --step-lead: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
-  --step-head: clamp(1.75rem, 1.2rem + 2.4vw, 3rem);
-  --step-display: clamp(2.25rem, 1rem + 5.6vw, 5.5rem);
+  /* 白銀比の刻み：8・11・16・23・32・45・64・90・128・181 */
+  --s1: 8px; --s2: 11px; --s3: 16px; --s4: 23px; --s5: 32px;
+  --s6: 45px; --s7: 64px; --s8: 90px; --s9: 128px; --s10: 181px;
 
-  --margin: clamp(16px, 4vw, 48px);
-  --gap-section: clamp(96px, 12vw, 200px);
-  --radius: 18px;
-  --measure: 38em;
+  /* 文字も白銀比。本文17〜18px、見出しは本文の√2倍ずつ */
+  --step-small: 0.9375rem;
+  --step-body: clamp(1.0625rem, 1rem + 0.2vw, 1.125rem);
+  --step-lead: clamp(1.25rem, 1.15rem + 0.45vw, 1.5rem);
+  --step-head: clamp(1.75rem, 1.3rem + 1.9vw, 2.8125rem);
+  --step-display: clamp(2.25rem, 1.2rem + 4.2vw, 4rem);
 
-  --ease: cubic-bezier(.2, .7, .2, 1);
+  --margin: clamp(16px, 4vw, 45px);
+  --gap-section: clamp(90px, 11vw, 181px);
+  --radius: 23px;
+  --radius-s: 16px;
+  --measure: 36em;
+  --max: 1180px;
+
+  --ratio: 1.414 / 1;
+  --ratio-tall: 1 / 1.414;
+  --ease: cubic-bezier(.25, .1, .25, 1);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -36,68 +52,60 @@ body {
   color: var(--ink);
   font-family: var(--font-text);
   font-size: var(--step-body);
-  line-height: 1.85;
-  font-feature-settings: "palt" 0;
+  line-height: 1.8;
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 img { display: block; max-width: 100%; height: auto; }
-a { color: inherit; text-decoration-thickness: 2px; text-underline-offset: 0.2em; }
-a:hover { color: var(--accent); }
-:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
-::selection { background: var(--accent); color: var(--accent-ink); }
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+::selection { background: #b3d7ff; color: var(--ink); }
 h1, h2, h3 {
   font-family: var(--font-display);
   font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
   margin: 0;
   text-wrap: balance;
 }
 p { margin: 0; }
-.num { font-family: var(--font-display); font-variant-numeric: tabular-nums; }
+code { font-size: .9em; background: var(--surface); border-radius: 6px; padding: 1px 6px; overflow-wrap: anywhere; }
+.num { font-family: var(--font-display); font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
 
 /* frame */
-.wrap { padding-inline: var(--margin); max-width: 1440px; margin-inline: auto; }
+.wrap { padding-inline: var(--margin); max-width: calc(var(--max) + var(--margin) * 2); margin-inline: auto; }
 
-/* plain bar */
-.bar {
-  display: flex; align-items: center; justify-content: space-between; gap: 16px;
-  padding: 20px var(--margin);
-  max-width: 1440px; margin-inline: auto;
-}
-.bar a { text-decoration: none; }
-.wordmark { font-family: var(--font-display); font-weight: 700; font-size: var(--step-lead); }
-.bar nav { display: flex; gap: 24px; font-size: var(--step-small); }
-
-/* button: one shape for the site */
+/* button: Appleの青い角丸 */
 .btn {
   display: inline-flex; align-items: center; justify-content: center;
-  min-height: 48px; padding: 0 24px;
-  border: 0; border-radius: var(--radius);
+  min-height: 45px; padding: 0 var(--s4);
+  border: 0; border-radius: 999px;
   background: var(--accent); color: var(--accent-ink);
-  font: 700 var(--step-body)/1 var(--font-text);
+  font: 500 var(--step-body)/1 var(--font-text);
   text-decoration: none; cursor: pointer;
   transition: background-color .2s var(--ease), transform .2s var(--ease);
 }
-.btn:hover { background: var(--accent-deep); color: var(--accent-ink); }
+.btn:hover { background: var(--accent-deep); color: var(--accent-ink); text-decoration: none; }
 .btn:active { transform: scale(.97); }
 
 /* tags */
 .tag {
-  display: inline-flex; align-items: center; min-height: 40px; padding: 0 16px;
+  display: inline-flex; align-items: center; min-height: 40px; padding: 0 var(--s3);
   border: 0; border-radius: 999px;
   background: var(--surface); color: var(--ink);
   font: 500 var(--step-small)/1 var(--font-text);
   text-decoration: none; cursor: pointer;
   transition: background-color .2s var(--ease), color .2s var(--ease), transform .2s var(--ease);
 }
-.tag:hover { background: #cfc8ba; color: var(--ink); }
+.tag:hover { background: #e8e8ed; color: var(--ink); text-decoration: none; }
 .tag:active { transform: scale(.96); }
-.tag[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
-.tags { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0; padding: 0; }
+.tag[aria-pressed="true"] { background: var(--ink); color: #ffffff; }
+.tags { display: flex; flex-wrap: wrap; gap: var(--s1); list-style: none; margin: 0; padding: 0; }
 
 /* entrance (content stays visible without script) */
-.js .rise { opacity: 0; transform: translateY(24px); transition: opacity .7s var(--ease), transform .7s var(--ease); transition-delay: calc(var(--i, 0) * 80ms); }
+.js .rise { opacity: 0; transform: translateY(23px); transition: opacity .8s var(--ease), transform .8s var(--ease); transition-delay: calc(var(--i, 0) * 80ms); }
 .js .rise.in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

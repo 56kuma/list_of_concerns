@@ -1,7 +1,7 @@
 # list_of_concerns
 気になったことの記録用
 
-気になったことを調べて、わかったところまで書いておくサイト。素の HTML/CSS で、Cloudflare Pages から公開する。
+36歳、一児の親、エンジニア歴15年目の自分が、気になったことを記録しておくサイト。手を付ける前のメモ代わり。素の HTML/CSS で、Cloudflare Pages から公開する。
 
 ## 構成
 
@@ -20,6 +20,7 @@ site/                     ← 公開するのはこのフォルダだけ
 
 | 日付 | 記事 | タグ |
 | --- | --- | --- |
+| 2026-11-02 | [taste-skillは誰が作ったか](site/posts/taste-skill/index.html) | AI, デザイン, 開発ツール |
 | 2026-11-02 | [iOS開発に買うならどのMac](site/posts/ios-dev-mac/index.html) | Apple, iOS開発, 買うか迷い中 |
 | 2026-11-02 | [Mac mini（M6）は買いか](site/posts/mac-mini-2026/index.html) | Apple, ガジェット, 買うか迷い中 |
 
@@ -52,3 +53,9 @@ GitHub 連携で、`main` に push すると自動で公開される。
 「Import a repository」から Worker として作った場合は、ルートの `wrangler.jsonc` が `site/` を静的アセットとして配信する（Deploy command は `npx wrangler deploy` のまま）。URL は Settings → Domains & Routes の `workers.dev` で確認・有効化する。
 
 ローカルで確認するときは `npx serve site` か、`site/index.html` をブラウザで直接開く。
+
+## デザイン
+
+- 視認性が最優先。本文17〜18px、行間1.8
+- 比率は白銀比（1 : √2）。余白・文字サイズ・段組み・写真の縦横をこの比で刻む（`site/css/site.css` の `--s1`〜`--s10`）
+- 雰囲気はApple寄り：白とグレー（#f5f5f7）の面、山場だけ黒い帯、ボタンは青い角丸

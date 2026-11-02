@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>taste-skillは誰が作ったか ｜ 気になったこと</title>
+<meta name="description" content="このサイトのデザインに使ったAIエージェント用スキル「taste-skill」を、誰がどんな目的で作ったのか調べた記録。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic&family=Inter:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/site.css">
+<link rel="stylesheet" href="../../css/article.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+
+<header class="hero">
+  <img class="hero-photo" src="../../img/taste-skill/site-home.jpg" width="1440" height="900" alt="taste-skillで作ったこのサイトの一覧ページ">
+  <div class="hero-card">
+    <div class="hero-top">
+      <a class="hero-home" href="../../">気になったこと</a>
+      <ul class="tags" aria-label="タグ">
+        <li><a class="tag" href="../../?tag=AI">AI</a></li>
+        <li><a class="tag" href="../../?tag=デザイン">デザイン</a></li>
+        <li><a class="tag" href="../../?tag=開発ツール">開発ツール</a></li>
+      </ul>
+    </div>
+    <h1>taste-skillは誰が作ったか</h1>
+    <p class="hero-lead">このサイトのデザインに使ったAI用のスキル。生成AIっぽくないページが作れるのは知っていたので、誰がどんな目的で作ったのかを調べた。</p>
+    <dl class="hero-facts">
+      <div><dt>作者</dt><dd>Leon Lin</dd></div>
+      <div><dt>ライセンス</dt><dd>MIT</dd></div>
+      <div><dt>最新</dt><dd><span class="num">2.1.5</span></dd></div>
+    </dl>
+    <div class="hero-foot">
+      <a class="btn" href="#who-h">作った人を見る</a>
+      <a href="#conclusion">結論だけ読む</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section class="learn wrap" aria-labelledby="learn-h">
+  <h2 id="learn-h" class="rise">この記事でわかること</h2>
+  <div class="learn-body">
+    <ul class="learn-list">
+      <li class="rise" style="--i:1"><a href="#what-h">taste-skillとは</a><span>何をするスキルか、1分で</span></li>
+      <li class="rise" style="--i:2"><a href="#who-h">誰が作ったか</a><span>作者のプロフィールと、ほかに作っているもの</span></li>
+      <li class="rise" style="--i:3"><a href="#why-h">何のために作ったか</a><span>「AIっぽさ」の正体と、それをどう潰すか</span></li>
+      <li class="rise" style="--i:4"><a href="#history-h">どう変わってきたか</a><span>v1からv2.1までの流れ</span></li>
+      <li class="rise" style="--i:5"><a href="#study-h">247サイトの調査</a><span>根拠になっている調査の中身と限界</span></li>
+    </ul>
+    <p class="learn-short rise" style="--i:3"><strong>先に結論。</strong>作ったのはミュンヘンのLeon Lin（GitHubはLeonxlnx）。会社ではなく個人のOSSで、AIコーディングエージェント用の道具を作っている人。目的は、エージェントに「平均的なランディングページ」ではなく、ちゃんとデザインさせること。</p>
+  </div>
+</section>
+
+<section class="intro wrap" aria-labelledby="what-h">
+  <div class="intro-text">
+    <h2 id="what-h" class="rise">taste-skillとは</h2>
+    <p class="rise" style="--i:1">Claude CodeやCodexのようなAIエージェントに読ませる、デザイン用の手順書とスクリプトのセット。自分はこのサイトを作るときに使った。</p>
+    <ul class="intro-points rise" style="--i:2">
+      <li><strong>正式名</strong>：design-taste-frontend（通称 taste-skill、tasteskill v2）</li>
+      <li><strong>中身</strong>：手順書（SKILL.md）、参考資料、デザインの方向を配るスクリプト、ブラウザで検査するスクリプト</li>
+      <li><strong>入れ方</strong>：<code>npx skills add https://github.com/Leonxlnx/taste-skill</code></li>
+      <li><strong>ライセンス</strong>：MIT。無料で、商用でも使える</li>
+      <li><strong>スター数</strong>：約10万8千（2026年11月時点）。7月時点では6万ちょっとだったので、この数か月で倍近くになった</li>
+    </ul>
+    <p class="rise" style="--i:3">要するに、AIに「センスのいい人の作業手順」を持たせて、最後に機械でチェックまでさせる道具。</p>
+  </div>
+  <figure class="intro-plates">
+    <div class="plate rise" style="--i:2">
+      <img src="../../img/taste-skill/ai-like-sample.jpg" width="1440" height="720" alt="紫のグラデーションの見出しに、絵文字アイコンのカードが3つ並んだ、よくあるAIっぽいページ" loading="lazy" decoding="async">
+      <figcaption>よくある「AIっぽい」ページ。比較用に自分で再現した</figcaption>
+    </div>
+    <div class="plate rise" style="--i:3">
+      <img src="../../img/taste-skill/site-mac-mini.jpg" width="1440" height="900" alt="白い背景に大きな見出しとMac miniの写真を置いた、このサイトの1本目の記事" loading="lazy" decoding="async">
+      <figcaption>このサイトの1本目の記事。taste-skillで作ったあと、Apple寄りに作り直した</figcaption>
+    </div>
+  </figure>
+</section>
+
+<section class="pro wrap" aria-labelledby="who-h">
+  <h2 id="who-h" class="rise">誰が作ったか</h2>
+  <p class="pro-lead rise" style="--i:1">GitHubのプロフィールとREADMEから拾った。本人が書いていないことは書いていない。</p>
+  <div class="table-scroll rise" style="--i:2">
+    <table class="pro-table">
+      <caption class="visually-hidden">taste-skillの作者のプロフィール</caption>
+      <thead><tr><th scope="col">項目</th><th scope="col">わかったこと</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">名前</th><td data-label="内容">Leon Lin</td></tr>
+        <tr><th scope="row">アカウント</th><td data-label="内容">GitHub：Leonxlnx ／ X：@lexnlin ／ サイト：leonlin.de</td></tr>
+        <tr><th scope="row">拠点</th><td data-label="内容">ドイツ・ミュンヘン</td></tr>
+        <tr><th scope="row">自己紹介</th><td data-label="内容">AIコーディングエージェント用の道具を作り、映像や音をコードで作る</td></tr>
+        <tr><th scope="row">使う技術</th><td data-label="内容">TypeScript、three.js、WebGPU、GLSL、Python</td></tr>
+        <tr><th scope="row">職業</th><td data-label="内容">本人のページには書かれていない。紹介記事では「デザイナー」</td></tr>
+        <tr><th scope="row">立場</th><td data-label="内容">会社ではなく個人のOSS。スポンサーが数社付いている</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="pro-note rise" style="--i:3">READMEには「公式のトークン（仮想通貨）はない」とわざわざ書いてある。名前を勝手に使った仮想通貨が出たらしい。人気が出るとこういうことも起きる。</p>
+</section>
+
+<section class="prices wrap" aria-labelledby="repos-h">
+  <div class="prices-head">
+    <h2 id="repos-h" class="rise">ほかに作っているもの</h2>
+    <p class="rise" style="--i:1">リポジトリを見ると、どれも「AIエージェントに足りないもの」を足す道具だった。taste-skillはその中のデザイン担当。</p>
+    <img class="prices-photo rise" style="--i:2" src="../../img/taste-skill/site-mac-mini-phone.jpg" width="390" height="844" alt="スマホ幅で表示した、このサイトのMac miniの記事" loading="lazy" decoding="async">
+  </div>
+  <div class="menu">
+    <div class="menu-group rise">
+      <h3>エージェント用の道具</h3>
+      <ul>
+        <li><div class="row"><span>unlazy</span><span class="num">スター約4.3k</span></div><p>エージェントが作業を手抜きしないようにするスキル</p></li>
+        <li><div class="row"><span>earshot</span><span class="num">スター約3.5k</span></div><p>コーディングエージェントに「耳」を付ける</p></li>
+        <li><div class="row"><span>tastecode</span><span class="num">OSS</span></div><p>エージェントの操作パネル。デザイン用のエージェントが入ったデスクトップアプリ。Windows優先</p></li>
+      </ul>
+    </div>
+    <div class="menu-group rise" style="--i:1">
+      <h3>コードで作る映像</h3>
+      <ul>
+        <li><div class="row"><span>cinetic</span><span class="num">OSS</span></div><p>製品の紹介動画やモーションをコードで作る</p></li>
+      </ul>
+    </div>
+    <div class="menu-group rise" style="--i:2">
+      <h3>taste-skillから分かれたもの</h3>
+      <ul>
+        <li><div class="row"><span>taste-skill-classics</span><span class="num">7種</span></div><p>ブルータリスト、ミニマルなど旧スキルの置き場</p></li>
+        <li><div class="row"><span>imagegen-skills</span><span class="num">4種</span></div><p>画像生成を使うスキル（ブランドキット、画像からコードなど）</p></li>
+      </ul>
+    </div>
+    <div class="menu-group rise" style="--i:3">
+      <h3>サイト</h3>
+      <ul>
+        <li><div class="row"><span>tasteskill.dev</span><span class="num">公式</span></div><p>taste-skillの説明とドキュメント</p></li>
+        <li><div class="row"><span>tastecode.dev</span><span class="num">公式</span></div><p>tastecodeの配布ページ</p></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="changes" aria-labelledby="why-h">
+  <div class="wrap changes-inner">
+    <div class="changes-head">
+      <h2 id="why-h" class="rise">何のために作ったか</h2>
+      <p class="rise" style="--i:1">READMEの言葉をまとめると、エージェントに「平均的なランディングページを組み立てる」のをやめさせて、ちゃんとデザインさせるため。</p>
+      <p class="rise" style="--i:2">AIにページを頼むと、だいたい同じ顔になる。これが「AI slop」と呼ばれているもので、taste-skillはそれを潰す「anti-slop」のスキル。</p>
+      <img class="changes-photo rise" style="--i:3" src="../../img/taste-skill/ai-like-sample.jpg" width="1440" height="720" alt="紫のグラデーションと3枚のカードが並ぶ、AIっぽいページの例" loading="lazy" decoding="async">
+      <p class="changes-cap">左の表のクセを、ほぼ全部入れて再現した例</p>
+    </div>
+    <table class="diff stack">
+      <caption class="visually-hidden">AIっぽいページのクセと、taste-skillでの扱い</caption>
+      <thead><tr><th scope="col">AIのクセ</th><th scope="col">よくある形</th><th scope="col">taste-skillでは</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">見出しの上のラベル</th><td data-label="よくある形">「AI-POWERED」のような小さい札</td><td data-label="taste-skillでは">禁止。検査で落ちる</td></tr>
+        <tr><th scope="row">3枚のカード</th><td data-label="よくある形">アイコン＋見出し＋一文が3つ</td><td data-label="taste-skillでは">隣り合う章で同じ形を使わない</td></tr>
+        <tr><th scope="row">01／02／03</th><td data-label="よくある形">意味のない番号</td><td data-label="taste-skillでは">禁止</td></tr>
+        <tr><th scope="row">グラデーション</th><td data-label="よくある形">紫〜ピンクのふんわり背景</td><td data-label="taste-skillでは">禁止。色は面でベタに塗る</td></tr>
+        <tr><th scope="row">等幅フォント</th><td data-label="よくある形">飾りのコード風キャプション</td><td data-label="taste-skillでは">禁止（このサイトのAAは例外にした）</td></tr>
+        <tr><th scope="row">中身</th><td data-label="よくある形">「次のレベルへ」のような何も言わない文</td><td data-label="taste-skillでは">題材にしかない事実から考えさせる</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="body-figure wrap" aria-labelledby="how-h">
+  <div class="body-text">
+    <h2 id="how-h" class="rise">どう動くか</h2>
+    <p class="rise" style="--i:1">ルールを並べるだけだと、AIは読み飛ばす。だから手順と検査をセットにしている、というのがv2の考え方。</p>
+    <ul class="rise" style="--i:2">
+      <li><strong>題材を洗い出す</strong>：名前、場所、数字、制約など、その題材にしかないもの</li>
+      <li><strong>方向を配る</strong>：スクリプトが20種類の方向から3つ配り、AIが選ぶ。フォントと色と構図もここで決まる</li>
+      <li><strong>アイデアを1文に</strong>：「題材の何かが、ページの何になるか」。競合でも通じる文ならやり直し</li>
+      <li><strong>作る</strong>：文章から先に書く。写真は公開アーカイブから探して出典を残す</li>
+      <li><strong>検査する</strong>：本物のブラウザでPC・タブレット・スマホの3幅を測る</li>
+      <li><strong>見て直す</strong>：スクショを見て採点し、上位3つを直す。最大3周</li>
+    </ul>
+    <p class="rise" style="--i:3">自分が一番効いたと思うのは検査。このサイトでも、スマホで表が横にはみ出すのと、見出しが3行になるのを機械に指摘された。</p>
+  </div>
+  <figure class="drawing rise" style="--i:2">
+    <svg viewBox="0 0 480 620" role="img" aria-labelledby="how-t">
+      <title id="how-t">taste-skillの6つの手順。洗い出す、配る、1文にする、作る、検査する、見て直す。検査で落ちたら作るに戻る</title>
+      <g font-family="Noto Sans JP, sans-serif" font-size="24" fill="#1d1d1f">
+        <rect x="24" y="24" width="432" height="72" rx="18" fill="#ffffff"/>
+        <text x="48" y="70" font-weight="700">1　題材を洗い出す</text>
+        <rect x="24" y="120" width="432" height="72" rx="18" fill="#ffffff"/>
+        <text x="48" y="166" font-weight="700">2　方向を配る</text>
+        <text x="300" y="166" font-size="20" fill="#6e6e73">20種から3つ</text>
+        <rect x="24" y="216" width="432" height="72" rx="18" fill="#ffffff"/>
+        <text x="48" y="262" font-weight="700">3　アイデアを1文に</text>
+        <rect x="24" y="312" width="432" height="72" rx="18" fill="#0071e3"/>
+        <text x="48" y="358" font-weight="700" fill="#ffffff">4　作る</text>
+        <rect x="24" y="408" width="432" height="72" rx="18" fill="#1d1d1f"/>
+        <text x="48" y="454" font-weight="700" fill="#f5f5f7">5　検査する</text>
+        <text x="300" y="454" font-size="20" fill="#f5f5f7">3つの幅</text>
+        <rect x="24" y="504" width="432" height="72" rx="18" fill="#0071e3"/>
+        <text x="48" y="550" font-weight="700" fill="#ffffff">6　見て直す</text>
+        <text x="300" y="550" font-size="20" fill="#ffffff">最大3周</text>
+        <text x="24" y="612" font-size="20" fill="#6e6e73">緑が自分の手、黒が機械のチェック</text>
+      </g>
+    </svg>
+    <figcaption>taste-skillの手順（READMEをもとに自分で描いた図）</figcaption>
+  </figure>
+</section>
+
+<section class="verdict wrap" aria-labelledby="history-h">
+  <h2 id="history-h" class="rise">どう変わってきたか</h2>
+  <figure class="flow rise" style="--i:1">
+<pre aria-label="taste-skillの歩み。v1は3つのダイヤルでルールを調整する方式。v2 experimentalで禁止事項を強化。2026年10月13日のv2.0.0で247サイトの調査をもとに作り直し。10月19日の2.1.0でアプリ画面とスクロール演出に対応。10月25日の2.1.5が最新。">v1　　　　　　ダイヤル3つで調整
+│　　　　　　　 VARIANCE・MOTION・DENSITY
+v2 experimental 禁止事項を強化
+│　　　　　　　 em ダッシュも全面禁止
+v2.0.0　10/13　247サイトの調査から作り直し
+│　　　　　　　 配る・検査する・見て直す
+2.1.0　 10/19　アプリ画面、スクロール演出
+│
+2.1.5　 10/25　最新（このサイトはこれ）</pre>
+    <figcaption>変更履歴（CHANGELOG）をもとにした年表。v1の日付は記録がない</figcaption>
+  </figure>
+  <div class="verdict-cols">
+    <div class="verdict-col rise" style="--i:1">
+      <h3>使ってみてよかったところ</h3>
+      <ul>
+        <li>AIに任せたのに、紫のグラデーションも絵文字のカードも出てこない</li>
+        <li>スマホでの崩れを機械が見つけてくれる。目で3幅を確認しなくていい</li>
+        <li>写真を公開アーカイブから探して、出典まで記録してくれる</li>
+      </ul>
+    </div>
+    <div class="verdict-col rise" style="--i:2">
+      <h3>気をつけたいところ</h3>
+      <ul>
+        <li>ルールが厳しいので、読みやすさ優先で外したところもある（日本語フォント、AA）。最後は白基調・白銀比の見た目に作り直した</li>
+        <li>本家はLeonxlnx/taste-skill。コピーしたリポジトリがいくつかある</li>
+        <li>7月ごろの紹介記事はv2前の情報で、今とは中身が違う</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="faq" aria-labelledby="study-h">
+  <div class="wrap faq-inner">
+    <div class="faq-left">
+      <h2 id="study-h" class="rise">247サイトの調査</h2>
+      <dl class="faq-facts rise" style="--i:1">
+        <div><dt>集めた日</dt><dd>2026年10月5日</dd></div>
+        <div><dt>対象</dt><dd>One Page Love 156件、Awwwards Sites of the Day 92件</dd></div>
+        <div><dt>採点</dt><dd>21のAIモデル。Awwwards風の配点</dd></div>
+      </dl>
+      <div class="qa">
+        <details class="rise">
+          <summary>人間のデザイナーが審査したの？</summary>
+          <p>違う。AIモデルがスクリーンショットを見て採点している。作者自身も「人間の審査員でも、本物のAwwwardsの点数でもない」と書いている。ここは正直でいいと思った。</p>
+        </details>
+        <details class="rise">
+          <summary>使うと点数は上がる？</summary>
+          <p>作者の比較では、最終ラウンドでtaste-skillが7.7、スキルなしが7.8、別のデザインスキルが7.2。スキルなしの方がわずかに上だった。点数より「AIっぽさが消える」方に効いている、と受け取っておく。</p>
+        </details>
+        <details class="rise">
+          <summary>調査からわかったことは？</summary>
+          <p>いいサイトとそうでないサイトを分けていたのは、見た目の飾りではなく「題材そのものから取ったアイデア」だった、というのが一番大きい。もう一つ、点数の高いサイトほど使いやすいわけではない、という結果も出ている。</p>
+        </details>
+        <details class="rise">
+          <summary>調査の弱いところは？</summary>
+          <p>作者が自分で挙げている。お題1つにつき審査は1回だけ、審査はAI、最終ラウンドのお題は前のラウンドと同じもの。なので数字は参考程度に見ている。</p>
+        </details>
+      </div>
+      <a class="btn faq-btn" href="https://github.com/Leonxlnx/taste-skill" rel="noopener">GitHubのリポジトリを見る</a>
+    </div>
+    <div class="faq-photos">
+      <img class="faq-tall" src="../../img/taste-skill/site-ios-dev-mac.jpg" width="1440" height="900" alt="taste-skillで作った、このサイトの2本目の記事" loading="lazy" decoding="async">
+      <img class="faq-square" src="../../img/taste-skill/site-home.jpg" width="1440" height="900" alt="このサイトの一覧ページ" loading="lazy" decoding="async">
+    </div>
+  </div>
+</section>
+
+<section id="conclusion" class="conclusion wrap" aria-labelledby="conclusion-h">
+  <h2 id="conclusion-h" class="rise">結論</h2>
+  <ul class="conclusion-list">
+    <li class="rise"><strong>作ったのは、ミュンヘンのLeon Lin（Leonxlnx）。</strong>会社ではなく個人のOSSで、MITライセンス</li>
+    <li class="rise" style="--i:1"><strong>目的は、AIに「平均的なページ」を作らせないこと。</strong>ルールを書くだけでなく、手順と機械の検査で守らせる</li>
+    <li class="rise" style="--i:2"><strong>根拠は247サイトの調査。</strong>ただし採点はAIで、点数が上がると証明されたわけではない</li>
+    <li class="rise" style="--i:3">要するに、デザイナーの仕事の進め方をAIに渡す道具。作者はほかにも、AIエージェントに足りないものを足す道具を作り続けている</li>
+  </ul>
+  <p class="conclusion-close rise">ただ便利なスキルだと思って使っていたが、調べてみると「AIはルールを読み飛ばす」という前提から作られていたのが刺さった。手順と検査で縛る、というのは人間のチームでも同じだと思う。</p>
+</section>
+
+</main>
+
+<footer class="back">
+  <div class="back-card">
+    <div class="back-msg">
+      <h2>調べたところ</h2>
+      <ul class="sources">
+        <li><a href="https://github.com/Leonxlnx/taste-skill" rel="noopener">GitHub　Leonxlnx/taste-skill（README、CHANGELOG、references/research.md）</a></li>
+        <li><a href="https://github.com/Leonxlnx" rel="noopener">GitHub　Leonxlnx（プロフィール）</a></li>
+        <li><a href="https://tasteskill.dev" rel="noopener">tasteskill.dev</a></li>
+        <li><a href="https://abduzeedo.com/stop-slop-taste-skill-better-ai-design/" rel="noopener">abduzeedo　Stop the Slop with Taste Skill for Better AI Design</a></li>
+        <li><a href="https://mer.vin/2026/07/taste-skill-explained-anti-slop-agent-skills-for-ai-frontend-design/" rel="noopener">mer.vin　Taste Skill explained（2026年7月、v2前の情報）</a></li>
+        <li><a href="https://developertoolkit.ai/en/ecosystem/skills/taste-skill/" rel="noopener">Developer Toolkit　Taste Skill: The Anti-Slop Frontend Skill Library</a></li>
+        <li><a href="https://tessl.io/registry/skills/github/Leonxlnx/taste-skill/design-taste-frontend/review" rel="noopener">tessl.io　design-taste-frontend のレビュー</a></li>
+      </ul>
+    </div>
+    <div class="back-addr">
+      <img class="stamp" src="../../img/taste-skill/site-mac-mini-phone.jpg" width="390" height="844" alt="" loading="lazy" decoding="async">
+      <p class="back-sign">気になったこと</p>
+      <ul class="back-links">
+        <li><a href="../../">記録の一覧へ</a></li>
+        <li><a href="../../?tag=AI">AIの記録</a></li>
+        <li><a href="../mac-mini-2026/">taste-skillで作った1本目</a></li>
+      </ul>
+    </div>
+    <p class="imprint">画像：このサイトのスクリーンショット（2026年11月2日に撮影）。中に写っている写真の出典は各記事に記載。「AIっぽいページ」は比較用に自分で作った架空のページで、実在のサービスではない。調べた時点の情報で、スター数やバージョンは変わる。</p>
+  </div>
+</footer>
+
+<script src="../../js/rise.js"></script>
+</body>
+</html>
