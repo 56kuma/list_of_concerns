@@ -20,6 +20,7 @@ site/                     ← 公開するのはこのフォルダだけ
 
 | 日付 | 記事 | タグ |
 | --- | --- | --- |
+| 2026-11-03 | [Mac StudioかMacBook Proか](site/posts/mac-studio-vs-macbook-pro/index.html) | Apple, AI, iOS開発, 買うか迷い中 |
 | 2026-11-02 | [taste-skillは誰が作ったか](site/posts/taste-skill/index.html) | AI, デザイン, 開発ツール |
 | 2026-11-02 | [iOS開発に買うならどのMac](site/posts/ios-dev-mac/index.html) | Apple, iOS開発, 買うか迷い中 |
 | 2026-11-02 | [Mac mini（M6）は買いか](site/posts/mac-mini-2026/index.html) | Apple, ガジェット, 買うか迷い中 |

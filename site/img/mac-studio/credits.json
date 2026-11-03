@@ -1,0 +1,50 @@
+[
+ {
+  "file": "img/mac-studio/mac-studio-1.jpg",
+  "media": "image",
+  "ref": "commons:Mac_Studio_-_1.jpg",
+  "title": "Mac Studio - 1",
+  "creator": "KKPCW",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "creditRequired": true,
+  "page": "https://commons.wikimedia.org/wiki/File:Mac_Studio_-_1.jpg",
+  "via": "Wikimedia Commons",
+  "width": 1920,
+  "height": 1920,
+  "credit": "\"Mac Studio - 1\" by KKPCW, CC BY-SA 4.0, via Wikimedia Commons",
+  "saved": "2026-11-03"
+ },
+ {
+  "file": "img/mac-studio/mac-studio-desk.jpg",
+  "media": "image",
+  "ref": "commons:Apple_Studio_Display_and_Mac_Studio_with_Peripherals.jpg",
+  "title": "Apple Studio Display and Mac Studio with Peripherals",
+  "creator": "AzureSaturn",
+  "license": "CC0",
+  "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+  "creditRequired": false,
+  "page": "https://commons.wikimedia.org/wiki/File:Apple_Studio_Display_and_Mac_Studio_with_Peripherals.jpg",
+  "via": "Wikimedia Commons",
+  "width": 1920,
+  "height": 1440,
+  "credit": "\"Apple Studio Display and Mac Studio with Peripherals\" by AzureSaturn, CC0, via Wikimedia Commons",
+  "saved": "2026-11-03"
+ },
+ {
+  "file": "img/mac-studio/back-of-mac-studio.jpg",
+  "media": "image",
+  "ref": "commons:Back_of_a_Mac_Studio.jpg",
+  "title": "Back of a Mac Studio",
+  "creator": "Paul Hudson",
+  "license": "CC BY 2.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+  "creditRequired": true,
+  "page": "https://commons.wikimedia.org/wiki/File:Back_of_a_Mac_Studio.jpg",
+  "via": "Wikimedia Commons",
+  "width": 1920,
+  "height": 1280,
+  "credit": "\"Back of a Mac Studio\" by Paul Hudson, CC BY 2.0, via Wikimedia Commons",
+  "saved": "2026-11-03"
+ }
+]

@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mac StudioかMacBook Proか ｜ 気になったこと</title>
+<meta name="description" content="ローカルLLM、iOSアプリのビルド、Blenderのレンダリングの3つに使う前提で、M5 UltraのMac StudioとM5 MaxのMacBook Proのどちらが自分向きか比べた記録。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic&family=Inter:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/site.css">
+<link rel="stylesheet" href="../../css/article.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+
+<header class="hero">
+  <img class="hero-photo" src="../../img/mac-studio/mac-studio-1.jpg" width="1920" height="1920" alt="木の机に置かれたMac Studio。前面にUSB-C 2つとSDカードスロット">
+  <div class="hero-card">
+    <div class="hero-top">
+      <a class="hero-home" href="../../">気になったこと</a>
+      <ul class="tags" aria-label="タグ">
+        <li><a class="tag" href="../../?tag=Apple">Apple</a></li>
+        <li><a class="tag" href="../../?tag=AI">AI</a></li>
+        <li><a class="tag" href="../../?tag=iOS開発">iOS開発</a></li>
+        <li><a class="tag" href="../../?tag=買うか迷い中">買うか迷い中</a></li>
+      </ul>
+    </div>
+    <h1>Mac StudioかMacBook Proか</h1>
+    <p class="hero-lead">ローカルLLM、iOSアプリのビルド、Blenderでの実写っぽい動画。この3つの待ち時間を減らしたくて、M5 UltraのMac StudioとM5 MaxのMacBook Proを比べた。値段はほぼ同じで、中身は倍近く違う。</p>
+    <dl class="hero-facts">
+      <div><dt>比べた2台</dt><dd>Studio・Pro</dd></div>
+      <div><dt>価格</dt><dd>どちらも<span class="num">118</span>〜<span class="num">120</span>万円前後</dd></div>
+      <div><dt>GPU</dt><dd><span class="num">80</span>コア 対 <span class="num">40</span>コア</dd></div>
+    </dl>
+    <div class="hero-foot">
+      <a class="btn" href="#flow-h">判断フローを見る</a>
+      <a href="#conclusion">結論だけ読む</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section class="learn wrap" aria-labelledby="learn-h">
+  <h2 id="learn-h" class="rise">この記事でわかること</h2>
+  <div class="learn-body">
+    <ul class="learn-list">
+      <li class="rise" style="--i:1"><a href="#spec-h">見積もった2台のスペック</a><span>同じ値段で何が違うかを1枚の表に</span></li>
+      <li class="rise" style="--i:2"><a href="#llm-h">ローカルLLM</a><span>速さは帯域、載るかどうかはメモリ量で決まる</span></li>
+      <li class="rise" style="--i:3"><a href="#use-h">ビルドとレンダリング</a><span>Xcodeのビルド、Blenderの待ち時間、熱</span></li>
+      <li class="rise" style="--i:4"><a href="#wait-h">待ち時間の目安</a><span>同じ仕事が何分で終わるかを図にした</span></li>
+      <li class="rise" style="--i:5"><a href="#flow-h">どちらを買うか</a><span>持ち歩くかどうかで決まる判断フロー</span></li>
+    </ul>
+    <p class="learn-short rise" style="--i:3"><strong>先に結論。</strong>3つの用途なら、Mac Studio（M5 Ultra）の方が向いていると思う。ほぼ同じ値段で、GPUもメモリ帯域も約2倍。MacBook Proを選ぶ理由は「外に持ち出したい」だけ。</p>
+  </div>
+</section>
+
+<section class="intro wrap" aria-labelledby="need-h">
+  <div class="intro-text">
+    <h2 id="need-h" class="rise">3つの用途で効くもの</h2>
+    <p class="rise" style="--i:1">先に、用途ごとに何が速さを決めるかを整理しておく。ここがわかると、スペック表のどこを見ればいいかが絞れる。</p>
+    <ul class="intro-points rise" style="--i:2">
+      <li><strong>ローカルLLM</strong>：文章を出す速さはメモリ帯域でほぼ決まる。どこまで大きいモデルが動くかはメモリ量で決まる</li>
+      <li><strong>iOSのビルド</strong>：差分ビルドは1コアの速さ、クリーンビルドはコアの数。長く回すと熱も効く</li>
+      <li><strong>Blender</strong>：Cyclesのレンダリングは、ほぼGPUのコア数に比例する。数十分回すので冷やせるかどうかも大事</li>
+    </ul>
+    <p class="rise" style="--i:3">要するに、3つとも「GPU」「帯域」「熱」の勝負になる。1コアの速さはM5 UltraもM5 Maxも同じなので、そこでは差がつかない。</p>
+  </div>
+  <figure class="intro-plates">
+    <div class="plate rise" style="--i:2">
+      <img src="../../img/mac-studio/mac-studio-desk.jpg" width="1920" height="1440" alt="Studio Display、キーボード、トラックパッドと並べたMac Studio" loading="lazy" decoding="async">
+      <figcaption>Mac Studioはモニターとキーボードが別に要る</figcaption>
+    </div>
+    <div class="plate rise" style="--i:3">
+      <img src="../../img/macbook/m3-macbook-pro-14-inch-space-grey.jpg" width="1920" height="1440" alt="店頭に置かれた14インチMacBook Pro" loading="lazy" decoding="async">
+      <figcaption>MacBook Pro 14。M5 Maxも同じ形</figcaption>
+    </div>
+  </figure>
+</section>
+
+<section class="pro wrap" aria-labelledby="spec-h">
+  <h2 id="spec-h" class="rise">見積もった2台</h2>
+  <p class="pro-lead rise" style="--i:1">Apple Storeで組んだ構成をそのまま並べた。値段はほぼ同じなのに、チップの格が1段違う。</p>
+  <div class="table-scroll rise" style="--i:2">
+    <table class="pro-table">
+      <caption class="visually-hidden">見積もったMac StudioとMacBook Proのスペック比較</caption>
+      <thead><tr><th scope="col">項目</th><th scope="col">Mac Studio（M5 Ultra）</th><th scope="col">MacBook Pro（M5 Max）</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">価格</th><td data-label="Mac Studio">1,183,800円（1TBの場合）＋2TB分</td><td data-label="MacBook Pro">1,194,800円（見積もり画面の値）</td></tr>
+        <tr><th scope="row">CPU</th><td data-label="Mac Studio">36コア</td><td data-label="MacBook Pro">18コア</td></tr>
+        <tr><th scope="row">GPU</th><td data-label="Mac Studio">80コア</td><td data-label="MacBook Pro">40コア</td></tr>
+        <tr><th scope="row">Neural Engine</th><td data-label="Mac Studio">32コア</td><td data-label="MacBook Pro">16コア</td></tr>
+        <tr><th scope="row">メモリ</th><td data-label="Mac Studio">96GB</td><td data-label="MacBook Pro">128GB</td></tr>
+        <tr><th scope="row">メモリ帯域</th><td data-label="Mac Studio">1.2TB/s</td><td data-label="MacBook Pro">614GB/s</td></tr>
+        <tr><th scope="row">SSD</th><td data-label="Mac Studio">2TB</td><td data-label="MacBook Pro">2TB以上（M5 Maxは2TBから）</td></tr>
+        <tr><th scope="row">Thunderbolt 5</th><td data-label="Mac Studio">6基（背面4、前面2）</td><td data-label="MacBook Pro">3基</td></tr>
+        <tr><th scope="row">重さ</th><td data-label="Mac Studio">3.6kg（据え置き）</td><td data-label="MacBook Pro">14型1.62kg／16型2.15kg</td></tr>
+        <tr><th scope="row">画面・電池</th><td data-label="Mac Studio">なし</td><td data-label="MacBook Pro">XDR 120Hz、最大20〜22時間</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="pro-note rise" style="--i:3">Mac Studioの2TB構成の値段は、記事の時点で確認できなかった。報じられているのは36コア／80コア・96GB・1TBで1,183,800円まで。MacBook Proの見積もりも、画面サイズとSSDの容量は自分のスクリーンショットに写っていなかったので、注文前に見直す。</p>
+</section>
+
+<section id="llm" class="prices wrap" aria-labelledby="llm-h">
+  <div class="prices-head">
+    <h2 id="llm-h" class="rise">ローカルLLM</h2>
+    <p class="rise" style="--i:1">ここだけは2台の得意が分かれる。Mac Studioは速い。MacBook Proはメモリが32GB多い。</p>
+    <img class="prices-photo rise" style="--i:2" src="../../img/mac-studio/back-of-mac-studio.jpg" width="1920" height="1280" alt="Mac Studioの背面。電源、Thunderbolt、USB-A、Ethernet、HDMI" loading="lazy" decoding="async">
+  </div>
+  <div class="menu">
+    <div class="menu-group rise">
+      <h3>出す速さ（帯域）</h3>
+      <ul>
+        <li><div class="row"><span>Mac Studio</span><span class="num">1.2TB/s</span></div><p>文章が出る速さはほぼ帯域に比例する</p></li>
+        <li><div class="row"><span>MacBook Pro</span><span class="num">614GB/s</span></div><p>Studioの約半分</p></li>
+      </ul>
+    </div>
+    <div class="menu-group rise" style="--i:1">
+      <h3>70Bの密モデル（参考値）</h3>
+      <ul>
+        <li><div class="row"><span>M5 Ultra</span><span class="num">約50 tok/s</span></div><p>有志の計測。条件はそろっていない</p></li>
+        <li><div class="row"><span>M5 Max</span><span class="num">約31 tok/s</span></div><p>同上。読むより速いので、どちらも実用</p></li>
+      </ul>
+    </div>
+    <div class="menu-group rise" style="--i:2">
+      <h3>載せられる量（メモリ）</h3>
+      <ul>
+        <li><div class="row"><span>Mac Studio 96GB</span><span class="num">〜70GB台</span></div><p>70Bの4〜8bit、120B級のMoEの4bitまで</p></li>
+        <li><div class="row"><span>MacBook Pro 128GB</span><span class="num">〜90GB台</span></div><p>もう一回り大きいモデルや、長い文脈に余裕</p></li>
+      </ul>
+    </div>
+    <div class="menu-group rise" style="--i:3">
+      <h3>自分の「ある程度」なら</h3>
+      <ul>
+        <li><div class="row"><span>96GBで足りる</span><span class="num">◎</span></div><p>試したいのは70B前後や中くらいのMoE</p></li>
+        <li><div class="row"><span>200B級を動かす</span><span class="num">×</span></div><p>4bitでも100GBを超える。どちらでも無理</p></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="changes" aria-labelledby="use-h">
+  <div class="wrap changes-inner">
+    <div class="changes-head">
+      <h2 id="use-h" class="rise">ビルドとレンダリング</h2>
+      <p class="rise" style="--i:1">場面ごとに比べた。◎が一番いい。差がはっきり出るのはBlenderで、ビルドは思ったほど差がつかない。</p>
+      <img class="changes-photo rise" style="--i:2" src="../../img/macbook/xcode-screenshot.png" width="1920" height="1247" alt="XcodeでSwiftUIのコードを編集している画面" loading="lazy" decoding="async">
+      <p class="changes-cap">Xcode。ふだんの差分ビルドは1コアの速さで決まる</p>
+    </div>
+    <table class="diff stack">
+      <caption class="visually-hidden">ビルドとレンダリングの場面ごとの比較</caption>
+      <thead><tr><th scope="col">場面</th><th scope="col">Studio</th><th scope="col">Pro</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Xcodeの差分ビルド</th><td data-label="Studio">○ 1コアの速さは同じ</td><td data-label="Pro">○ 同じ</td></tr>
+        <tr><th scope="row">クリーンビルド</th><td data-label="Studio">◎ 36コア</td><td data-label="Pro">○ 18コア。2倍の差にはならない</td></tr>
+        <tr><th scope="row">Blender Cycles</th><td data-label="Studio">◎ 約15,350点</td><td data-label="Pro">○ 約8,100点</td></tr>
+        <tr><th scope="row">長時間回したとき</th><td data-label="Studio">◎ ファンが大きく静か</td><td data-label="Pro">△ 14型は熱で落ちやすい。16型の方が15〜18%速い</td></tr>
+        <tr><th scope="row">動画の書き出し</th><td data-label="Studio">◎ レビューでは9分の4K動画を1分13秒</td><td data-label="Pro">○</td></tr>
+        <tr><th scope="row">持ち運び</th><td data-label="Studio">×</td><td data-label="Pro">◎</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="body-figure wrap" aria-labelledby="wait-h">
+  <div class="body-text">
+    <h2 id="wait-h" class="rise">待ち時間の目安</h2>
+    <p class="rise" style="--i:1">Blender Open Dataの点数（M5 Ultraは約15,350点、M5 Max 40コアは約8,107点）から、同じシーンが何分で終わるかを逆算した。点数は時間あたりにこなせる量なので、待ち時間はほぼ反比例する。</p>
+    <ul class="rise" style="--i:2">
+      <li><strong>M5 Maxで10分</strong>のフレームは、M5 Ultraだと<strong>約5分</strong></li>
+      <li><strong>240フレーム</strong>（24fpsで10秒）なら、40時間が約21時間になる</li>
+      <li>14型のProで連続して回すと、熱でさらに遅くなる可能性がある</li>
+    </ul>
+    <p class="rise" style="--i:3">M5 Ultraの点数は、まだ登録が少ない時点の値。増えると少し動くかもしれない。それでも約1.9倍の差は大きいと思う。一晩回すか、半日で終わるかの差になる。</p>
+  </div>
+  <figure class="drawing rise" style="--i:2">
+    <svg viewBox="0 0 480 560" role="img" aria-labelledby="wait-t">
+      <title id="wait-t">Blenderで240フレームを書き出すときの待ち時間の目安。M5 Maxは約40時間、M5 Ultraは約21時間</title>
+      <g font-family="Noto Sans JP, sans-serif" font-size="24" fill="#1d1d1f">
+        <text x="24" y="48" font-weight="700">240フレームの書き出し</text>
+        <text x="24" y="80" font-size="20" fill="#6e6e73">M5 Maxで1フレーム10分の場合</text>
+        <text x="24" y="150" font-weight="700">M5 Max（Pro）</text>
+        <rect x="24" y="166" width="432" height="64" rx="16" fill="#c7c7cc"/>
+        <text x="440" y="208" text-anchor="end" font-weight="700">約40時間</text>
+        <text x="24" y="296" font-weight="700">M5 Ultra（Studio）</text>
+        <rect x="24" y="312" width="227" height="64" rx="16" fill="#0071e3"/>
+        <text x="235" y="354" text-anchor="end" fill="#ffffff" font-weight="700">約21時間</text>
+        <line x1="24" y1="420" x2="456" y2="420" stroke="#d2d2d7" stroke-width="2"/>
+        <text x="24" y="460" font-size="20" fill="#6e6e73">Blender Open Dataの点数の比から計算</text>
+        <text x="24" y="492" font-size="20" fill="#6e6e73">15,350点 ÷ 8,107点 ＝ 約1.9倍</text>
+        <text x="24" y="524" font-size="20" fill="#6e6e73">熱による低下は含めていない</text>
+      </g>
+    </svg>
+    <figcaption>待ち時間の目安（自分で計算して描いた図。実測ではない）</figcaption>
+  </figure>
+</section>
+
+<section class="verdict wrap" aria-labelledby="flow-h">
+  <h2 id="flow-h" class="rise">どちらを買うか</h2>
+  <figure class="flow rise" style="--i:1">
+<pre aria-label="判断フロー：外でも重い作業をするならMacBook Pro 16インチ。家の机が中心なら、100GBを超えるモデルを動かしたい場合はどちらも足りず、そうでなければモニターがあればMac Studio、なければMac Studioとモニターを一緒に買う。">どこで使う？
+├─ 外でも重い作業をする → Pro（16型）
+└─ ほぼ家の机
+　　├─ 100GB超のモデルを動かす
+　　│　　　　　　→ どちらも足りない
+　　└─ 70B前後まででいい
+　　　　├─ モニターがある → Studio
+　　　　└─ モニターもない → Studio＋モニター</pre>
+    <figcaption>自分用の判断フロー</figcaption>
+  </figure>
+  <div class="verdict-cols">
+    <div class="verdict-col rise" style="--i:1">
+      <h3>Mac Studioがいい人</h3>
+      <ul>
+        <li>作業はほぼ家の机。重い仕事は机で回せばいい</li>
+        <li>Blenderの待ち時間を本気で減らしたい。GPUは約2倍</li>
+        <li>LLMの返事を速くしたい。帯域も約2倍</li>
+        <li>レンダリングを一晩回しても、熱と音を気にしたくない</li>
+      </ul>
+    </div>
+    <div class="verdict-col rise" style="--i:2">
+      <h3>MacBook Proがいい人</h3>
+      <ul>
+        <li>外や出張先でも、ビルドやレンダリングを回す</li>
+        <li>速さより、少しでも大きいモデルを載せたい（128GB）</li>
+        <li>買うなら16型。14型は長い作業で熱に負けやすい</li>
+        <li>128GBは48GBより36万円高い。LLMが軽めなら64GBも手</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="faq" aria-labelledby="faq-h">
+  <div class="wrap faq-inner">
+    <div class="faq-left">
+      <h2 id="faq-h" class="rise">気になる点</h2>
+      <dl class="faq-facts rise" style="--i:1">
+        <div><dt>発売</dt><dd>M5 Ultraは2026年9月22日、M5 Maxは3月</dd></div>
+        <div><dt>価格</dt><dd>2026年11月3日時点、税込</dd></div>
+        <div><dt>点数</dt><dd>Blender Open Dataの中央値</dd></div>
+      </dl>
+      <div class="qa">
+        <details class="rise">
+          <summary>96GBと128GBの差はどれくらい効く？</summary>
+          <p>載せられるモデルの上限が一回り変わる。ただ、macOSはメモリを全部GPUに回せるわけではないので、どちらも実際に使えるのは7割強くらいだと思っておく。70B前後や120B級のMoEを4bitで試す程度なら、96GBで足りるはず。</p>
+        </details>
+        <details class="rise">
+          <summary>Studioで、36コア／80コアに上げる意味はある？</summary>
+          <p>Blenderを回すならあると思う。30コア／64コアとの差は約23万円で、GPUが25%増える。LLMの速さは帯域で決まるので、こちらはあまり変わらないかもしれない。</p>
+        </details>
+        <details class="rise">
+          <summary>Xcodeのビルドは本当に倍速にならない？</summary>
+          <p>ならないと思う。ふだんの差分ビルドは数ファイルだけなので、1コアの速さで決まる。そこはM5 UltraとM5 Maxで同じ。クリーンビルドやテストを並列で回すときは、コアが多い方が縮む。ただ、リンクなど1本でしか進まない工程もある。</p>
+        </details>
+        <details class="rise">
+          <summary>Studioのモニター代はいくら見ておく？</summary>
+          <p>モニターとキーボードとマウスを持っていなければ、その分が上乗せになる。手持ちの4Kモニターが使えるなら追加はほぼない。</p>
+        </details>
+        <details class="rise">
+          <summary>2台持ちという手は？</summary>
+          <p>Studioを家に置いて、外ではMacBook Airで軽い作業をする形。重いレンダリングやLLMは家のStudioに任せて、外から画面共有でのぞけばいい。予算は増えるが、一番ストレスは少ないと思う。</p>
+        </details>
+      </div>
+      <a class="btn faq-btn" href="https://www.apple.com/jp/mac/compare/" rel="noopener">Appleの比較ページを見る</a>
+    </div>
+    <div class="faq-photos">
+      <img class="faq-tall" src="../../img/mac-studio/mac-studio-1.jpg" width="1920" height="1920" alt="斜め上から見たMac Studio" loading="lazy" decoding="async">
+      <img class="faq-square" src="../../img/macbook/m3-macbook-pro-14-inch-space-grey.jpg" width="1920" height="1440" alt="店頭の14インチMacBook Pro" loading="lazy" decoding="async">
+    </div>
+  </div>
+</section>
+
+<section id="conclusion" class="conclusion wrap" aria-labelledby="conclusion-h">
+  <h2 id="conclusion-h" class="rise">結論</h2>
+  <ul class="conclusion-list">
+    <li class="rise"><strong>3つの用途なら、Mac Studio（M5 Ultra）。</strong>ほぼ同じ値段で、GPUもメモリ帯域も約2倍ある</li>
+    <li class="rise" style="--i:1"><strong>一番効くのはBlender。</strong>レンダリングの待ち時間は約半分になる見込み</li>
+    <li class="rise" style="--i:2"><strong>ローカルLLMは速さならStudio、載せる量ならPro。</strong>「ある程度」試すなら96GBで足りると思う</li>
+    <li class="rise" style="--i:3"><strong>Xcodeのビルドは差が小さい。</strong>ふだんの差分ビルドはどちらも同じ速さ</li>
+    <li class="rise" style="--i:4">要するに、MacBook Proに払う分は「持ち歩ける画面と電池」の値段。机から動かないなら、その分をGPUに払った方がいい</li>
+  </ul>
+  <p class="conclusion-close rise">最初はメモリの多いMacBook Proに目が行っていた。でも3つの用途を分解したら、全部GPUと帯域と熱の話だった。値段が同じなら、格が上のチップを机に置く。そういうことにしておく。</p>
+</section>
+
+</main>
+
+<footer class="back">
+  <div class="back-card">
+    <div class="back-msg">
+      <h2>調べたところ</h2>
+      <ul class="sources">
+        <li><a href="https://www.apple.com/jp/mac-studio/specs/" rel="noopener">Apple　Mac Studio 技術仕様</a></li>
+        <li><a href="https://www.apple.com/jp/macbook-pro/specs/" rel="noopener">Apple　MacBook Pro 技術仕様</a></li>
+        <li><a href="https://pc.watch.impress.co.jp/docs/news/2135555.html" rel="noopener">PC Watch　M5 Max/Ultraの「Mac Studio」登場。最大512GBメモリ搭載</a></li>
+        <li><a href="https://www.apple-hacks.com/entry/mac-studio-m5-max-ultra-japan-price-2026" rel="noopener">となりずむ　M5 Ultra搭載「Mac Studio」の日本価格</a></li>
+        <li><a href="https://www.engadget.com/2263184/apple-mac-studio-m5-ultra-review/" rel="noopener">Engadget　Apple Mac Studio (M5 Ultra) review</a></li>
+        <li><a href="https://opendata.blender.org/devices/Apple%20M5%20Max/" rel="noopener">Blender Open Data　Apple M5 Max</a></li>
+        <li><a href="https://www.notebookcheck.net/M5-Ultra-vs-RTX-5090-80-core-M5-Ultra-GPU-crushes-RTX-5080-trails-5090-by-less-than-5.1404951.0.html" rel="noopener">Notebookcheck　M5 UltraのBlenderの点数</a></li>
+        <li><a href="https://www.notebookcheck.net/Apple-s-M5-Max-in-the-MacBook-Pro-16-is-around-15-faster-compared-to-the-MacBook-Pro-14.1250872.0.html" rel="noopener">Notebookcheck　M5 MaxはMacBook Pro 16の方が約15%速い</a></li>
+        <li><a href="https://llmcheck.net/blog/m5-ultra-vs-m3-ultra-vs-m5-max-local-llm/" rel="noopener">llmcheck　M5 Ultra・M5 MaxのローカルLLMの速さ（有志の計測）</a></li>
+        <li><a href="../ios-dev-mac/">iOS開発に買うならどのMac（前の記録）</a></li>
+      </ul>
+    </div>
+    <div class="back-addr">
+      <img class="stamp" src="../../img/mac-studio/mac-studio-1.jpg" width="1920" height="1920" alt="" loading="lazy" decoding="async">
+      <p class="back-sign">気になったこと</p>
+      <ul class="back-links">
+        <li><a href="../../">記録の一覧へ</a></li>
+        <li><a href="../../?tag=Apple">Appleの記録</a></li>
+        <li><a href="../ios-dev-mac/">iOS開発のMac選び</a></li>
+      </ul>
+    </div>
+    <p class="imprint">写真：“Mac Studio - 1” KKPCW, CC BY-SA 4.0 ／ “Apple Studio Display and Mac Studio with Peripherals” AzureSaturn, CC0 ／ “Back of a Mac Studio” Paul Hudson, CC BY 2.0 ／ “M3 Macbook Pro 14 inch Space Grey model” Kyu3a, CC BY-SA 4.0 ／ “XCode Screenshot” Wittawin Panta, CC BY-SA 4.0 ／ いずれもWikimedia Commons経由。写真は前世代の同じ形のモデル。</p>
+  </div>
+</footer>
+
+<script src="../../js/rise.js"></script>
+</body>
+</html>
