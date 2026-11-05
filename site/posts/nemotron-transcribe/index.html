@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nemotron 3.5 Transcribeは家で動くか ｜ 気になったこと</title>
+<meta name="description" content="NVIDIAのオープンな文字起こしモデル「Nemotron 3.5 Transcribe」の概要と、自宅で動かすのに必要なGPUを調べた記録。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic&family=Inter:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/site.css">
+<link rel="stylesheet" href="../../css/article.css">
+<link rel="stylesheet" href="post.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+
+<header class="hero">
+  <img class="hero-photo" src="../../img/nemotron-transcribe/waveform.jpg" width="1440" height="900" alt="音声の波形と、話者1・話者2のラベルが付いた文字起こしのイメージ図">
+  <div class="hero-card">
+    <div class="hero-top">
+      <a class="hero-home" href="../../">気になったこと</a>
+      <ul class="tags" aria-label="タグ">
+        <li><a class="tag" href="../../?tag=AI">AI</a></li>
+        <li><a class="tag" href="../../?tag=GPU">GPU</a></li>
+        <li><a class="tag" href="../../?tag=音声認識">音声認識</a></li>
+      </ul>
+    </div>
+    <h1>Nemotron 3.5 Transcribeは家で動くか</h1>
+    <p class="hero-lead">NVIDIAが10月末に出した、オープンな文字起こしモデル。話者分けも翻訳も1つでやるらしい。何ができるのかと、自宅のGPUで動かすならどれくらい要るのかを調べた。</p>
+    <dl class="hero-facts">
+      <div><dt>公開</dt><dd><span class="num">2026/10/28</span></dd></div>
+      <div><dt>ライセンス</dt><dd>OpenMDW-1.1</dd></div>
+      <div><dt>家で動かすなら</dt><dd>VRAM <span class="num">32GB</span>〜</dd></div>
+    </dl>
+    <div class="hero-foot">
+      <a class="btn" href="#gpu-h">必要なGPUを見る</a>
+      <a href="#conclusion">結論だけ読む</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section class="learn wrap" aria-labelledby="learn-h">
+  <h2 id="learn-h" class="rise">この記事でわかること</h2>
+  <div class="learn-body">
+    <ul class="learn-list">
+      <li class="rise" style="--i:1"><a href="#what-h">どんなモデルか</a><span>何ができて、何ができないか</span></li>
+      <li class="rise" style="--i:2"><a href="#spec-h">中身と精度</a><span>パラメータ数、対応言語、Whisperとの比較</span></li>
+      <li class="rise" style="--i:3"><a href="#gpu-h">精度ごとの必要なGPU</a><span>BF16・FP8・NVFP4・GGUF</span></li>
+      <li class="rise" style="--i:4"><a href="#home-h">自宅ならどの構成か</a><span>RTX 5090、24GBのカード、DGX Spark、Mac</span></li>
+      <li class="rise" style="--i:5"><a href="#faq-h">気になる点</a><span>日本語、リアルタイム、商用利用</span></li>
+    </ul>
+    <p class="learn-short rise" style="--i:3"><strong>先に結論。</strong>家で現実的なのは、<strong>RTX 5090（32GB）でNVFP4版</strong>を動かす構成。NVFP4は約21GBで、Blackwell世代のGPUでしか動かない。フル精度（BF16）は実行時に約75GB要るので、H100やRTX PRO 6000の世界。RTX 4090などの24GBのカードは公式の対象外で、量子化版でもギリギリ入らない見込み。</p>
+  </div>
+</section>
+
+<section class="intro wrap" aria-labelledby="what-h">
+  <div class="intro-text">
+    <h2 id="what-h" class="rise">どんなモデルか</h2>
+    <p class="rise" style="--i:1">音声を入れると、文字起こし、話者分け、翻訳までを1つのモデルでやる。普通の音声認識と違うのは、<strong>中身がLLMで、文章で指示できる</strong>ところ。</p>
+    <ul class="intro-points rise" style="--i:2">
+      <li><strong>作ったところ</strong>：NVIDIA。2026年10月28日に公開。学習用データセットのGranary v2も同時に公開</li>
+      <li><strong>できること</strong>：40言語の文字起こし、31言語と英語の間の翻訳、13言語での話者分け（最大8人）</li>
+      <li><strong>指示できること</strong>：「この用語はこう書く」のような専門用語の指定、出力の形式など。指示を変えると出力が変わる</li>
+      <li><strong>長さ</strong>：1ファイル最大1時間</li>
+      <li><strong>できないこと</strong>：リアルタイム（ストリーミング）の文字起こし。録音済みのファイルを後からまとめて処理する用途</li>
+      <li><strong>ライセンス</strong>：OpenMDW-1.1。商用でも使える（紹介記事による。原文は未確認）</li>
+    </ul>
+    <p class="rise" style="--i:3">要するに、Whisperの代わりに会議録音やインタビューを丸ごと投げて、「誰が何を言ったか」まで出してもらうためのモデル。</p>
+  </div>
+  <figure class="intro-plates">
+    <div class="plate rise" style="--i:2">
+      <img src="../../img/nemotron-transcribe/waveform.jpg" width="1440" height="900" alt="波形の前半が話者1、後半が話者2に分けられ、それぞれの発言が文字になっているイメージ図" loading="lazy" decoding="async">
+      <figcaption>出力のイメージ。話者ごとに分けて、時刻付きで文字にする（自分で描いた図）</figcaption>
+    </div>
+  </figure>
+</section>
+
+<section class="pro wrap" aria-labelledby="spec-h">
+  <h2 id="spec-h" class="rise">中身と精度</h2>
+  <p class="pro-lead rise" style="--i:1">モデルカードとNVIDIAのブログ、紹介記事から拾った。記事によって数字が少しずれるところは両方書いた。</p>
+  <div class="table-scroll rise" style="--i:2">
+    <table class="pro-table">
+      <caption class="visually-hidden">Nemotron 3.5 Transcribeの仕様</caption>
+      <thead><tr><th scope="col">項目</th><th scope="col">わかったこと</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">正式名</th><td data-label="内容">NVIDIA-Nemotron-3.5-Transcribe-30B-A4B</td></tr>
+        <tr><th scope="row">構成</th><td data-label="内容">音声エンコーダー＋話者分けモデル＋LLM（Nemotron 3.5 Lightning 30B-A3B、MoE）</td></tr>
+        <tr><th scope="row">パラメータ</th><td data-label="内容">合計約30B（エンコーダー込みで約34Bとする記事もある）。1回の推論で動くのは約4.3B</td></tr>
+        <tr><th scope="row">配布形式</th><td data-label="内容">BF16、FP8、NVFP4の3種類（Hugging Face）。有志のGGUF版もある</td></tr>
+        <tr><th scope="row">英語の精度</th><td data-label="内容">9つの公開データの平均WER 4.71%（Whisper-large-v3は6.66%）</td></tr>
+        <tr><th scope="row">多言語の精度</th><td data-label="内容">7言語の平均WER 4.62%（Whisper-large-v3は7.94%）。日本語は含まれない</td></tr>
+        <tr><th scope="row">日本語</th><td data-label="内容">CER（文字誤り率）4.42%という紹介記事がある。WERとは単純に比べられない</td></tr>
+        <tr><th scope="row">速さ</th><td data-label="内容">NVFP4版をRTX PRO 6000 Blackwell 1枚で、音声100時間を3分未満（NVIDIA発表）</td></tr>
+        <tr><th scope="row">動くOS</th><td data-label="内容">Linux。WindowsはWSL2経由。Apple Siliconは公式には非対応</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="pro-note rise" style="--i:3">MoEなので、動く部分は約4Bと小さく速い。ただし重み自体は30B分すべてGPUのメモリに載せる必要がある。家で動かすときに効いてくるのはこっち。</p>
+</section>
+
+<section class="changes" aria-labelledby="gpu-h">
+  <div class="wrap changes-inner">
+    <div class="changes-head">
+      <h2 id="gpu-h" class="rise">精度ごとの必要なGPU</h2>
+      <p class="rise" style="--i:1">同じモデルでも、重みをどこまで圧縮するかで必要なメモリが3倍くらい変わる。NVIDIAが基準にしているのは、BF16はH100（80GB）1枚、FP8とNVFP4はRTX PRO 6000 Blackwell（96GB）1枚。</p>
+      <p class="rise" style="--i:2">ポイントはNVFP4。Blackwell世代（RTX 50シリーズなど）専用の4bit形式で、サイズが約21GBまで下がる。これで初めて家庭用のカードが視野に入る。</p>
+      <p class="rise" style="--i:3">サイズは重みのファイルの大きさ。実際には音声のバッファや作業用のメモリが上乗せされる。</p>
+    </div>
+    <table class="diff stack">
+      <caption class="visually-hidden">形式ごとのサイズと必要なGPU</caption>
+      <thead><tr><th scope="col">形式</th><th scope="col">サイズ</th><th scope="col">想定GPU</th><th scope="col">家では</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">BF16</th><td data-label="サイズ">約67GB（実行時 約75GB）</td><td data-label="想定GPU">H100 80GB</td><td data-label="家では">ほぼ無理</td></tr>
+        <tr><th scope="row">FP8</th><td data-label="サイズ">約35GB（推定）</td><td data-label="想定GPU">RTX PRO 6000 96GB</td><td data-label="家では">32GBでも厳しい</td></tr>
+        <tr><th scope="row">NVFP4</th><td data-label="サイズ">約21GB（21.6GB）</td><td data-label="想定GPU">Blackwellのみ</td><td data-label="家では">RTX 5090で本命</td></tr>
+        <tr><th scope="row">GGUF（有志）</th><td data-label="サイズ">19.7〜22.6GB＋エンコーダー1.7GB</td><td data-label="想定GPU">32GBのGPU、Mac</td><td data-label="家では">非公式。試す価値あり</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="body-figure wrap" aria-labelledby="fit-h">
+  <div class="body-text">
+    <h2 id="fit-h" class="rise">どのカードに入るか</h2>
+    <p class="rise" style="--i:1">必要なメモリと、GPUのVRAMを並べるとこうなる。</p>
+    <ul class="rise" style="--i:2">
+      <li><strong>24GB（RTX 4090／3090）</strong>：NVFP4は使えない（Blackwellではない）。GGUFの4bit版でもエンコーダー込みで約24.2GBになり、作業用メモリを足すと入らない見込み</li>
+      <li><strong>32GB（RTX 5090）</strong>：NVFP4の約21GBが入って、10GBほど余る。ここが家で動かす最低ライン</li>
+      <li><strong>96GB（RTX PRO 6000）</strong>：BF16まで入る。NVIDIAの速度の数字もこのカード</li>
+      <li><strong>128GB（DGX Spark）</strong>：Blackwellで容量は十分。ただしメモリが遅いので速度は落ちるはず（未検証）</li>
+    </ul>
+    <p class="rise" style="--i:3">FP8版のサイズは公式の数字を見つけられなかった。30B分を1バイトずつで約30〜35GBなので、32GBのカードにはまず入らない、と推定している。</p>
+  </div>
+  <figure class="drawing rise" style="--i:2">
+    <svg viewBox="0 0 520 450" role="img" aria-labelledby="fit-t">
+      <title id="fit-t">必要なメモリの比較。GGUFの4bit版は約24GB、NVFP4は約22GB、BF16は実行時約75GB。縦線は24GB、32GB、96GBのGPU。24GBの線はGGUFがぎりぎり越え、32GBの線の内側にNVFP4とGGUFが収まり、BF16は96GBの線の内側に収まる</title>
+      <g font-family="Noto Sans JP, sans-serif" fill="#1d1d1f">
+        <!-- 1GB = 4px、x=40が0GB -->
+        <line x1="136" y1="30" x2="136" y2="380" stroke="#6e6e73" stroke-width="2" stroke-dasharray="6 6"/>
+        <line x1="168" y1="30" x2="168" y2="380" stroke="#0071e3" stroke-width="3"/>
+        <line x1="424" y1="30" x2="424" y2="380" stroke="#6e6e73" stroke-width="2" stroke-dasharray="6 6"/>
+        <text x="132" y="406" font-size="18" text-anchor="end" fill="#6e6e73">24GB</text>
+        <text x="172" y="406" font-size="18" fill="#0071e3" font-weight="700">32GB</text>
+        <text x="424" y="406" font-size="18" text-anchor="middle" fill="#6e6e73">96GB</text>
+        <text x="132" y="430" font-size="15" text-anchor="end" fill="#6e6e73">4090</text>
+        <text x="172" y="430" font-size="15" fill="#0071e3">5090</text>
+        <text x="424" y="430" font-size="15" text-anchor="middle" fill="#6e6e73">PRO 6000</text>
+
+        <text x="40" y="66" font-size="20" font-weight="700">NVFP4</text>
+        <rect x="40" y="78" width="86" height="40" rx="8" fill="#0071e3"/>
+        <text x="136" y="105" font-size="18" fill="#0071e3" dx="40">約21.6GB</text>
+
+        <text x="40" y="170" font-size="20" font-weight="700">GGUF 4bit＋エンコーダー</text>
+        <rect x="40" y="182" width="97" height="40" rx="8" fill="#1d1d1f"/>
+        <text x="178" y="209" font-size="18" fill="#1d1d1f">約24.2GB</text>
+
+        <text x="40" y="274" font-size="20" font-weight="700">BF16（実行時）</text>
+        <rect x="40" y="286" width="300" height="40" rx="8" fill="#a1a1a6"/>
+        <text x="350" y="313" font-size="18" fill="#1d1d1f">約75GB</text>
+      </g>
+    </svg>
+    <figcaption>重み（＋エンコーダー）の大きさとVRAMの比較。作業用メモリは含まない（自分で描いた図）</figcaption>
+  </figure>
+</section>
+
+<section class="prices wrap" aria-labelledby="home-h">
+  <div class="prices-head">
+    <h2 id="home-h" class="rise">自宅ならどの構成か</h2>
+    <p class="rise" style="--i:1">「家で、録音を後からまとめて文字起こしする」前提で、候補を4つに分けた。価格は今回は調べていない。</p>
+    <p class="rise" style="--i:2">GPU以外は、メインメモリ64GB以上（推定。モデルの読み込みに余裕を持たせたい）、SSDに空き50GB以上（NVFP4本体と環境で）を見ておけば足りそう。</p>
+  </div>
+  <div class="menu">
+    <div class="menu-group rise">
+      <h3>本命</h3>
+      <ul>
+        <li><div class="row"><span>RTX 5090</span><span class="num">32GB</span></div><p>NVFP4版がそのまま入る。ガイド記事でもvLLM 0.32.0、Transformers、GGMLで動く対象に入っている。家で公式の形式を使うならこれ一択</p></li>
+      </ul>
+    </div>
+    <div class="menu-group rise" style="--i:1">
+      <h3>余裕を買う</h3>
+      <ul>
+        <li><div class="row"><span>RTX PRO 6000</span><span class="num">96GB</span></div><p>NVIDIAの基準機。BF16もFP8も動く。家庭用というより仕事用</p></li>
+        <li><div class="row"><span>DGX Spark</span><span class="num">128GB</span></div><p>Blackwellで容量は十分。机に置ける。速度は5090より遅いはず</p></li>
+      </ul>
+    </div>
+    <div class="menu-group rise" style="--i:2">
+      <h3>手持ちで試す</h3>
+      <ul>
+        <li><div class="row"><span>RTX 4090／3090</span><span class="num">24GB</span></div><p>公式の対象外。GGUFでもほぼ入らない。2枚挿しにするか、軽いモデル（Whisperなど）を使う方が早い</p></li>
+      </ul>
+    </div>
+    <div class="menu-group rise" style="--i:3">
+      <h3>Mac</h3>
+      <ul>
+        <li><div class="row"><span>Apple Silicon</span><span class="num">非公式</span></div><p>公式は非対応。有志のGGUF（IQ4_NL_L）は「Mac向け」とされている。<a href="../mac-studio-vs-macbook-pro/">Mac Studioの記事</a>の構成なら容量は足りるが、動作は未確認</p></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="verdict wrap" aria-labelledby="flow-h">
+  <h2 id="flow-h" class="rise">選び方</h2>
+  <figure class="flow rise" style="--i:1">
+<pre aria-label="選び方の流れ。リアルタイムで使いたいなら、このモデルではなくストリーミング用のNemotron 3.5 ASRへ。録音済みのファイルなら、Blackwellで32GB以上あるかを見る。あればNVFP4版。なければGGUF版を試すか、ほかのモデルにする。">リアルタイムで使いたい？
+├ はい → このモデルではない
+│　　　　 Nemotron 3.5 ASR（0.6B）へ
+└ いいえ（録音を後から処理）
+　 │
+　 Blackwellで32GB以上ある？
+　 ├ ある → NVFP4版（約21GB）
+　 └ ない → GGUF版を試すか
+　　　　　　 Whisperなどほかのモデル</pre>
+    <figcaption>録音済みの音声を家で処理する前提の分かれ道</figcaption>
+  </figure>
+  <div class="verdict-cols">
+    <div class="verdict-col rise" style="--i:1">
+      <h3>よさそうなところ</h3>
+      <ul>
+        <li>文字起こし、話者分け、翻訳が1つで済む。いままでは別々のモデルをつなぐ必要があった</li>
+        <li>専門用語を文章で指示できる。社内用語や人名の表記ゆれに効きそう</li>
+        <li>MoEで動く部分が約4Bなので、メモリに入りさえすれば速い</li>
+        <li>オープンで商用も可。音声を外に出さずに済む</li>
+      </ul>
+    </div>
+    <div class="verdict-col rise" style="--i:2">
+      <h3>気をつけたいところ</h3>
+      <ul>
+        <li>重みは30B分あるので、VRAMは「4Bのモデル」の感覚では足りない</li>
+        <li>NVFP4はBlackwell専用。RTX 40シリーズ以前では使えない</li>
+        <li>公開直後のvLLM版は一部の最適化が入っておらず、本来の約半分の速さという紹介記事がある</li>
+        <li>話者分けの13言語に日本語が入っているかは確認できなかった</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="faq" aria-labelledby="faq-h">
+  <div class="wrap faq-inner faq-solo">
+    <div class="faq-left">
+      <h2 id="faq-h" class="rise">気になる点</h2>
+      <dl class="faq-facts rise" style="--i:1">
+        <div><dt>調べた日</dt><dd>2026年11月5日（公開から8日後）</dd></div>
+        <div><dt>情報源</dt><dd>NVIDIAの発表、モデルカード、紹介記事。自分では動かしていない</dd></div>
+      </dl>
+      <div class="qa">
+        <details class="rise">
+          <summary>日本語はどれくらい使える？</summary>
+          <p>40言語に入っていて、紹介記事ではCER 4.42%。ただ、Whisperと同じ条件で比べた数字は見つからなかった。コミュニティでは「4bit版はParakeetより遅く精度も低かった」という日本語ユーザーの声もあり、評価はまだ割れている。自分の録音で試すしかない。</p>
+        </details>
+        <details class="rise">
+          <summary>リアルタイムで使える？</summary>
+          <p>使えない。録音済みのファイルを処理するモデル。リアルタイムなら、同じ時期に出たストリーミング用のNemotron 3.5 ASR（0.6B）が別にある。こっちは小さいので家庭用のGPUでも楽に動くはず。</p>
+        </details>
+        <details class="rise">
+          <summary>RTX 4090ではまったく動かない？</summary>
+          <p>公式の対象アーキテクチャにAda（RTX 40）は入っているが、対応表に4090は載っていない。BF16もFP8も24GBには入らず、NVFP4はBlackwell専用。残るGGUFもエンコーダー込みで24GBを少し超える。2枚挿しで分ければ可能性はあるが、手軽ではない。</p>
+        </details>
+        <details class="rise">
+          <summary>音声質問応答もできる？</summary>
+          <p>できるが、学習は英語だけ。日本語の音声について質問する使い方は期待しない方がいい。</p>
+        </details>
+      </div>
+      <a class="btn faq-btn" href="https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Transcribe-30B-A4B" rel="noopener">Hugging Faceのモデルを見る</a>
+    </div>
+  </div>
+</section>
+
+<section id="conclusion" class="conclusion wrap" aria-labelledby="conclusion-h">
+  <h2 id="conclusion-h" class="rise">結論</h2>
+  <ul class="conclusion-list">
+    <li class="rise"><strong>文字起こし・話者分け・翻訳を1つでやる、NVIDIAのオープンなモデル。</strong>40言語、最大1時間、録音済みのファイル向け</li>
+    <li class="rise" style="--i:1"><strong>家で動かすなら、RTX 5090（32GB）でNVFP4版。</strong>約21GBでBlackwell専用。これが最低ラインで本命</li>
+    <li class="rise" style="--i:2"><strong>24GBのカードは厳しい。</strong>公式の対象外で、有志のGGUFでもほぼ入らない</li>
+    <li class="rise" style="--i:3">フル精度で動かすなら約75GB。RTX PRO 6000（96GB）やH100の領域で、家庭向けではない</li>
+  </ul>
+  <p class="conclusion-close rise">「4Bしか動かないなら軽いだろう」と思っていたが、載せるのは30B分だった。MoEは速さには効くがメモリには効かない、というのを改めて確認した。5090を持っていないので、試すならまずGGUF版をMacで、になりそう。</p>
+</section>
+
+</main>
+
+<footer class="back">
+  <div class="back-card">
+    <div class="back-msg">
+      <h2>調べたところ</h2>
+      <ul class="sources">
+        <li><a href="https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Transcribe-30B-A4B" rel="noopener">Hugging Face　nvidia/NVIDIA-Nemotron-3.5-Transcribe-30B-A4B（BF16）</a></li>
+        <li><a href="https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Transcribe-30B-A4B-FP8" rel="noopener">Hugging Face　同 FP8</a></li>
+        <li><a href="https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Transcribe-30B-A4B-NVFP4" rel="noopener">Hugging Face　同 NVFP4</a></li>
+        <li><a href="https://huggingface.co/AtomicChat/NVIDIA-Nemotron-3.5-Transcribe-30B-A4B-GGUF" rel="noopener">Hugging Face　AtomicChat の GGUF 版（有志）</a></li>
+        <li><a href="https://huggingface.co/blog/nvidia/nemotron-transcribe-granary" rel="noopener">Hugging Face Blog　Nemotron 3.5 Transcribe and Granary v2</a></li>
+        <li><a href="https://research.nvidia.com/labs/nemotron/NVIDIA-Nemotron-3.5-Transcribe/" rel="noopener">NVIDIA Research　Nemotron 3.5 Transcribe</a></li>
+        <li><a href="https://research.nvidia.com/labs/nemotron/files/NVIDIA-Nemotron-3.5-Transcribe-Technical-Report.pdf" rel="noopener">NVIDIA　Technical Report（PDF）</a></li>
+        <li><a href="https://docs.nvidia.com/nemotron/nightly/nemotron/transcribe35/README.html" rel="noopener">NVIDIA Docs　Nemotron 3.5 Transcribe</a></li>
+        <li><a href="https://the-decoder.com/nvidias-open-nemotron-3-5-transcribe-combines-transcription-translation-and-speaker-recognition/" rel="noopener">The Decoder　Nvidia's open Nemotron 3.5 Transcribe…</a></li>
+        <li><a href="https://www.marktechpost.com/2026/10/28/nvidia-nemotron-3-5-transcribe-open-speech-llm/" rel="noopener">MarkTechPost　NVIDIA Releases Nemotron 3.5 Transcribe</a></li>
+        <li><a href="https://aicybr.com/blog/nvidia-nemotron-3-5-transcribe-local-speech-diarization-guide" rel="noopener">aicybr　GPU Requirements and Local Setup</a></li>
+        <li><a href="https://www.mindstudio.ai/blog/run-nemotron-transcribe-locally-vllm" rel="noopener">MindStudio　How to Run Nemotron 3.5 Transcribe Locally with vLLM</a></li>
+        <li><a href="https://www.eesel.ai/blog/nemotron-3-5-transcribe" rel="noopener">eesel　Nemotron 3.5 Transcribe explained</a></li>
+      </ul>
+    </div>
+    <div class="back-addr">
+      <p class="back-sign">気になったこと</p>
+      <ul class="back-links">
+        <li><a href="../../">記録の一覧へ</a></li>
+        <li><a href="../../?tag=AI">AIの記録</a></li>
+        <li><a href="../mac-studio-vs-macbook-pro/">Mac StudioかMacBook Proか</a></li>
+      </ul>
+    </div>
+    <p class="imprint">画像：波形と文字起こしのイメージ、メモリ比較の図はどちらも自分で作ったもので、実際の出力ではない。数字は2026年11月5日時点。公式の数字と紹介記事の数字が混ざっているので、紹介記事のものは本文で「紹介記事では」と書いた。自分では動かしていない。</p>
+  </div>
+</footer>
+
+<script src="../../js/rise.js"></script>
+</body>
+</html>

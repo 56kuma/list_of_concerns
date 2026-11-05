@@ -20,6 +20,7 @@ site/                     ← 公開するのはこのフォルダだけ
 
 | 日付 | 記事 | タグ |
 | --- | --- | --- |
+| 2026-11-05 | [Nemotron 3.5 Transcribeは家で動くか](site/posts/nemotron-transcribe/index.html) | AI, GPU, 音声認識 |
 | 2026-11-03 | [Mac StudioかMacBook Proか](site/posts/mac-studio-vs-macbook-pro/index.html) | Apple, AI, iOS開発, 買うか迷い中 |
 | 2026-11-02 | [taste-skillは誰が作ったか](site/posts/taste-skill/index.html) | AI, デザイン, 開発ツール |
 | 2026-11-02 | [iOS開発に買うならどのMac](site/posts/ios-dev-mac/index.html) | Apple, iOS開発, 買うか迷い中 |
