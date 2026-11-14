@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DevinのSWE-2は本当に永久無料か ｜ 気になったこと</title>
+<meta name="description" content="「DevinのSWE-2が永久的に無料になった」という投稿を見たので、発表元をたどって裏付けを取り、SWE-2が何なのかを調べた記録。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic&family=Inter:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/site.css">
+<link rel="stylesheet" href="../../css/article.css">
+<link rel="stylesheet" href="post.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+
+<header class="hero">
+  <img class="hero-photo" src="../../img/devin-swe-2/timeline.jpg" width="1440" height="900" alt="SWE-2の無料が、9月の1か月限定、10月の延長、11月の恒久化へと変わった流れの図">
+  <div class="hero-card">
+    <div class="hero-top">
+      <a class="hero-home" href="../../">気になったこと</a>
+      <ul class="tags" aria-label="タグ">
+        <li><a class="tag" href="../../?tag=AI">AI</a></li>
+        <li><a class="tag" href="../../?tag=開発ツール">開発ツール</a></li>
+      </ul>
+    </div>
+    <h1>DevinのSWE-2は本当に永久無料か</h1>
+    <p class="hero-lead">Xで「DevinのSWE2が永久的に無料になった」という投稿が流れてきた。本当なのか発表元をたどって、そもそもSWE-2が何なのかも調べた。</p>
+    <dl class="hero-facts">
+      <div><dt>真偽</dt><dd>条件付きで本当</dd></div>
+      <div><dt>対象</dt><dd>Desktop と CLI</dd></div>
+      <div><dt>必要なプラン</dt><dd>Pro・Max・Teams</dd></div>
+    </dl>
+    <div class="hero-foot">
+      <a class="btn" href="#check-h">裏付けを見る</a>
+      <a href="#conclusion">結論だけ読む</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section class="learn wrap" aria-labelledby="learn-h">
+  <h2 id="learn-h" class="rise">この記事でわかること</h2>
+  <div class="learn-body">
+    <ul class="learn-list">
+      <li class="rise" style="--i:1"><a href="#what-h">SWE-2とは</a><span>誰が作った、何のためのモデルか</span></li>
+      <li class="rise" style="--i:2"><a href="#check-h">投稿は本当か</a><span>投稿の言い方と、発表の中身を並べる</span></li>
+      <li class="rise" style="--i:3"><a href="#history-h">無料になるまでの流れ</a><span>期間限定から恒久化まで</span></li>
+      <li class="rise" style="--i:4"><a href="#faq-h">気になる点</a><span>完全に無料なのか、SWE-2 Flashは、性能は</span></li>
+    </ul>
+    <p class="learn-short rise" style="--i:3"><strong>先に結論。</strong>投稿はおおむね本当。ただし<strong>Devin DesktopとCLIで使う場合</strong>で、<strong>Pro・Max・Teamsの有料プランに入っている人</strong>が対象。誰でもタダという話ではない。SWE-2はDevinを作っているCognitionの、コーディング専用の自社モデル。</p>
+  </div>
+</section>
+
+<section class="intro wrap" aria-labelledby="what-h">
+  <div class="intro-text">
+    <h2 id="what-h" class="rise">SWE-2とは</h2>
+    <p class="rise" style="--i:1">AIエンジニア「Devin」を作っているCognitionが、自分たちで学習させたコーディング用のモデル。ほかの会社の高いモデルを借りる代わりに、Devinの中で安く回すためのもの。</p>
+    <ul class="intro-points rise" style="--i:2">
+      <li><strong>作ったところ</strong>：Cognition（Devinの開発元）</li>
+      <li><strong>公開</strong>：2026年9月10日（紹介記事による）。Devin DesktopとCLIから提供開始</li>
+      <li><strong>向いている作業</strong>：長時間かかる、任せっぱなしの開発作業</li>
+      <li><strong>ねらい</strong>：最先端モデルに近い性能を、もっと安い値段で</li>
+      <li><strong>ベース</strong>：Kimi K3を強化学習で追加学習したもの（紹介記事による。公式では未確認）</li>
+      <li><strong>使える場所</strong>：基本はDevinの中だけ。APIや重みの一般公開はない</li>
+    </ul>
+    <p class="rise" style="--i:3">要するに、Devin専用の「安くてそこそこ強い」エンジン。自社モデルだから、無料で配っても外部への支払いが発生しない。</p>
+  </div>
+  <figure class="intro-plates">
+    <div class="plate rise" style="--i:2">
+      <img src="../../img/devin-swe-2/timeline.jpg" width="1440" height="900" alt="9月に1か月限定で無料、10月に延長、11月に恒久的な機能になった流れ" loading="lazy" decoding="async">
+      <figcaption>無料の扱いの移り変わり（自分で描いた図）</figcaption>
+    </div>
+  </figure>
+</section>
+
+<section class="changes" aria-labelledby="check-h">
+  <div class="wrap changes-inner">
+    <div class="changes-head">
+      <h2 id="check-h" class="rise">投稿は本当か</h2>
+      <p class="rise" style="--i:1">発表元はCognition公式ブログの「Devin's new Teams plan」（2026年11月12日ごろ）。投稿に貼られていた引用文と同じ内容が書かれている。</p>
+      <p class="rise" style="--i:2">ただ、自分はブログ本文を直接開いて読めていない。検索結果の要約と、それを引用したニュースで確認した。ここは割り引いて読んでほしい。</p>
+    </div>
+    <table class="diff stack">
+      <caption class="visually-hidden">投稿の言い方と、発表の中身の比較</caption>
+      <thead><tr><th scope="col">項目</th><th scope="col">投稿の言い方</th><th scope="col">発表の中身</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">期間</th><td data-label="投稿の言い方">永久的に無料</td><td data-label="発表の中身">プランの「恒久的な機能」にする。期限なし</td></tr>
+        <tr><th scope="row">使う場所</th><td data-label="投稿の言い方">書かれていない</td><td data-label="発表の中身">Devin DesktopとCLI</td></tr>
+        <tr><th scope="row">対象の人</th><td data-label="投稿の言い方">書かれていない</td><td data-label="発表の中身">Pro・Max・Teamsの加入者</td></tr>
+        <tr><th scope="row">クラウド</th><td data-label="投稿の言い方">書かれていない</td><td data-label="発表の中身">クラウドのセッションは今までどおり課金（フォーラムの報告。公式では未確認）</td></tr>
+        <tr><th scope="row">使い放題か</th><td data-label="投稿の言い方">書かれていない</td><td data-label="発表の中身">クォータは減らないが、別枠のレート制限がある（同上）</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="verdict wrap" aria-labelledby="history-h">
+  <h2 id="history-h" class="rise">無料になるまでの流れ</h2>
+  <figure class="flow rise" style="--i:1">
+<pre aria-label="SWE-2の無料の流れ。2026年9月10日に公開され、Pro・Max・Teams向けに1か月無料。その後10月8日まで無料と案内され、さらに延長。11月12日ごろ、Teamsプランの刷新と一緒に恒久的な機能になった。">9/10　　公開。Pro・Max・Teamsは1か月無料
+│　　　　DesktopとCLIから
+〜10/8　 「10月8日まで無料」の案内
+│　　　　クラウドのエージェントも対象だった
+10月〜　 無料期間をさらに延長
+│　　　　公式ドキュメントは「11/30まで」
+11/12頃　恒久的な機能に
+　　　　 Teamsプランの刷新と同時</pre>
+    <figcaption>Cognitionの投稿と紹介記事をもとにした年表。日付は紹介記事によるものを含む</figcaption>
+  </figure>
+  <div class="verdict-cols">
+    <div class="verdict-col rise" style="--i:1">
+      <h3>同じ発表で変わったこと</h3>
+      <ul>
+        <li>Teamsに、SWE-2で動く「Freeモード」が付いた。1人あたり同時2セッションまで無料で、増やすのは有料</li>
+        <li>Devin DesktopがTeamsのメンバー全員に無料になった</li>
+        <li>Teamsの席数の上限が200から100に減った</li>
+      </ul>
+    </div>
+    <div class="verdict-col rise" style="--i:2">
+      <h3>気をつけたいところ</h3>
+      <ul>
+        <li>9〜10月の記事にある「10月10日まで」などの終了日は、恒久化より前の情報</li>
+        <li>公式ドキュメントはまだ「11月30日まで無料」のままらしい（フォーラムの報告）</li>
+        <li>無料プランの人は対象に入っていない</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="faq" aria-labelledby="faq-h">
+  <div class="wrap faq-inner faq-solo">
+    <div class="faq-left">
+      <h2 id="faq-h" class="rise">気になる点</h2>
+      <dl class="faq-facts rise" style="--i:1">
+        <div><dt>調べた日</dt><dd>2026年11月14日</dd></div>
+        <div><dt>一次情報</dt><dd>Cognition公式ブログ、公式のX投稿</dd></div>
+        <div><dt>自分で試したか</dt><dd>試していない</dd></div>
+      </dl>
+      <div class="qa">
+        <details class="rise">
+          <summary>結局、お金を払わずに使える？</summary>
+          <p>使えない。Pro・Max・Teamsのどれかに入っている必要がある。「有料プランの中で、SWE-2を使う分は追加でかからない」という意味の無料。</p>
+        </details>
+        <details class="rise">
+          <summary>SWE-2 Flashも永久無料？</summary>
+          <p>確認できなかった。Cognitionの投稿では、SWE-2 Flashは「今月末まで無料」という期間限定の扱い。今回の恒久化に含まれるかどうかは書かれていない。</p>
+        </details>
+        <details class="rise">
+          <summary>性能はどれくらい？</summary>
+          <p>Cognitionの公表では、FrontierCode 1.1 Mainで50.0%、Terminal-Bench 4で27.3%。ただし自社で測った数字で、第三者の評価は見つからなかった。参考程度に見ている。</p>
+        </details>
+        <details class="rise">
+          <summary>なぜ無料にできる？</summary>
+          <p>ここは自分の推測。自社モデルなので他社に利用料を払わなくていいことと、DesktopやCLIを入口にして有料プランに入ってもらいたいこと、の2つだと思う。公式に理由が書かれているわけではない。</p>
+        </details>
+      </div>
+      <a class="btn faq-btn" href="https://devin.ai/blog/devin-teams-plan" rel="noopener">公式ブログの発表を見る</a>
+    </div>
+  </div>
+</section>
+
+<section id="conclusion" class="conclusion wrap" aria-labelledby="conclusion-h">
+  <h2 id="conclusion-h" class="rise">結論</h2>
+  <ul class="conclusion-list">
+    <li class="rise"><strong>投稿はおおむね本当。</strong>Cognitionが、SWE-2の無料利用をプランの恒久的な機能にすると発表している</li>
+    <li class="rise" style="--i:1"><strong>条件は2つ。</strong>Devin DesktopかCLIで使うこと、Pro・Max・Teamsに入っていること</li>
+    <li class="rise" style="--i:2"><strong>SWE-2はCognitionの自社コーディングモデル。</strong>Devinの中でだけ使える、安さと性能の両立をねらったもの</li>
+    <li class="rise" style="--i:3">クラウドの課金やレート制限、SWE-2 Flashの扱いは、公式の情報で確認できていない</li>
+  </ul>
+  <p class="conclusion-close rise">「永久無料」とだけ聞くと誰でもタダに見えるが、たどってみると「有料プランのおまけが期限なしになった」という話だった。それでも月額の中でモデル代を気にせず回せるのは大きい。使うなら、まずドキュメントの記載が更新されたかを見てからにする。</p>
+</section>
+
+</main>
+
+<footer class="back">
+  <div class="back-card">
+    <div class="back-msg">
+      <h2>調べたところ</h2>
+      <ul class="sources">
+        <li><a href="https://devin.ai/blog/devin-teams-plan" rel="noopener">Cognition　Devin's new Teams plan（公式ブログ）</a></li>
+        <li><a href="https://x.com/cognition/status/2098069247842812103" rel="noopener">X　Cognition：SWE-2の公開と1か月無料の告知</a></li>
+        <li><a href="https://x.com/dabit3/status/2101684714318778414" rel="noopener">X　nader dabit：10月8日まで無料の案内</a></li>
+        <li><a href="https://x.com/cognition/status/2118069629713305678" rel="noopener">X　Cognition：SWE-2 Flashの無料告知</a></li>
+        <li><a href="https://alphasignal.ai/news/cognition-drops-devin-teams-seat-fees-and-adds-enterprise-controls" rel="noopener">AlphaSignal　Cognition Drops Devin Teams Seat Fees…</a></li>
+        <li><a href="https://linux.do/t/topic/3169446" rel="noopener">LINUX DO　devin swe-2宣布永久免费（フォーラム）</a></li>
+        <li><a href="https://runtimewire.com/zh/article/cognition-swe-2-coding-model-scott-wu" rel="noopener">runtimewire　Cognition 推出 SWE-2</a></li>
+        <li><a href="https://www.orcarouter.ai/blog/cognition-swe-2-release" rel="noopener">orcarouter　Cognition SWE-2 release</a></li>
+        <li><a href="https://www.llmreference.com/model/swe-2" rel="noopener">LLM Reference　SWE-2</a></li>
+      </ul>
+    </div>
+    <div class="back-addr">
+      <p class="back-sign">気になったこと</p>
+      <ul class="back-links">
+        <li><a href="../../">記録の一覧へ</a></li>
+        <li><a href="../../?tag=AI">AIの記録</a></li>
+        <li><a href="../taste-skill/">taste-skillは誰が作ったか</a></li>
+      </ul>
+    </div>
+    <p class="imprint">画像：無料の移り変わりの図は自分で作ったもの。情報は2026年11月14日時点。公式ブログの本文は直接読めておらず、検索結果の要約とニュース記事で確認した。モデルの中身やベンチマークの数字は紹介記事とCognitionの公表によるもので、自分では試していない。</p>
+  </div>
+</footer>
+
+<script src="../../js/rise.js"></script>
+</body>
+</html>
