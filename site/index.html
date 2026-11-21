@@ -158,7 +158,13 @@
     <p class="empty" id="empty" hidden>見つからなかった。言葉かタグを変えてみて。</p>
   </div>
 
-  <p class="mono hint">BROWSE → PICK → READ<span class="hint-keys">　← → でめくる</span></p>
+  <div class="hint-row">
+    <p class="mono hint">BROWSE → PICK → READ<span class="hint-keys">　← → かクリックでめくる</span></p>
+    <div class="pager" role="group" aria-label="めくる">
+      <button class="pager-btn" type="button" data-step="-1" title="前へ"><span aria-hidden="true">←</span><span class="visually-hidden">前の記録</span></button>
+      <button class="pager-btn" type="button" data-step="1" title="次へ"><span aria-hidden="true">→</span><span class="visually-hidden">次の記録</span></button>
+    </div>
+  </div>
 </main>
 
 <nav class="tabbar" aria-label="タグで絞り込む">

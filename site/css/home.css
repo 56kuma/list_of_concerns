@@ -99,12 +99,13 @@ html:not(.js) .entry-tags { display: flex; padding: 0 var(--s3) var(--s3); }
 /* ===== めくって見る（カードの束） ===== */
 .is-fan .display { position: relative; z-index: 0; }
 .is-fan .fan-wrap { position: relative; margin-top: calc(clamp(64px, 8vw, 110px) * -1); height: clamp(420px, 37vw, 480px); perspective: 1800px; }
-.is-fan .entries { display: block; position: absolute; inset: 0; margin: 0; transform-style: preserve-3d; }
+/* 束の入れ物はクリックを受けない（受けると奥のカードに届かない）。カードだけが受ける */
+.is-fan .entries { display: block; position: absolute; inset: 0; margin: 0; transform-style: preserve-3d; pointer-events: none; }
 .is-fan .entry {
   position: absolute; left: 0; top: 0; width: var(--card-w, 300px);
   transform: var(--t); opacity: var(--o, 1); z-index: var(--z, 1);
   transition: transform .75s cubic-bezier(.2, .8, .2, 1), opacity .5s var(--ease), box-shadow .4s var(--ease);
-  will-change: transform; cursor: pointer;
+  will-change: transform; cursor: pointer; pointer-events: auto;
 }
 .is-fan .entry:hover { transform: var(--t); }
 .is-fan .entry.is-active { box-shadow: 0 1px 2px rgba(38, 55, 47, .08), 0 30px 60px -20px rgba(38, 55, 47, .4); }
@@ -135,8 +136,21 @@ html:not(.js) .entry-tags { display: flex; padding: 0 var(--s3) var(--s3); }
 .detail-foot span { color: var(--muted); font-size: .8125rem; }
 .btn-s { min-height: 40px; padding: 0 var(--s3); font-size: .875rem; gap: 6px; }
 
-.hint { margin-top: var(--s5); color: var(--muted); }
+.hint-row { display: flex; justify-content: space-between; align-items: center; gap: var(--s3); margin-top: var(--s5); }
+.hint { color: var(--muted); }
 .is-fan .hint-keys { display: inline; }
+/* めくる向きだけを指す矢印のカーソル（w-resize などは両向きに見える環境がある） */
+.is-fan .fan-wrap[data-side="prev"] { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36'%3E%3Ccircle cx='18' cy='18' r='16' fill='%2326372f' stroke='%23f4f7f0' stroke-width='2'/%3E%3Cpath d='M24 18H12m5-5l-5 5 5 5' fill='none' stroke='%23f4f7f0' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") 18 18, pointer; }
+.is-fan .fan-wrap[data-side="next"] { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36'%3E%3Ccircle cx='18' cy='18' r='16' fill='%2326372f' stroke='%23f4f7f0' stroke-width='2'/%3E%3Cpath d='M12 18h12m-5-5l5 5-5 5' fill='none' stroke='%23f4f7f0' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") 18 18, pointer; }
+.pager { display: none; gap: 6px; user-select: none; -webkit-user-select: none; }
+.is-fan .pager { display: flex; }
+.pager-btn {
+  display: grid; place-items: center; width: 45px; height: 45px; border: 0; border-radius: 14px;
+  background: var(--glass); color: var(--ink); box-shadow: var(--shadow-s); cursor: pointer;
+  font: 500 1rem var(--font-mono);
+  transition: background-color .2s var(--ease), color .2s var(--ease);
+}
+.pager-btn:hover { background: var(--ink); color: var(--accent-ink); }
 
 /* ===== 下のタブ（タグで絞り込む） ===== */
 .tabbar {

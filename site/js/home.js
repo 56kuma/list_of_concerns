@@ -78,6 +78,7 @@
   let tag = '';
   let shown = data;
   let active = 0;
+  let center = 0; // 選んだカードの、めくり終わったあとの中心（束の左端から）
   let view = 'fan';
   try { view = localStorage.getItem('loc-view') === 'grid' ? 'grid' : 'fan'; } catch (e) { /* 保存できなくても動く */ }
 
@@ -134,6 +135,7 @@
     const baseX = narrow ? (W - cw) * 0.5 : Math.min(W * 0.24, W - panel - cw - 40);
     const baseY = narrow ? 40 : 50;
     const n = shown.length;
+    center = baseX + cw / 2;
 
     shown.forEach((d, i) => {
       const k = offset(i, n);
@@ -190,15 +192,42 @@
     if (b) setTag(b.dataset.tag);
   });
 
+  // 外をクリックしてめくった直後は、動いているカードに次のクリックが当たっても同じ向きにめくる
+  let last = { t: 0, s: 0 };
+  const recent = () => Date.now() - last.t < 600;
+  const flip = (s) => { last = { t: Date.now(), s }; go(s); };
+
   list.addEventListener('click', (e) => {
     if (view !== 'fan') return;
     const li = e.target.closest('.entry');
+    if (li && recent()) { e.preventDefault(); flip(last.s); return; }
     const i = shown.findIndex((d) => d.el === li);
     if (i < 0 || i === active) return;
     e.preventDefault();
     active = i;
     layout();
   });
+
+  // カードの外をクリックしたら、選んだカードより左なら前へ、右なら次へめくる
+  const side = (e) => {
+    if (view !== 'fan' || shown.length < 2 || e.target.closest('.entry, .detail, a, button')) return 0;
+    // 動いている途中のカードの位置ではなく、止まる位置で左右を決める
+    return e.clientX < wrap.getBoundingClientRect().left + center ? -1 : 1;
+  };
+  // 続けてクリックしたときに文字が選ばれて、めくれなくなるのを防ぐ
+  wrap.addEventListener('mousedown', (e) => {
+    if (e.detail > 1 && (side(e) || recent())) e.preventDefault();
+  });
+  wrap.addEventListener('click', (e) => {
+    const s = side(e);
+    if (s && !getSelection().toString()) flip(s);
+  });
+  wrap.addEventListener('mousemove', (e) => {
+    const s = side(e);
+    wrap.dataset.side = s < 0 ? 'prev' : s > 0 ? 'next' : '';
+  });
+  wrap.addEventListener('mouseleave', () => { wrap.dataset.side = ''; });
+  document.querySelectorAll('.pager-btn').forEach((b) => b.addEventListener('click', () => go(Number(b.dataset.step))));
 
   document.querySelectorAll('.view-btn').forEach((b) => b.addEventListener('click', () => {
     view = b.dataset.view;
