@@ -5,136 +5,168 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>気になったこと</title>
 <meta name="description" content="36歳、一児の親、エンジニア歴15年目の自分が、気になったことを記録しておく場所。手を付ける前のメモ代わり。">
+<meta name="theme-color" content="#eceee6">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Shippori+Mincho:wght@500;600&family=Space+Grotesk:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/site.css">
 <link rel="stylesheet" href="css/home.css">
 <script>document.documentElement.classList.add('js')</script>
 </head>
-<body>
+<body class="home">
 
-<header class="home-head wrap">
-  <h1 class="rise">気になったこと</h1>
-  <p class="home-lead rise" style="--i:1">36歳、一児の親、エンジニア歴15年目の自分が、気になったことを記録しておく場所。手を付ける前のメモ代わり。タグで絞り込める。</p>
+<header class="topbar wrap">
+  <p class="mono topbar-meta" id="range">RECORDS / 001—007</p>
+  <p class="topbar-right"><span class="mono signal">気になったこと</span><span class="mono vol" id="vol">VOL. 007</span></p>
 </header>
 
-<main class="wrap">
-  <nav class="filter rise" style="--i:2" aria-label="タグで絞り込む">
-    <ul class="tags" id="tag-filter">
-      <li><button class="tag" type="button" data-tag="" aria-pressed="true">すべて</button></li>
-    </ul>
-  </nav>
+<div class="dock wrap">
+  <div class="searchbar">
+    <span class="stack-chip">記録<b class="mono" id="total">7</b></span>
+    <label class="search">
+      <svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M13 13l4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <span class="visually-hidden">記録を探す</span>
+      <input id="q" type="search" placeholder="記録を探す…" autocomplete="off">
+      <kbd class="mono">/</kbd>
+    </label>
+    <div class="views" role="group" aria-label="表示の切り替え">
+      <button class="view-btn" type="button" data-view="fan" aria-pressed="true" title="めくって見る">
+        <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><rect x="6" y="4" width="8" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3 6v8M17 6v8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span class="visually-hidden">めくって見る</span>
+      </button>
+      <button class="view-btn" type="button" data-view="grid" aria-pressed="false" title="一覧で見る">
+        <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><rect x="3" y="3" width="6" height="6" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="11" y="3" width="6" height="6" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="11" width="6" height="6" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="11" y="11" width="6" height="6" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+        <span class="visually-hidden">一覧で見る</span>
+      </button>
+    </div>
+  </div>
+</div>
 
-  <p class="count" id="count" aria-live="polite"></p>
+<main class="wrap stage">
+  <p class="mono eyebrow">36歳・一児の親・エンジニア歴15年目。手を付ける前のメモ。</p>
+  <h1 class="display" id="display">気になったら、<br>調べておく。</h1>
 
-  <ol class="entries" id="entries" reversed>
-    <li class="entry rise" data-tags="お金,子育て">
-      <a class="entry-link" href="posts/kodomo-nisa-rakuten/">
-        <img class="entry-photo" src="img/kodomo-nisa/withdraw.jpg" width="1440" height="900" alt="こどもNISAの年齢ごとの引き出しの扱いを示した図">
-        <div class="entry-body">
-          <h2>楽天のこどもNISAはいつから、いつ引き出せるか</h2>
-          <p>開始は2027年1月で、扱うのは楽天証券。引き出しは小6の1月から、教育費か生活費に限り子の同意つきで。楽天銀行の普通預金は別物。</p>
-          <p class="entry-date"><time datetime="2026-11-15">2026年11月15日</time></p>
-        </div>
-      </a>
-      <ul class="tags entry-tags" aria-label="タグ">
-        <li><a class="tag" href="?tag=お金">お金</a></li>
-        <li><a class="tag" href="?tag=子育て">子育て</a></li>
-      </ul>
-    </li>
-    <li class="entry rise" data-tags="AI,開発ツール">
-      <a class="entry-link" href="posts/devin-swe-2/">
-        <img class="entry-photo" src="img/devin-swe-2/timeline.jpg" width="1440" height="900" alt="SWE-2の無料が期間限定から恒久になるまでの流れの図">
-        <div class="entry-body">
-          <h2>DevinのSWE-2は本当に永久無料か</h2>
-          <p>Xで見た投稿の裏付けを取った。おおむね本当だが、DesktopとCLIで、Pro・Max・Teamsの加入者が対象。SWE-2はCognitionの自社コーディングモデル。</p>
-          <p class="entry-date"><time datetime="2026-11-14">2026年11月14日</time></p>
-        </div>
-      </a>
-      <ul class="tags entry-tags" aria-label="タグ">
-        <li><a class="tag" href="?tag=AI">AI</a></li>
-        <li><a class="tag" href="?tag=開発ツール">開発ツール</a></li>
-      </ul>
-    </li>
-    <li class="entry rise" data-tags="AI,GPU,音声認識">
-      <a class="entry-link" href="posts/nemotron-transcribe/">
-        <img class="entry-photo" src="img/nemotron-transcribe/waveform.jpg" width="1440" height="900" alt="音声の波形と、話者ごとに分けた文字起こしのイメージ図">
-        <div class="entry-body">
-          <h2>Nemotron 3.5 Transcribeは家で動くか</h2>
-          <p>NVIDIAのオープンな文字起こしモデル。話者分けと翻訳も1つでやる。家ならRTX 5090（32GB）でNVFP4版が最低ラインで本命。</p>
-          <p class="entry-date"><time datetime="2026-11-05">2026年11月5日</time></p>
-        </div>
-      </a>
-      <ul class="tags entry-tags" aria-label="タグ">
-        <li><a class="tag" href="?tag=AI">AI</a></li>
-        <li><a class="tag" href="?tag=GPU">GPU</a></li>
-        <li><a class="tag" href="?tag=音声認識">音声認識</a></li>
-      </ul>
-    </li>
-    <li class="entry rise" data-tags="Apple,AI,iOS開発,買うか迷い中">
-      <a class="entry-link" href="posts/mac-studio-vs-macbook-pro/">
-        <img class="entry-photo" src="img/mac-studio/mac-studio-1.jpg" width="1920" height="1920" alt="木の机に置かれたMac Studio">
-        <div class="entry-body">
-          <h2>Mac StudioかMacBook Proか</h2>
-          <p>ローカルLLM、iOSのビルド、Blender。同じ約120万円で、M5 UltraのStudioとM5 MaxのProを比べた。GPUと帯域は約2倍違う。</p>
-          <p class="entry-date"><time datetime="2026-11-03">2026年11月3日</time></p>
-        </div>
-      </a>
-      <ul class="tags entry-tags" aria-label="タグ">
-        <li><a class="tag" href="?tag=Apple">Apple</a></li>
-        <li><a class="tag" href="?tag=AI">AI</a></li>
-        <li><a class="tag" href="?tag=iOS開発">iOS開発</a></li>
-        <li><a class="tag" href="?tag=買うか迷い中">買うか迷い中</a></li>
-      </ul>
-    </li>
-    <li class="entry rise" data-tags="AI,デザイン,開発ツール">
-      <a class="entry-link" href="posts/taste-skill/">
-        <img class="entry-photo" src="img/taste-skill/ai-like-sample.jpg" width="1440" height="720" alt="紫のグラデーションと3枚のカードが並ぶ、よくあるAIっぽいページの例">
-        <div class="entry-body">
-          <h2>taste-skillは誰が作ったか</h2>
-          <p>このサイトのデザインに使ったAI用スキル。作者はミュンヘンの個人開発者で、目的はAIに平均的なページを作らせないこと。</p>
-          <p class="entry-date"><time datetime="2026-11-02">2026年11月2日</time></p>
-        </div>
-      </a>
-      <ul class="tags entry-tags" aria-label="タグ">
-        <li><a class="tag" href="?tag=AI">AI</a></li>
-        <li><a class="tag" href="?tag=デザイン">デザイン</a></li>
-        <li><a class="tag" href="?tag=開発ツール">開発ツール</a></li>
-      </ul>
-    </li>
-    <li class="entry rise" data-tags="Apple,iOS開発,買うか迷い中">
-      <a class="entry-link" href="posts/ios-dev-mac/">
-        <img class="entry-photo" src="img/macbook/m3-macbook-pro-14-inch-space-grey.jpg" width="1920" height="1440" alt="店頭に置かれた14インチMacBook Pro">
-        <div class="entry-body">
-          <h2>iOS開発に買うならどのMac</h2>
-          <p>Mac mini（M6）とMacBook Air（M5）・Pro（M6）を、iOSアプリ開発の場面ごとに比べた。決め手は場所とモニター。</p>
-          <p class="entry-date"><time datetime="2026-11-02">2026年11月2日</time></p>
-        </div>
-      </a>
-      <ul class="tags entry-tags" aria-label="タグ">
-        <li><a class="tag" href="?tag=Apple">Apple</a></li>
-        <li><a class="tag" href="?tag=iOS開発">iOS開発</a></li>
-        <li><a class="tag" href="?tag=買うか迷い中">買うか迷い中</a></li>
-      </ul>
-    </li>
-    <li class="entry rise" data-tags="Apple,ガジェット,買うか迷い中">
-      <a class="entry-link" href="posts/mac-mini-2026/">
-        <img class="entry-photo" src="img/mac-mini/mac-mini-2024-m4.jpg" width="1920" height="1613" alt="木の机に置かれたMac mini">
-        <div class="entry-body">
-          <h2>Mac mini（M6）は買いか</h2>
-          <p>M4のときより5万5千円上がった新型。どの構成なら後悔しないか、価格表と見積もりで整理した。</p>
-          <p class="entry-date"><time datetime="2026-11-02">2026年11月2日</time></p>
-        </div>
-      </a>
-      <ul class="tags entry-tags" aria-label="タグ">
-        <li><a class="tag" href="?tag=Apple">Apple</a></li>
-        <li><a class="tag" href="?tag=ガジェット">ガジェット</a></li>
-        <li><a class="tag" href="?tag=買うか迷い中">買うか迷い中</a></li>
-      </ul>
-    </li>
-  </ol>
+  <div class="fan-wrap" id="fan-wrap">
+    <ol class="entries" id="entries" reversed>
+      <li class="entry" data-tags="お金,子育て">
+        <a class="entry-link" href="posts/kodomo-nisa-rakuten/">
+          <img class="entry-photo" src="img/kodomo-nisa/withdraw.jpg" width="1440" height="900" alt="こどもNISAの年齢ごとの引き出しの扱いを示した図">
+          <div class="entry-body">
+            <h2>楽天のこどもNISAはいつから、いつ引き出せるか</h2>
+            <p>開始は2027年1月で、扱うのは楽天証券。引き出しは小6の1月から、教育費か生活費に限り子の同意つきで。楽天銀行の普通預金は別物。</p>
+            <p class="entry-date"><time datetime="2026-11-15">2026年11月15日</time></p>
+          </div>
+        </a>
+        <ul class="tags entry-tags" aria-label="タグ">
+          <li><a class="tag" href="?tag=お金">お金</a></li>
+          <li><a class="tag" href="?tag=子育て">子育て</a></li>
+        </ul>
+      </li>
+      <li class="entry" data-tags="AI,開発ツール">
+        <a class="entry-link" href="posts/devin-swe-2/">
+          <img class="entry-photo" src="img/devin-swe-2/timeline.jpg" width="1440" height="900" alt="SWE-2の無料が期間限定から恒久になるまでの流れの図">
+          <div class="entry-body">
+            <h2>DevinのSWE-2は本当に永久無料か</h2>
+            <p>Xで見た投稿の裏付けを取った。おおむね本当だが、DesktopとCLIで、Pro・Max・Teamsの加入者が対象。SWE-2はCognitionの自社コーディングモデル。</p>
+            <p class="entry-date"><time datetime="2026-11-14">2026年11月14日</time></p>
+          </div>
+        </a>
+        <ul class="tags entry-tags" aria-label="タグ">
+          <li><a class="tag" href="?tag=AI">AI</a></li>
+          <li><a class="tag" href="?tag=開発ツール">開発ツール</a></li>
+        </ul>
+      </li>
+      <li class="entry" data-tags="AI,GPU,音声認識">
+        <a class="entry-link" href="posts/nemotron-transcribe/">
+          <img class="entry-photo" src="img/nemotron-transcribe/waveform.jpg" width="1440" height="900" alt="音声の波形と、話者ごとに分けた文字起こしのイメージ図">
+          <div class="entry-body">
+            <h2>Nemotron 3.5 Transcribeは家で動くか</h2>
+            <p>NVIDIAのオープンな文字起こしモデル。話者分けと翻訳も1つでやる。家ならRTX 5090（32GB）でNVFP4版が最低ラインで本命。</p>
+            <p class="entry-date"><time datetime="2026-11-05">2026年11月5日</time></p>
+          </div>
+        </a>
+        <ul class="tags entry-tags" aria-label="タグ">
+          <li><a class="tag" href="?tag=AI">AI</a></li>
+          <li><a class="tag" href="?tag=GPU">GPU</a></li>
+          <li><a class="tag" href="?tag=音声認識">音声認識</a></li>
+        </ul>
+      </li>
+      <li class="entry" data-tags="Apple,AI,iOS開発,買うか迷い中">
+        <a class="entry-link" href="posts/mac-studio-vs-macbook-pro/">
+          <img class="entry-photo" src="img/mac-studio/mac-studio-1.jpg" width="1920" height="1920" alt="木の机に置かれたMac Studio">
+          <div class="entry-body">
+            <h2>Mac StudioかMacBook Proか</h2>
+            <p>ローカルLLM、iOSのビルド、Blender。同じ約120万円で、M5 UltraのStudioとM5 MaxのProを比べた。GPUと帯域は約2倍違う。</p>
+            <p class="entry-date"><time datetime="2026-11-03">2026年11月3日</time></p>
+          </div>
+        </a>
+        <ul class="tags entry-tags" aria-label="タグ">
+          <li><a class="tag" href="?tag=Apple">Apple</a></li>
+          <li><a class="tag" href="?tag=AI">AI</a></li>
+          <li><a class="tag" href="?tag=iOS開発">iOS開発</a></li>
+          <li><a class="tag" href="?tag=買うか迷い中">買うか迷い中</a></li>
+        </ul>
+      </li>
+      <li class="entry" data-tags="AI,デザイン,開発ツール">
+        <a class="entry-link" href="posts/taste-skill/">
+          <img class="entry-photo" src="img/taste-skill/ai-like-sample.jpg" width="1440" height="720" alt="紫のグラデーションと3枚のカードが並ぶ、よくあるAIっぽいページの例">
+          <div class="entry-body">
+            <h2>taste-skillは誰が作ったか</h2>
+            <p>このサイトのデザインに使ったAI用スキル。作者はミュンヘンの個人開発者で、目的はAIに平均的なページを作らせないこと。</p>
+            <p class="entry-date"><time datetime="2026-11-02">2026年11月2日</time></p>
+          </div>
+        </a>
+        <ul class="tags entry-tags" aria-label="タグ">
+          <li><a class="tag" href="?tag=AI">AI</a></li>
+          <li><a class="tag" href="?tag=デザイン">デザイン</a></li>
+          <li><a class="tag" href="?tag=開発ツール">開発ツール</a></li>
+        </ul>
+      </li>
+      <li class="entry" data-tags="Apple,iOS開発,買うか迷い中">
+        <a class="entry-link" href="posts/ios-dev-mac/">
+          <img class="entry-photo" src="img/macbook/m3-macbook-pro-14-inch-space-grey.jpg" width="1920" height="1440" alt="店頭に置かれた14インチMacBook Pro">
+          <div class="entry-body">
+            <h2>iOS開発に買うならどのMac</h2>
+            <p>Mac mini（M6）とMacBook Air（M5）・Pro（M6）を、iOSアプリ開発の場面ごとに比べた。決め手は場所とモニター。</p>
+            <p class="entry-date"><time datetime="2026-11-02">2026年11月2日</time></p>
+          </div>
+        </a>
+        <ul class="tags entry-tags" aria-label="タグ">
+          <li><a class="tag" href="?tag=Apple">Apple</a></li>
+          <li><a class="tag" href="?tag=iOS開発">iOS開発</a></li>
+          <li><a class="tag" href="?tag=買うか迷い中">買うか迷い中</a></li>
+        </ul>
+      </li>
+      <li class="entry" data-tags="Apple,ガジェット,買うか迷い中">
+        <a class="entry-link" href="posts/mac-mini-2026/">
+          <img class="entry-photo" src="img/mac-mini/mac-mini-2024-m4.jpg" width="1920" height="1613" alt="木の机に置かれたMac mini">
+          <div class="entry-body">
+            <h2>Mac mini（M6）は買いか</h2>
+            <p>M4のときより5万5千円上がった新型。どの構成なら後悔しないか、価格表と見積もりで整理した。</p>
+            <p class="entry-date"><time datetime="2026-11-02">2026年11月2日</time></p>
+          </div>
+        </a>
+        <ul class="tags entry-tags" aria-label="タグ">
+          <li><a class="tag" href="?tag=Apple">Apple</a></li>
+          <li><a class="tag" href="?tag=ガジェット">ガジェット</a></li>
+          <li><a class="tag" href="?tag=買うか迷い中">買うか迷い中</a></li>
+        </ul>
+      </li>
+    </ol>
+
+    <aside class="detail" id="detail" aria-live="polite" hidden></aside>
+    <p class="empty" id="empty" hidden>見つからなかった。言葉かタグを変えてみて。</p>
+  </div>
+
+  <p class="mono hint">BROWSE → PICK → READ<span class="hint-keys">　← → でめくる</span></p>
 </main>
+
+<nav class="tabbar" aria-label="タグで絞り込む">
+  <ul class="tabs" id="tag-filter">
+    <li><button class="tab" type="button" data-tag="" aria-pressed="true">すべて</button></li>
+  </ul>
+  <p class="mono tab-count" id="count" aria-live="polite"></p>
+</nav>
 
 <footer class="home-foot">
   <div class="wrap home-foot-inner">
@@ -143,7 +175,6 @@
   </div>
 </footer>
 
-<script src="js/tags.js"></script>
-<script src="js/rise.js"></script>
+<script src="js/home.js"></script>
 </body>
 </html>
