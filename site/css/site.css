@@ -1,25 +1,36 @@
 /* 気になったこと — 全ページ共通
    視認性が最優先。比率はすべて白銀比（1 : √2 ≒ 1.414）で刻む。
-   雰囲気はApple寄り：白と薄いグレーの面、黒い帯、青いボタン、余白で区切る。 */
+   雰囲気は「道具箱」：ラベンダーとミントのにじんだ地、白いカード、深い緑の角丸、
+   小さなラベルは等幅、大きな見出しは明朝／セリフを薄く。 */
 
 :root {
-  --bg: #ffffff;
-  --surface: #f5f5f7;
+  /* 色：薄いラベンダーからミントへのにじみ、深い緑の墨、差し色は朱 */
+  --bg: #eceee6;
+  --bg-lilac: #e7e4ec;
+  --bg-mint: #e6eedf;
+  --surface: #f8f9f4;
   --paper: #ffffff;
-  --line: #d2d2d7;
-  --ink: #1d1d1f;
-  --muted: #6e6e73;
-  --accent: #0071e3;
-  --accent-ink: #ffffff;
-  --accent-deep: #0062c4;
-  --link: #0066cc;
-  --night: #000000;
-  --night-2: #1d1d1f;
-  --night-ink: #f5f5f7;
-  --night-muted: #a1a1a6;
+  --glass: rgba(251, 252, 248, .78);
+  --line: #d7ddd2;
+  --ink: #26372f;
+  --muted: #69756d;
+  --faint: #9aa59c;
+  --accent: #26372f;
+  --accent-ink: #f4f7f0;
+  --accent-deep: #1a2721;
+  --link: #3b6a4c;
+  --signal: #c2562f;
+  --night: #26372f;
+  --night-2: #30443a;
+  --night-ink: #eef2ea;
+  --night-muted: #a9b6ab;
+  --shadow: 0 1px 2px rgba(38, 55, 47, .06), 0 18px 40px -18px rgba(38, 55, 47, .28);
+  --shadow-s: 0 1px 2px rgba(38, 55, 47, .06), 0 8px 20px -12px rgba(38, 55, 47, .22);
 
-  --font-display: -apple-system, BlinkMacSystemFont, "Inter", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", system-ui, sans-serif;
-  --font-text: -apple-system, BlinkMacSystemFont, "Inter", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic UI", system-ui, sans-serif;
+  --font-display: "Space Grotesk", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", system-ui, sans-serif;
+  --font-text: "Space Grotesk", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic UI", system-ui, sans-serif;
+  --font-serif: "Instrument Serif", "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --font-mono: "IBM Plex Mono", "BIZ UDGothic", ui-monospace, monospace;
 
   /* 白銀比の刻み：8・11・16・23・32・45・64・90・128・181 */
   --s1: 8px; --s2: 11px; --s3: 16px; --s4: 23px; --s5: 32px;
@@ -48,7 +59,11 @@
 html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
 body {
   margin: 0;
-  background: var(--bg);
+  background:
+    radial-gradient(60vmax 50vmax at 0% 0%, var(--bg-lilac), transparent 70%),
+    radial-gradient(70vmax 60vmax at 100% 60%, var(--bg-mint), transparent 70%),
+    var(--bg);
+  background-attachment: fixed;
   color: var(--ink);
   font-family: var(--font-text);
   font-size: var(--step-body);
@@ -61,7 +76,7 @@ img { display: block; max-width: 100%; height: auto; }
 a { color: var(--link); text-decoration: none; }
 a:hover { text-decoration: underline; text-underline-offset: 0.2em; }
 :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
-::selection { background: #b3d7ff; color: var(--ink); }
+::selection { background: #cfe3c2; color: var(--ink); }
 h1, h2, h3 {
   font-family: var(--font-display);
   font-weight: 700;
@@ -69,15 +84,17 @@ h1, h2, h3 {
   line-height: 1.25;
   margin: 0;
   text-wrap: balance;
+  word-break: auto-phrase;
 }
 p { margin: 0; }
-code { font-size: .9em; background: var(--surface); border-radius: 6px; padding: 1px 6px; overflow-wrap: anywhere; }
+code { font-family: var(--font-mono); font-size: .86em; background: var(--surface); border-radius: 6px; padding: 1px 6px; overflow-wrap: anywhere; }
+.mono { font-family: var(--font-mono); font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; }
 .num { font-family: var(--font-display); font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
 
 /* frame */
 .wrap { padding-inline: var(--margin); max-width: calc(var(--max) + var(--margin) * 2); margin-inline: auto; }
 
-/* button: Appleの青い角丸 */
+/* button: 深い緑の角丸 */
 .btn {
   display: inline-flex; align-items: center; justify-content: center;
   min-height: 45px; padding: 0 var(--s4);
@@ -90,6 +107,8 @@ code { font-size: .9em; background: var(--surface); border-radius: 6px; padding:
 .btn:hover { background: var(--accent-deep); color: var(--accent-ink); text-decoration: none; }
 .btn:active { transform: scale(.97); }
 
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
 /* tags */
 .tag {
   display: inline-flex; align-items: center; min-height: 40px; padding: 0 var(--s3);
@@ -99,9 +118,9 @@ code { font-size: .9em; background: var(--surface); border-radius: 6px; padding:
   text-decoration: none; cursor: pointer;
   transition: background-color .2s var(--ease), color .2s var(--ease), transform .2s var(--ease);
 }
-.tag:hover { background: #e8e8ed; color: var(--ink); text-decoration: none; }
+.tag:hover { background: #e4e9df; color: var(--ink); text-decoration: none; }
 .tag:active { transform: scale(.96); }
-.tag[aria-pressed="true"] { background: var(--ink); color: #ffffff; }
+.tag[aria-pressed="true"] { background: var(--ink); color: var(--accent-ink); }
 .tags { display: flex; flex-wrap: wrap; gap: var(--s1); list-style: none; margin: 0; padding: 0; }
 
 /* entrance (content stays visible without script) */

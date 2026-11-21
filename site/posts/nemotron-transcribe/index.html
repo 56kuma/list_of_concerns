@@ -7,7 +7,7 @@
 <meta name="description" content="NVIDIAのオープンな文字起こしモデル「Nemotron 3.5 Transcribe」の概要と、自宅で動かすのに必要なGPUを調べた記録。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic&family=Inter:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Shippori+Mincho:wght@500;600&family=Space+Grotesk:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../css/site.css">
 <link rel="stylesheet" href="../../css/article.css">
 <link rel="stylesheet" href="post.css">
@@ -137,29 +137,29 @@
   <figure class="drawing rise" style="--i:2">
     <svg viewBox="0 0 520 450" role="img" aria-labelledby="fit-t">
       <title id="fit-t">必要なメモリの比較。GGUFの4bit版は約24GB、NVFP4は約22GB、BF16は実行時約75GB。縦線は24GB、32GB、96GBのGPU。24GBの線はGGUFがぎりぎり越え、32GBの線の内側にNVFP4とGGUFが収まり、BF16は96GBの線の内側に収まる</title>
-      <g font-family="Noto Sans JP, sans-serif" fill="#1d1d1f">
+      <g font-family="Noto Sans JP, sans-serif" fill="#26372f">
         <!-- 1GB = 4px、x=40が0GB -->
-        <line x1="136" y1="30" x2="136" y2="380" stroke="#6e6e73" stroke-width="2" stroke-dasharray="6 6"/>
-        <line x1="168" y1="30" x2="168" y2="380" stroke="#0071e3" stroke-width="3"/>
-        <line x1="424" y1="30" x2="424" y2="380" stroke="#6e6e73" stroke-width="2" stroke-dasharray="6 6"/>
-        <text x="132" y="406" font-size="18" text-anchor="end" fill="#6e6e73">24GB</text>
-        <text x="172" y="406" font-size="18" fill="#0071e3" font-weight="700">32GB</text>
-        <text x="424" y="406" font-size="18" text-anchor="middle" fill="#6e6e73">96GB</text>
-        <text x="132" y="430" font-size="15" text-anchor="end" fill="#6e6e73">4090</text>
-        <text x="172" y="430" font-size="15" fill="#0071e3">5090</text>
-        <text x="424" y="430" font-size="15" text-anchor="middle" fill="#6e6e73">PRO 6000</text>
+        <line x1="136" y1="30" x2="136" y2="380" stroke="#69756d" stroke-width="2" stroke-dasharray="6 6"/>
+        <line x1="168" y1="30" x2="168" y2="380" stroke="#3b6a4c" stroke-width="3"/>
+        <line x1="424" y1="30" x2="424" y2="380" stroke="#69756d" stroke-width="2" stroke-dasharray="6 6"/>
+        <text x="132" y="406" font-size="18" text-anchor="end" fill="#69756d">24GB</text>
+        <text x="172" y="406" font-size="18" fill="#3b6a4c" font-weight="700">32GB</text>
+        <text x="424" y="406" font-size="18" text-anchor="middle" fill="#69756d">96GB</text>
+        <text x="132" y="430" font-size="15" text-anchor="end" fill="#69756d">4090</text>
+        <text x="172" y="430" font-size="15" fill="#3b6a4c">5090</text>
+        <text x="424" y="430" font-size="15" text-anchor="middle" fill="#69756d">PRO 6000</text>
 
         <text x="40" y="66" font-size="20" font-weight="700">NVFP4</text>
-        <rect x="40" y="78" width="86" height="40" rx="8" fill="#0071e3"/>
-        <text x="136" y="105" font-size="18" fill="#0071e3" dx="40">約21.6GB</text>
+        <rect x="40" y="78" width="86" height="40" rx="8" fill="#3b6a4c"/>
+        <text x="136" y="105" font-size="18" fill="#3b6a4c" dx="40">約21.6GB</text>
 
         <text x="40" y="170" font-size="20" font-weight="700">GGUF 4bit＋エンコーダー</text>
-        <rect x="40" y="182" width="97" height="40" rx="8" fill="#1d1d1f"/>
-        <text x="178" y="209" font-size="18" fill="#1d1d1f">約24.2GB</text>
+        <rect x="40" y="182" width="97" height="40" rx="8" fill="#26372f"/>
+        <text x="178" y="209" font-size="18" fill="#26372f">約24.2GB</text>
 
         <text x="40" y="274" font-size="20" font-weight="700">BF16（実行時）</text>
-        <rect x="40" y="286" width="300" height="40" rx="8" fill="#a1a1a6"/>
-        <text x="350" y="313" font-size="18" fill="#1d1d1f">約75GB</text>
+        <rect x="40" y="286" width="300" height="40" rx="8" fill="#a9b6ab"/>
+        <text x="350" y="313" font-size="18" fill="#26372f">約75GB</text>
       </g>
     </svg>
     <figcaption>重み（＋エンコーダー）の大きさとVRAMの比較。作業用メモリは含まない（自分で描いた図）</figcaption>
