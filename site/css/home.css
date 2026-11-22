@@ -193,3 +193,6 @@ html:not(.js) .tabbar { display: none; }
 @media (prefers-reduced-motion: reduce) {
   .is-fan .entry, .display { transition: none; }
 }
+
+/* カードの束が左右にはみ出しても、ページが横にスクロールしないようにする */
+.stage { overflow-x: clip; }

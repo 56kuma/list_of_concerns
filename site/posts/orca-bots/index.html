@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Orcaのボット機能は何に使えるか ｜ 気になったこと</title>
+<meta name="description" content="エージェント型IDEのOrcaに「Orca Bots」というボット機能が追加されたと聞いたので、事実確認をして、公式の使い道と、自分なりの変わった使い道を考えた記録。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Shippori+Mincho:wght@500;600&family=Space+Grotesk:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/site.css">
+<link rel="stylesheet" href="../../css/article.css">
+<link rel="stylesheet" href="post.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+
+<header class="hero">
+  <img class="hero-photo" src="../../img/orca-bots/flow.jpg" width="1440" height="900" alt="Orca BotsがSlackやGitHubなどをきっかけに、自分のPCのworktreeで作業し、PRや返信を返す流れの図">
+  <div class="hero-card">
+    <div class="hero-top">
+      <a class="hero-home" href="../../">気になったこと</a>
+      <ul class="tags" aria-label="タグ">
+        <li><a class="tag" href="../../?tag=AI">AI</a></li>
+        <li><a class="tag" href="../../?tag=開発ツール">開発ツール</a></li>
+      </ul>
+    </div>
+    <h1>Orcaのボット機能は何に使えるか</h1>
+    <p class="hero-lead">エージェント型IDEのOrcaにボット機能が付いたと聞いた。本当かを確かめて、公式が挙げる使い道と、たぶん誰も考えない使い道を考えた。</p>
+    <dl class="hero-facts">
+      <div><dt>真偽</dt><dd>本当（ベータ）</dd></div>
+      <div><dt>追加</dt><dd>2026年11月19日</dd></div>
+      <div><dt>動く場所</dt><dd>自分のPC</dd></div>
+    </dl>
+    <div class="hero-foot">
+      <a class="btn" href="#odd-h">変わった使い道を見る</a>
+      <a href="#conclusion">結論だけ読む</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section class="learn wrap" aria-labelledby="learn-h">
+  <h2 id="learn-h" class="rise">この記事でわかること</h2>
+  <div class="learn-body">
+    <ul class="learn-list">
+      <li class="rise" style="--i:1"><a href="#what-h">Orca Botsとは</a><span>何が追加されて、どう動くか</span></li>
+      <li class="rise" style="--i:2"><a href="#use-h">公式の使い道</a><span>きっかけと、やってくれること</span></li>
+      <li class="rise" style="--i:3"><a href="#odd-h">考えなそうな使い道</a><span>自分が思いついたもの</span></li>
+      <li class="rise" style="--i:4"><a href="#faq-h">気になる点</a><span>お金、安全、PCを閉じたら</span></li>
+    </ul>
+    <p class="learn-short rise" style="--i:3"><strong>先に結論。</strong>本当。2026年11月19日のv1.4.265で<strong>「Orca Bots」</strong>が追加された（ベータ）。SlackやGitHub、Gmail、定時実行をきっかけに、<strong>自分のPCの上で自分のClaude CodeやCodexが勝手に動き</strong>、PRや返信を返す。チャットで終わらず<strong>作業したworktreeごと渡してくる</strong>のが他のボットとの違い。</p>
+  </div>
+</section>
+
+<section class="intro wrap" aria-labelledby="what-h">
+  <div class="intro-text">
+    <h2 id="what-h" class="rise">Orca Botsとは</h2>
+    <p class="rise" style="--i:1">OrcaはStably AIが作っている、AIエージェントを何本も並べて動かすためのIDE（本人たちは「ADE」と呼ぶ）。MITライセンスのオープンソースで、本体は無料。そこに、人が指示しなくても動く常駐ボットが付いた。</p>
+    <ul class="intro-points rise" style="--i:2">
+      <li><strong>追加</strong>：2026年11月19日のv1.4.265（紹介記事による）。今もベータ</li>
+      <li><strong>中身</strong>：自分の契約しているClaude CodeやCodex。v1.4.268でCursor、GitHub Copilot、Hermesにも対応</li>
+      <li><strong>動く場所</strong>：自分のPCか、ペアリングしたサーバー。動かすにはそれが起きていてオンラインである必要がある</li>
+      <li><strong>作業の場所</strong>：依頼ごとに専用のgit worktreeを切って並行で作業</li>
+      <li><strong>性格と記憶</strong>：ボットごとの<code>SOUL.md</code>（役割やルール）と<code>MEMORY.md</code>（覚えたこと）。どちらもただのMarkdownで、自分で開いて直せる</li>
+      <li><strong>つなぎ方</strong>：Slack・GitHub・LinearはOrca Cloud経由。PCのポートを開ける必要はない</li>
+    </ul>
+    <p class="rise" style="--i:3">要するに、自分のPCに住みついて、呼ばれたら自分の代わりに手を動かすエージェント。動画では「AI秘書」と紹介されていた。</p>
+  </div>
+  <figure class="intro-plates">
+    <div class="plate rise" style="--i:2">
+      <img src="../../img/orca-bots/flow.jpg" width="1440" height="900" alt="きっかけはSlack・GitHub・Gmail・定時・Webhook、作業は自分のPCの専用worktree、結果はPRや返信" loading="lazy" decoding="async">
+      <figcaption>Orca Botsの動き方（自分で描いた図）</figcaption>
+    </div>
+  </figure>
+</section>
+
+<section class="changes" aria-labelledby="use-h">
+  <div class="wrap changes-inner">
+    <div class="changes-head">
+      <h2 id="use-h" class="rise">公式の使い道</h2>
+      <p class="rise" style="--i:1">公式の売り文句は「Slack、Linear、GitHubでボットにバグ修正を頼んで、戻ってきたらテスト済みのPRがある」。きっかけと、やってくれることを並べた。</p>
+      <p class="rise" style="--i:2">ただ、自分は公式サイトとドキュメントを直接開けていない。GitHubのPR本文と、検索結果に出た公式ドキュメントの要約、紹介記事で確認した。自分では試していない。</p>
+    </div>
+    <table class="diff stack">
+      <caption class="visually-hidden">Orca Botsのきっかけと、公式が挙げる使い道</caption>
+      <thead><tr><th scope="col">きっかけ</th><th scope="col">呼び方</th><th scope="col">公式・紹介記事の使い道</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Slack</th><td data-label="呼び方">ボットごとに専用アプリ。<code>@ボット名</code>でメンションかDM</td><td data-label="公式・紹介記事の使い道">バグ修正を頼む、調べ物を頼む。v1.4.268で予約投稿やピン留めも</td></tr>
+        <tr><th scope="row">GitHub</th><td data-label="呼び方">IssueやPRでメンション。PR作成、チェック失敗、レビュー依頼でも起動</td><td data-label="公式・紹介記事の使い道">PRレビュー（危ない変更や足りないテストを行番号つきで）、CI失敗の原因とフレーキーかの判定</td></tr>
+        <tr><th scope="row">Gmail</th><td data-label="呼び方">新しいメールで起動。送信者のアドレスで絞れる</td><td data-label="公式・紹介記事の使い道">メールを読んで動く。具体例は見つからなかった</td></tr>
+        <tr><th scope="row">定時</th><td data-label="呼び方">「平日の朝9時」のような予定</td><td data-label="公式・紹介記事の使い道">定期の見回り。この見回りは読み取り専用</td></tr>
+        <tr><th scope="row">Webhook</th><td data-label="呼び方">外から叩いて起動</td><td data-label="公式・紹介記事の使い道">他のサービスとつなぐ入口。具体例は見つからなかった</td></tr>
+        <tr><th scope="row">Linear</th><td data-label="呼び方">チケットで依頼</td><td data-label="公式・紹介記事の使い道">バグの再現、原因の特定、修正案</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="verdict wrap" aria-labelledby="odd-h">
+  <h2 id="odd-h" class="rise">考えなそうな使い道</h2>
+  <p class="rise" style="--i:1">ここからは自分の思いつき。公式が言っているわけではないし、試してもいない。仕様の範囲で「できそう」なものだけにした。</p>
+  <div class="odd-list">
+    <article class="odd rise" style="--i:1">
+      <h3>このサイトの「未確認」を追いかける係</h3>
+      <p>この記録は「公式では未確認」だらけ。毎週月曜の朝にボットを起こして、各記事の未確認の項目を調べ直させ、新しい情報が出ていたら記事を直すPRを出させる。こどもNISAの法案が成立したか、SWE-2のドキュメントが更新されたか、など。<code>MEMORY.md</code>に「前回どこまで確認したか」を残せるので、毎回ゼロから調べ直さずに済む。</p>
+    </article>
+    <article class="odd rise" style="--i:2">
+      <h3>「買うか迷い中」の値下がり見張り番</h3>
+      <p>Mac miniやMac Studioの記事は「買うか迷い中」のまま。定時でApple整備済製品や価格を見に行き、条件に合ったらSlackに一言だけ投げさせる。コードを書かないエージェントの使い方だが、worktreeに価格の履歴をCSVで貯めていけば、そのままグラフにもできる。</p>
+    </article>
+    <article class="odd rise" style="--i:3">
+      <h3>未来の自分へのレビュワー</h3>
+      <p><code>SOUL.md</code>に「1年後の自分」として振る舞うよう書き、自分のPRにだけ反応させる。指摘するのはバグではなく「半年後にこれを読んで分かるか」「この命名は後で後悔しないか」だけ。<code>MEMORY.md</code>に過去に自分が後悔したパターンを貯めていけば、だんだん自分専用になっていく。</p>
+    </article>
+    <article class="odd rise" style="--i:4">
+      <h3>自分の判断ログを書く係</h3>
+      <p>Slackで「なんでこっちにしたんだっけ」と聞く相手にする。PRがマージされるたびに、そのPRの判断理由を1行で<code>MEMORY.md</code>に書き足させる。数か月後、ボットの記憶ファイルそのものが自分の設計判断の年表になる。記憶がただのMarkdownだからできる使い方。</p>
+    </article>
+    <article class="odd rise" style="--i:5">
+      <h3>辞めたライブラリの墓守</h3>
+      <p>依存から外したライブラリのリリースを見張らせる。「あのとき外した理由のバグが直った」ときだけ教えてくれる。外した理由は<code>MEMORY.md</code>に書いておく。新しいものを追うボットは多いが、捨てたものを見張るボットはたぶんない。</p>
+    </article>
+    <article class="odd rise" style="--i:6">
+      <h3>あえて、ボットが何もしない日を作る</h3>
+      <p>夜にMEMORY.mdを整理する「片付け」の動きがあるので、週に1回、ボット自身に「この1週間で自分が役に立ったこと・立たなかったこと」を振り返らせ、要らないトリガーを止める提案をさせる。ボットを増やすほど利用量を食うので、減らす係がいると助かる。</p>
+    </article>
+  </div>
+  <div class="verdict-cols">
+    <div class="verdict-col rise" style="--i:1">
+      <h3>家のことには使わないほうがいい</h3>
+      <ul>
+        <li>保育園のメールをGmailトリガーで読ませて持ち物を…と最初に考えたが、やめた</li>
+        <li>Googleから読んだ中身は、モデルの提供元や返信に含まれる可能性があると公式が書いている</li>
+        <li>子供の名前や園の情報を、わざわざ外に流す理由はない</li>
+      </ul>
+    </div>
+    <div class="verdict-col rise" style="--i:2">
+      <h3>気をつけたいところ</h3>
+      <ul>
+        <li>ボットは<strong>自分の権限で、自分のPCで</strong>動く。「Who can ask」には、キーボードを渡せる人だけを入れるよう公式も言っている</li>
+        <li>Slackの返信は非公開だが、GitHubとLinearへの返信は公開される</li>
+        <li>動いた分だけ自分のClaude CodeやCodexの利用量が減る</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="faq" aria-labelledby="faq-h">
+  <div class="wrap faq-inner faq-solo">
+    <div class="faq-left">
+      <h2 id="faq-h" class="rise">気になる点</h2>
+      <dl class="faq-facts rise" style="--i:1">
+        <div><dt>調べた日</dt><dd>2026年11月22日</dd></div>
+        <div><dt>一次情報</dt><dd>OrcaのGitHub（README、PR、リリース）、公式ドキュメントの検索結果</dd></div>
+        <div><dt>自分で試したか</dt><dd>試していない</dd></div>
+      </dl>
+      <div class="qa">
+        <details class="rise">
+          <summary>お金はかかる？</summary>
+          <p>Orca本体は無料（MITライセンス）。ボットは自分のClaude CodeやCodexの契約で動くので、その利用量を使う。Orca Cloud自体に料金があるかは確認できなかった。</p>
+        </details>
+        <details class="rise">
+          <summary>PCを閉じていたら？</summary>
+          <p>動かない。ボットを動かすPCかペアリングしたサーバーが、起きていてオンラインである必要がある。常時動かしたいなら、家のMac miniのような置きっぱなしの機械が向いている。</p>
+        </details>
+        <details class="rise">
+          <summary>他のSlackボットやClaudeのボットと何が違う？</summary>
+          <p>答えをチャットで返して終わりではなく、作業したworktreeをOrcaで開いて、そのまま確認したり続きを自分でやったりできる。公式も「たいていのボットはチャットで終わる。Orcaのボットはworktreeを渡してくる」と言っている。</p>
+        </details>
+        <details class="rise">
+          <summary>記憶は勝手に増えていく？</summary>
+          <p>増える。会話のたびに<code>MEMORY.md</code>が読み込まれ、夜に整理される。ただ「何を覚えて、何を覚えないか」をボットをまたいで決める仕組みがまだなく、GitHubに改善要望が出ている。今はボットごとの<code>SOUL.md</code>に書くしかない。</p>
+        </details>
+      </div>
+      <a class="btn faq-btn" href="https://orca.dev/bots" rel="noopener">Orca Botsの公式ページを見る</a>
+    </div>
+  </div>
+</section>
+
+<section id="conclusion" class="conclusion wrap" aria-labelledby="conclusion-h">
+  <h2 id="conclusion-h" class="rise">結論</h2>
+  <ul class="conclusion-list">
+    <li class="rise"><strong>ボット機能の追加は本当。</strong>2026年11月19日のv1.4.265で「Orca Bots」が追加された。まだベータ</li>
+    <li class="rise" style="--i:1"><strong>中身は自分のClaude CodeやCodex。</strong>Slack・GitHub・Gmail・定時・Webhookをきっかけに、自分のPCで動いてPRや返信を返す</li>
+    <li class="rise" style="--i:2"><strong>公式の使い道はバグ修正、PRレビュー、CI失敗の調査。</strong>どれも開発の手間を減らす方向</li>
+    <li class="rise" style="--i:3"><strong>記憶がMarkdownなのが面白い。</strong>判断ログ、未来の自分のレビュー、未確認の追いかけなど、記憶ファイルそのものを成果物にする使い方ができそう</li>
+  </ul>
+  <p class="conclusion-close rise">ボットというより「自分のPCに住む、記憶つきの部下」に近い。最初に試すなら、このサイトの未確認を毎週追いかける係にする。読み取りと記事の修正PRだけなので、失敗しても困らない。家族の情報には触らせない。</p>
+</section>
+
+</main>
+
+<footer class="back">
+  <div class="back-card">
+    <div class="back-msg">
+      <h2>調べたところ</h2>
+      <ul class="sources">
+        <li><a href="https://github.com/stablyai/orca" rel="noopener">GitHub　stablyai/orca（README）</a></li>
+        <li><a href="https://github.com/stablyai/orca/pull/45957" rel="noopener">GitHub　docs(readme): add Orca bots to the hero and features</a></li>
+        <li><a href="https://github.com/stablyai/orca/releases/tag/v1.4.268" rel="noopener">GitHub　Release v1.4.268</a></li>
+        <li><a href="https://github.com/stablyai/orca/issues/45732" rel="noopener">GitHub　MEMORY.mdの記録方針についてのIssue</a></li>
+        <li><a href="https://orca.dev/bots" rel="noopener">Orca　Orca Bots（公式）</a></li>
+        <li><a href="https://orca.dev/docs/bots" rel="noopener">Orca Docs　Bots quickstart</a></li>
+        <li><a href="https://orca.dev/docs/bots/connectors" rel="noopener">Orca Docs　Bot connectors</a></li>
+        <li><a href="https://orca.dev/docs/bots/security" rel="noopener">Orca Docs　Bot security</a></li>
+        <li><a href="https://hashout.jp/ai/14722/" rel="noopener">hashout　人間の指示待ちをやめたAIエージェント――Orca Bots</a></li>
+        <li><a href="https://zenn.dev/kg_motors_mibot/articles/orca-bot-intro" rel="noopener">Zenn　Orca Botsが良さそう、何ができるのか</a></li>
+        <li><a href="https://ai-heartland.com/agent/orca-bots/" rel="noopener">AI Heartland　Orca Bots とは</a></li>
+        <li><a href="https://www.youtube.com/watch?v=voPU8lQXhHE" rel="noopener">YouTube　Orcaから『Orca Bots』が登場！</a></li>
+      </ul>
+    </div>
+    <div class="back-addr">
+      <p class="back-sign">気になったこと</p>
+      <ul class="back-links">
+        <li><a href="../../">記録の一覧へ</a></li>
+        <li><a href="../../?tag=開発ツール">開発ツールの記録</a></li>
+        <li><a href="../devin-swe-2/">DevinのSWE-2は本当に永久無料か</a></li>
+      </ul>
+    </div>
+    <p class="imprint">画像：Orca Botsの動き方の図は自分で作ったもの。情報は2026年11月22日時点。公式サイトとドキュメントの本文は直接読めておらず、GitHubのPRと、検索結果に出た公式ドキュメントの要約、紹介記事で確認した。「考えなそうな使い道」は自分の思いつきで、試していない。</p>
+  </div>
+</footer>
+
+<script src="../../js/rise.js"></script>
+</body>
+</html>
