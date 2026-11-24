@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ブレッドボードとは何か ｜ 気になったこと</title>
+<meta name="description" content="『スマートホームをもう一歩進める技術』を読んでいて出てきたブレッドボード。名前の由来から、中でどの穴がつながっているか、何に使って何に使わないかまでを整理した記録。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Shippori+Mincho:wght@500;600&family=Space+Grotesk:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/site.css">
+<link rel="stylesheet" href="../../css/article.css">
+<link rel="stylesheet" href="post.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+
+<header class="hero">
+  <img class="hero-photo" src="../../img/breadboard/inside.jpg" width="1440" height="900" alt="ブレッドボードの穴のつながり方を示した模式図。上下に電源レール、中央に溝、縦5穴ずつがつながる">
+  <div class="hero-card">
+    <div class="hero-top">
+      <a class="hero-home" href="../../">気になったこと</a>
+      <ul class="tags" aria-label="タグ">
+        <li><a class="tag" href="../../?tag=電子工作">電子工作</a></li>
+        <li><a class="tag" href="../../?tag=スマートホーム">スマートホーム</a></li>
+      </ul>
+    </div>
+    <h1>ブレッドボードとは何か</h1>
+    <p class="hero-lead">技術書典の『スマートホームをもう一歩進める技術』（うすゆきスタジオ）を読んでいたら、マイコンボードのレシピ集でブレッドボードが当然のように出てきた。触ったことがないので、歴史と中身と用途を調べて整理した。</p>
+    <dl class="hero-facts">
+      <div><dt>ひとことで</dt><dd>はんだ不要の試作用の板</dd></div>
+      <div><dt>今の形</dt><dd>1971年に出願</dd></div>
+      <div><dt>穴の間隔</dt><dd>2.54mm</dd></div>
+    </dl>
+    <div class="hero-foot">
+      <a class="btn" href="#inside-h">中身を見る</a>
+      <a href="#conclusion">結論だけ読む</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section class="learn wrap" aria-labelledby="learn-h">
+  <h2 id="learn-h" class="rise">この記事でわかること</h2>
+  <div class="learn-body">
+    <ul class="learn-list">
+      <li class="rise" style="--i:1"><a href="#history-h">歴史</a><span>本物のパン板から、穴あきの板まで</span></li>
+      <li class="rise" style="--i:2"><a href="#inside-h">中身</a><span>どの穴とどの穴がつながっているか</span></li>
+      <li class="rise" style="--i:3"><a href="#use-h">用途</a><span>何に使って、何に使わないか</span></li>
+      <li class="rise" style="--i:4"><a href="#faq-h">気になる点</a><span>本を読み進めるうえで</span></li>
+    </ul>
+    <p class="learn-short rise" style="--i:3"><strong>先に結論。</strong>ブレッドボードは<strong>部品を穴に挿すだけで回路が組める、はんだ不要の試作用の板</strong>。穴の中に板バネが入っていて、<strong>決まった穴どうしが裏でつながっている</strong>。そのつながり方（縦5穴、横長の電源レール、中央の溝）さえ覚えれば使える。試して、動いたら基板にはんだ付けして完成品にする、という流れの最初の段階で使う。</p>
+  </div>
+</section>
+
+<section class="intro wrap" aria-labelledby="history-h">
+  <div class="intro-text">
+    <h2 id="history-h" class="rise">歴史：なぜ「パンの板」なのか</h2>
+    <p class="rise" style="--i:1">ブレッドボード（breadboard）は、直訳すると<strong>パンをこねたり切ったりする木の板</strong>。名前はそこから来ている。</p>
+    <ul class="intro-points rise" style="--i:2">
+      <li><strong>1920年代ごろ（真空管の時代）</strong>：ラジオを自作する人たちが、台所の木のパン板に釘やネジで真空管のソケットや部品を留め、銅線をはんだ付けして回路を作っていた。Analog Devicesの学生向け記事やWikipediaはこう説明している。ただし一次資料で確かめられる話ではなく、「本当に台所の板を使ったのか」と疑う声もある</li>
+      <li><strong>1960年</strong>：DeVry Technical InstituteのOrville Thompsonが、バネで部品を挟む板の特許を取る。今の形というよりは、バネ付きのパッチパネルに近い</li>
+      <li><strong>1971年</strong>：E&amp;L InstrumentsのRonald Portugalが、今のはんだ不要のブレッドボードの意匠特許（US D228136「Breadboard for electronic components or the like」）を出願。<strong>穴の間隔を0.1インチ（2.54mm）にして、ICの足（DIP）をそのまま挿せる</strong>ようにしたのが決め手</li>
+      <li><strong>1970年代以降</strong>：この形が定着し、「ブレッドボード」と言えばこの穴あきの白い板を指すようになった。木の板の時代の名前だけが残った</li>
+    </ul>
+    <p class="rise" style="--i:3">ちなみに「ブレッドボード」は、電子工作に限らず「とりあえず動くか試すための試作品」という意味でも使われる。「ブレッドボード段階」と言えば試作段階のこと。</p>
+  </div>
+  <figure class="intro-plates">
+    <div class="plate rise" style="--i:2">
+      <img src="../../img/breadboard/inside.jpg" width="1440" height="900" alt="電源レール、縦5穴の列、中央の溝、ICのまたがせ方を示した模式図" loading="lazy" decoding="async">
+      <figcaption>ブレッドボードの中身（自分で描いた模式図）</figcaption>
+    </div>
+  </figure>
+</section>
+
+<section class="changes" aria-labelledby="inside-h">
+  <div class="wrap changes-inner">
+    <div class="changes-head">
+      <h2 id="inside-h" class="rise">中身：どの穴がつながっているか</h2>
+      <p class="rise" style="--i:1">見た目はただの穴の並びだが、プラスチックの下に<strong>金属の板バネ（クリップ）</strong>が並んでいる。部品の足を挿すと板バネが足を挟み、同じ板バネの上にある穴どうしが電気的につながる。覚えることは下の表だけ。</p>
+    </div>
+    <table class="diff stack">
+      <caption class="visually-hidden">ブレッドボードの部位と役割</caption>
+      <thead><tr><th scope="col">部位</th><th scope="col">つながり方</th><th scope="col">何に使う</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">端子列（a〜e、f〜j）</th><td data-label="つながり方">縦に並んだ5穴が1本の板バネでつながる。隣の列とはつながらない</td><td data-label="何に使う">部品どうしをつなぐ。同じ列に挿せば配線したのと同じ</td></tr>
+        <tr><th scope="row">中央の溝</th><td data-label="つながり方">溝の上（a〜e）と下（f〜j）は切れている</td><td data-label="何に使う">ICをまたがせて挿す。左右の足が別々の列に入るので、足どうしがショートしない</td></tr>
+        <tr><th scope="row">電源レール（赤＋・青−）</th><td data-label="つながり方">端に沿って横一列が全部つながる</td><td data-label="何に使う">電源（＋）とGND（−）を配る。どこからでも電源が取れる</td></tr>
+        <tr><th scope="row">穴の間隔</th><td data-label="つながり方">2.54mm（0.1インチ）</td><td data-label="何に使う">ICの足、ピンヘッダ、マイコンボードの足の間隔と同じ</td></tr>
+        <tr><th scope="row">大きさ</th><td data-label="つながり方">ミニ（170穴）、ハーフ（400穴）、フル（830穴）など</td><td data-label="何に使う">ESP32の開発ボードは幅があるので、片側に1列しか余らないことがある</td></tr>
+      </tbody>
+    </table>
+    <p class="rise" style="--i:2">つなぐ線は<strong>ジャンパーワイヤ</strong>（両端がピンになった線）を使う。マイコンボードとは、ボードをブレッドボードに直接挿すか、オス-メスのジャンパーワイヤでつなぐ。</p>
+  </div>
+</section>
+
+<section class="verdict wrap" aria-labelledby="use-h">
+  <h2 id="use-h" class="rise">用途：何に使って、何に使わないか</h2>
+  <p class="rise" style="--i:1">一言でいえば「はんだ付けする前に、回路が正しいか試す」ための道具。間違えたら抜いて挿し直せばいい。</p>
+  <div class="odd-list">
+    <article class="odd rise" style="--i:1">
+      <h3>試作（プロトタイピング）</h3>
+      <p>本来の使い道。センサーやLEDをマイコンにつないで、プログラムと一緒に動作を確かめる。動いたら同じ配置で基板に移す。</p>
+    </article>
+    <article class="odd rise" style="--i:2">
+      <h3>学習・教材</h3>
+      <p>はんだごてが要らず、部品も再利用できるので、学校や入門キットの定番。回路図と実物の対応が目で追いやすい。</p>
+    </article>
+    <article class="odd rise" style="--i:3">
+      <h3>マイコンの周辺回路</h3>
+      <p>この本のレシピ集のような使い方。ESP32やRaspberry Pi Pico、Arduinoに温湿度センサー、表示器、ボタンなどを足す。スマートホームの「部品を足して試す」場面にちょうどいい。</p>
+    </article>
+    <article class="odd rise" style="--i:4">
+      <h3>設計の検証</h3>
+      <p>仕事でも、基板を作る前に一部の回路だけ組んで確かめることがある。ここから「ブレッドボード＝試作」という意味が広がった。</p>
+    </article>
+  </div>
+  <div class="verdict-cols">
+    <div class="verdict-col rise" style="--i:1">
+      <h3>向いていないこと</h3>
+      <ul>
+        <li><strong>速い信号</strong>：隣の列どうしに数pFの寄生容量があり、目安は10MHzくらいまで。それより遅くても不安定なことがある</li>
+        <li><strong>大きな電流</strong>：板バネの接触抵抗で発熱するので、1Aくらいまでにとどめる。モーターやLEDテープの電源は外で取る</li>
+        <li><strong>置きっぱなしの完成品</strong>：振動や経年で接触が甘くなる。ずっと使うなら基板にはんだ付けする</li>
+      </ul>
+    </div>
+    <div class="verdict-col rise" style="--i:2">
+      <h3>はまりやすいところ</h3>
+      <ul>
+        <li>部品の足を<strong>同じ列に挿してしまい</strong>、ショートしている（抵抗の両足が同じ縦5穴に入っている、など）</li>
+        <li>フルサイズの電源レールが<strong>真ん中で切れている</strong>製品があり、片側だけ電源が来ない</li>
+        <li>太い足や線を挿して<strong>板バネが広がり</strong>、その穴だけ接触が悪くなる</li>
+        <li>上下のレールは別々。両方使うなら線でつなぐ</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="faq" aria-labelledby="faq-h">
+  <div class="wrap faq-inner faq-solo">
+    <div class="faq-left">
+      <h2 id="faq-h" class="rise">気になる点</h2>
+      <dl class="faq-facts rise" style="--i:1">
+        <div><dt>調べた日</dt><dd>2026年11月24日</dd></div>
+        <div><dt>一次情報</dt><dd>米国の意匠特許番号（Wikipedia経由）、Analog Devices、DigiKeyの技術記事</dd></div>
+        <div><dt>自分で試したか</dt><dd>まだ触っていない</dd></div>
+      </dl>
+      <div class="qa">
+        <details class="rise">
+          <summary>ユニバーサル基板と何が違う？</summary>
+          <p>ユニバーサル基板も穴が2.54mm間隔で並んだ板だが、部品ははんだ付けして留める。ブレッドボードで動きを確かめ、ユニバーサル基板やプリント基板で完成させる、という順番になる。</p>
+        </details>
+        <details class="rise">
+          <summary>最初に何を買えばいい？</summary>
+          <p>ハーフサイズ（400穴前後）のブレッドボードと、オス-オス・オス-メスのジャンパーワイヤのセット。マイコンボードとLED、抵抗があれば最初の一歩（Lチカ）はできる。ESP32の開発ボードは幅が広いので、ブレッドボードを2枚並べて使う人もいる。</p>
+        </details>
+        <details class="rise">
+          <summary>スマートホームでそのまま使っていい？</summary>
+          <p>試す段階ならいい。部屋に置きっぱなしにする装置にするなら、接触不良と、ほこりや振動を考えて基板に移したほうが安心。電源は低い電圧（USBの5Vや3.3V）だけにして、家庭用の100Vは絶対にブレッドボードに通さない。</p>
+        </details>
+        <details class="rise">
+          <summary>名前の由来は本当？</summary>
+          <p>木の板に部品を留めて回路を作っていたのは確か。ただ「本当にパンの板を台所から持ってきた」ことを示す一次資料は見つからなかった。言葉としては、木の板の工作法の名前が、形が変わっても残ったと考えればよい。</p>
+        </details>
+      </div>
+      <a class="btn faq-btn" href="https://en.wikipedia.org/wiki/Breadboard" rel="noopener">Wikipedia（Breadboard）を見る</a>
+    </div>
+  </div>
+</section>
+
+<section id="conclusion" class="conclusion wrap" aria-labelledby="conclusion-h">
+  <h2 id="conclusion-h" class="rise">結論</h2>
+  <ul class="conclusion-list">
+    <li class="rise"><strong>ブレッドボードは、はんだ不要の試作用の板。</strong>部品を挿すだけで回路が組め、抜けば元に戻る</li>
+    <li class="rise" style="--i:1"><strong>名前は木のパン板から。</strong>1920年代ごろの木の板の工作法の名前が残り、1971年にE&amp;L InstrumentsのRonald Portugalが今の形を出願した</li>
+    <li class="rise" style="--i:2"><strong>中身は板バネ。</strong>縦5穴がつながる、電源レールは横につながる、中央の溝で上下が切れる、の3つを覚えれば使える</li>
+    <li class="rise" style="--i:3"><strong>試すための道具。</strong>速い信号、大きな電流、置きっぱなしの完成品には向かない。動いたら基板へ</li>
+  </ul>
+  <p class="conclusion-close rise">本のマイコンレシピを試すなら、ハーフサイズのブレッドボードとジャンパーワイヤを買って、まずはESP32でLEDを光らせるところから。部屋に置くものは、動いたあとで基板に移す。</p>
+</section>
+
+</main>
+
+<footer class="back">
+  <div class="back-card">
+    <div class="back-msg">
+      <h2>調べたところ</h2>
+      <ul class="sources">
+        <li><a href="https://en.wikipedia.org/wiki/Breadboard" rel="noopener">Wikipedia　Breadboard</a></li>
+        <li><a href="https://analog.com/en/analog-dialogue/studentzone/studentzone-november-2016.html" rel="noopener">Analog Devices　Breadboarding and Prototyping Circuits</a></li>
+        <li><a href="https://hackaday.com/2023/08/29/retro-gadgets-the-1974-breadboard-project" rel="noopener">Hackaday　Retro Gadgets: The 1974 Breadboard Project</a></li>
+        <li><a href="https://learn.adafruit.com/breadboards-for-beginners/whats-up-with-the-name" rel="noopener">Adafruit　Breadboards for Beginners</a></li>
+        <li><a href="https://www.analogictips.com/breadboards-evolve-to-meet-21st-century-design-needs-part-1-the-ancient-past/" rel="noopener">Analog IC Tips　Breadboards evolve to meet 21st century design needs</a></li>
+        <li><a href="https://forum.digikey.com/t/topic/39855" rel="noopener">DigiKey　ブレッドボード回路製作の決定版ガイド</a></li>
+        <li><a href="https://jp.rs-online.com/web/content/discovery/ideas-and-advice/breadboard-guide" rel="noopener">RS　ブレッドボードガイド</a></li>
+      </ul>
+    </div>
+    <div class="back-addr">
+      <p class="back-sign">気になったこと</p>
+      <ul class="back-links">
+        <li><a href="../../">記録の一覧へ</a></li>
+        <li><a href="../../?tag=電子工作">電子工作の記録</a></li>
+      </ul>
+    </div>
+    <p class="imprint">画像：ブレッドボードの模式図は自分で作ったもの。きっかけの本は技術書典の『スマートホームをもう一歩進める技術』（うすゆきスタジオ、usuyuki）。情報は2026年11月24日時点。名前の由来は二次資料による説明で、一次資料では確かめられていない。寄生容量や電流の目安は製品で変わる。</p>
+  </div>
+</footer>
+
+<script src="../../js/rise.js"></script>
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>M5Stack CoreInkで予定と天気を出すと、充電はどれくらいか ｜ 気になったこと</title>
+<meta name="description" content="『スマートホームをもう一歩進める技術』で紹介されていたM5Stack CoreInk。歴史と中身と用途を調べ、家の中で電池で「今日の予定＋天気」を出したら何日おきに充電が要るかを見積もった記録。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Shippori+Mincho:wght@500;600&family=Space+Grotesk:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/site.css">
+<link rel="stylesheet" href="../../css/article.css">
+<link rel="stylesheet" href="post.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+
+<header class="hero">
+  <img class="hero-photo" src="../../img/coreink/battery.jpg" width="1440" height="900" alt="CoreInkに日付・天気・予定を出した表示のイメージと、更新間隔ごとの充電までの日数を比べた棒グラフ">
+  <div class="hero-card">
+    <div class="hero-top">
+      <a class="hero-home" href="../../">気になったこと</a>
+      <ul class="tags" aria-label="タグ">
+        <li><a class="tag" href="../../?tag=電子工作">電子工作</a></li>
+        <li><a class="tag" href="../../?tag=スマートホーム">スマートホーム</a></li>
+        <li><a class="tag" href="../../?tag=買うか迷い中">買うか迷い中</a></li>
+      </ul>
+    </div>
+    <h1>M5Stack CoreInkで予定と天気を出すと、充電はどれくらいか</h1>
+    <p class="hero-lead">『スマートホームをもう一歩進める技術』のマイコンボード紹介で、おすすめ度★4だったCoreInk。電池で動くなら、家のどこかに貼って「今日の予定＋天気」を出したい。何日おきに充電が要るかを見積もった。</p>
+    <dl class="hero-facts">
+      <div><dt>値段</dt><dd>5,588円（本の表記）</dd></div>
+      <div><dt>電池</dt><dd>390mAh</dd></div>
+      <div><dt>充電の目安</dt><dd>1日3回更新で数か月（推定）</dd></div>
+    </dl>
+    <div class="hero-foot">
+      <a class="btn" href="#battery-h">充電の頻度を見る</a>
+      <a href="#conclusion">結論だけ読む</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section class="learn wrap" aria-labelledby="learn-h">
+  <h2 id="learn-h" class="rise">この記事でわかること</h2>
+  <div class="learn-body">
+    <ul class="learn-list">
+      <li class="rise" style="--i:1"><a href="#what-h">CoreInkとは</a><span>歴史と中身</span></li>
+      <li class="rise" style="--i:2"><a href="#plan-h">予定＋天気の作り方</a><span>どこから取って、どう出すか</span></li>
+      <li class="rise" style="--i:3"><a href="#battery-h">充電の頻度</a><span>更新のしかた別の見積もり</span></li>
+      <li class="rise" style="--i:4"><a href="#faq-h">気になる点</a><span>置き場所、画面の小ささ</span></li>
+    </ul>
+    <p class="learn-short rise" style="--i:3"><strong>先に結論。</strong>電池で家に置くのは向いている。電子ペーパーは<strong>電源を切っても表示が残り</strong>、内蔵の時計（RTC）が<strong>決まった時刻に電源を入れ直してくれる</strong>ので、「起きる→Wi-Fiで取る→描く→電源を切る」を繰り返せる。充電の目安は自分の計算で、<strong>1時間ごとなら1〜2か月に1回、朝・昼・夕の1日3回なら数か月に1回</strong>。実測ではないので、最初の1か月は電池の電圧を画面の隅に出して確かめる。</p>
+  </div>
+</section>
+
+<section class="intro wrap" aria-labelledby="what-h">
+  <div class="intro-text">
+    <h2 id="what-h" class="rise">CoreInkとは</h2>
+    <p class="rise" style="--i:1">中国・深センのM5Stackが作っている、<strong>電子ペーパー付きの手のひらサイズのマイコン</strong>。M5Stackはもともと、ESP32を小さな箱に入れて画面やボタンを付けた「すぐ動く」マイコンを出してきた会社で、CoreInkはその中の電子ペーパー版。日本ではスイッチサイエンスなどで買える。</p>
+    <ul class="intro-points rise" style="--i:2">
+      <li><strong>頭脳</strong>：ESP32-PICO-D4（2コア240MHz、RAM 520KB、Flash 4MB）。Wi-FiとBluetoothつき</li>
+      <li><strong>画面</strong>：1.54インチ、200×200ドットの白黒電子ペーパー。全体の書き換えに約0.8秒、部分書き換えは約0.24秒</li>
+      <li><strong>時計</strong>：RTC（BM8563）。電源を切っていても時を刻み、指定した時刻に本体の電源を入れられる。これが電池運用のかなめ</li>
+      <li><strong>電池</strong>：390mAhのリチウム電池。USB Type-Cで充電</li>
+      <li><strong>つなぐ口</strong>：Grove、HAT、M-BUS。センサーを足せる</li>
+      <li><strong>その他</strong>：背面に磁石。ボタン（上下押し込みのダイヤル型スイッチと上面ボタン）とブザー、LED</li>
+      <li><strong>大きさ</strong>：56×40×16mm</li>
+    </ul>
+    <p class="rise" style="--i:3">発売は2020年ごろ（公式の発売日は確認できなかった）。公式ドキュメントの更新履歴によると、<strong>2024年10月25日から画面の部品がGDEW0154M09からGDEY0154D67に変わっている</strong>。古い作例のコードがそのまま動かないことがあるので、ライブラリは公式のM5Unifiedを使うのが無難。</p>
+  </div>
+  <figure class="intro-plates">
+    <div class="plate rise" style="--i:2">
+      <img src="../../img/coreink/battery.jpg" width="1440" height="900" alt="200×200の画面に日付、天気、予定3件、電池電圧を出したイメージ" loading="lazy" decoding="async">
+      <figcaption>表示のイメージと、充電までの日数の見積もり（自分で描いた図）</figcaption>
+    </div>
+  </figure>
+</section>
+
+<section class="changes" aria-labelledby="plan-h">
+  <div class="wrap changes-inner">
+    <div class="changes-head">
+      <h2 id="plan-h" class="rise">予定＋天気の作り方</h2>
+      <p class="rise" style="--i:1">要は「時計に起こしてもらい、取ってきて、描いて、すぐ寝る」。Wi-Fiをつないでいる時間がいちばん電池を食うので、<strong>取ってくる量を減らし、起きている時間を短くする</strong>のがすべて。</p>
+    </div>
+    <table class="diff stack">
+      <caption class="visually-hidden">予定＋天気を出すための部品と方法</caption>
+      <thead><tr><th scope="col">やること</th><th scope="col">方法</th><th scope="col">メモ</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">天気</th><td data-label="方法">気象庁の予報JSON（<code>jma.go.jp/bosai/forecast/data/forecast/地域コード.json</code>）</td><td data-label="メモ">キー登録なしで取れる。天気・最高最低気温・降水確率で足りる</td></tr>
+        <tr><th scope="row">予定</th><td data-label="方法">Googleカレンダーを、Google Apps Scriptで「今日の予定だけ」の短いJSONにして返す</td><td data-label="メモ">iCalをそのまま取ると重い。サーバー側で絞ると起きている時間が短くなる</td></tr>
+        <tr><th scope="row">起こす</th><td data-label="方法">RTCにアラームを入れて電源オフ（M5Unifiedの<code>M5.Power.timerSleep()</code>）</td><td data-label="メモ">完全に電源が切れるので、ディープスリープより電池が減らない</td></tr>
+        <tr><th scope="row">描く</th><td data-label="方法">全体書き換えは1日1回程度、ほかは部分書き換え</td><td data-label="メモ">部分書き換えを続けると残像が出るので、ときどき全体を書き直す</td></tr>
+        <tr><th scope="row">電池を見る</th><td data-label="方法">電池電圧を読むAPIで、画面の隅に出す</td><td data-label="メモ">3.5Vを切ったら充電、のような目安を自分で決める</td></tr>
+      </tbody>
+    </table>
+    <p class="rise" style="--i:2">日付だけならWi-Fiは要らない。RTCが日付を持っているので、0時の書き換えは電波を使わずに済む。</p>
+  </div>
+</section>
+
+<section class="verdict wrap" aria-labelledby="battery-h">
+  <h2 id="battery-h" class="rise">充電の頻度</h2>
+  <p class="rise" style="--i:1">「何日持つか」の公式の数字はない。Wi-Fiの使い方と更新の回数で大きく変わるからで、見つかった実測の報告も条件がばらばら。なので、見つかった数字を足がかりに自分で計算した。<strong>以下は推定</strong>。</p>
+  <div class="odd-list">
+    <article class="odd rise" style="--i:1">
+      <h3>足がかりにした数字</h3>
+      <p>Wi-Fiをつなぎっぱなしで約2時間38分で電池切れ（個人の放電試験）。Wi-Fiなしで1分ごとに起きて時計を書き換えると約8日（個人の作例）。つまり<strong>Wi-Fiをつないでいる時間</strong>が電池の大半を食う。</p>
+    </article>
+    <article class="odd rise" style="--i:2">
+      <h3>置いた前提</h3>
+      <p>使える容量を約310mAh（390mAhの8割）。Wi-Fiで取りに行く1回を6〜10秒・平均100mA前後として0.17〜0.28mAh。電源オフ中の漏れは実測値が見つからなかったので、1日0.5〜1mAhと多めに仮置きした。</p>
+    </article>
+  </div>
+  <table class="diff stack">
+    <caption class="visually-hidden">更新のしかた別の充電までの日数（推定）</caption>
+    <thead><tr><th scope="col">更新のしかた</th><th scope="col">1日に使う量</th><th scope="col">充電まで（推定）</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">10分ごと（毎回天気も取る）</th><td data-label="1日に使う量">25〜41mAh</td><td data-label="充電まで（推定）">約1〜2週間</td></tr>
+      <tr><th scope="row">1時間ごと（24時間）</th><td data-label="1日に使う量">4.6〜7.7mAh</td><td data-label="充電まで（推定）">約1〜2か月</td></tr>
+      <tr><th scope="row">1時間ごと（6時〜23時だけ）</th><td data-label="1日に使う量">3.6〜6.0mAh</td><td data-label="充電まで（推定）">約2〜3か月</td></tr>
+      <tr><th scope="row">1日3回（6・12・18時）＋0時に日付だけ</th><td data-label="1日に使う量">1.0〜1.9mAh</td><td data-label="充電まで（推定）">計算上は半年前後。実際は数か月と見る</td></tr>
+    </tbody>
+  </table>
+  <div class="verdict-cols">
+    <div class="verdict-col rise" style="--i:1">
+      <h3>おすすめの設定</h3>
+      <ul>
+        <li><strong>朝6時・昼12時・夕方18時</strong>に天気と予定を取る。夜中は0時に日付だけ書き換える</li>
+        <li>予定は「今日」だけ。翌日分は夕方の更新で一緒に出す</li>
+        <li>上面のボタンを押したら、その場で取り直す</li>
+        <li>これで<strong>充電は数か月に1回</strong>の見込み。月初に電圧を見る習慣にすればいい</li>
+      </ul>
+    </div>
+    <div class="verdict-col rise" style="--i:2">
+      <h3>電池が早く減る原因</h3>
+      <ul>
+        <li>Wi-Fiにつながるまでが遅い。ルーターから遠い、DHCPに時間がかかる（固定IPにすると短くなることが多い）</li>
+        <li>予定をiCalのまま全部取ってくる</li>
+        <li>電源オフではなくディープスリープで待っている</li>
+        <li>寒い場所に置く。リチウム電池は冷えると持ちが落ちる</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="faq" aria-labelledby="faq-h">
+  <div class="wrap faq-inner faq-solo">
+    <div class="faq-left">
+      <h2 id="faq-h" class="rise">気になる点</h2>
+      <dl class="faq-facts rise" style="--i:1">
+        <div><dt>調べた日</dt><dd>2026年11月24日</dd></div>
+        <div><dt>一次情報</dt><dd>M5Stack公式ドキュメント（検索結果の要約）、スイッチサイエンスの製品ページ</dd></div>
+        <div><dt>自分で試したか</dt><dd>まだ持っていない。電池の持ちは計算</dd></div>
+      </dl>
+      <div class="qa">
+        <details class="rise">
+          <summary>どこに置く？</summary>
+          <p>背面の磁石で冷蔵庫に貼れる。玄関の鉄の扉の内側もいい（出かける前に天気が見える）。ただしWi-Fiが弱い場所だとつながるまでが長くなり、電池が早く減る。冷蔵庫の横や窓際の直射日光、冬の玄関の冷え込みは電池によくない。</p>
+        </details>
+        <details class="rise">
+          <summary>200×200で予定は何件出る？</summary>
+          <p>上に日付と天気、下に予定を3件くらいが現実的。月のカレンダー全体を出すのは字が小さすぎる。一覧性が欲しいなら、同じM5Stackの大きい電子ペーパー（M5Paperなど）を検討する。</p>
+        </details>
+        <details class="rise">
+          <summary>電源オフにしても本当に表示は残る？</summary>
+          <p>残る。電子ペーパーは書き換えるときだけ電気を使う。だから「描いたらすぐ電源を切る」運用が成り立つ。販売元は書き換えを15秒に1回より頻繁にしないよう注意している。</p>
+        </details>
+        <details class="rise">
+          <summary>電源の扱いでつまずくところは？</summary>
+          <p>CoreInkは他のM5Stack製品と電源の仕組みが違う。電源は側面のボタンの長押しで入れ、切るのはソフトウェアのAPIか、USBを抜いた状態で背面のリセットボタン。RTCで起こす作例はM5Unifiedに入っている。M5Paperでは、RTCのアラームで起こすときの不具合の報告もあるので、置く前に数日試す。</p>
+        </details>
+      </div>
+      <a class="btn faq-btn" href="https://docs.m5stack.com/ja/core/CoreInk" rel="noopener">CoreInkの公式ドキュメントを見る</a>
+    </div>
+  </div>
+</section>
+
+<section id="conclusion" class="conclusion wrap" aria-labelledby="conclusion-h">
+  <h2 id="conclusion-h" class="rise">結論</h2>
+  <ul class="conclusion-list">
+    <li class="rise"><strong>CoreInkは電子ペーパー付きの小さなESP32。</strong>1.54インチ白黒、390mAhの電池、RTC、背面の磁石。本の表記で5,588円</li>
+    <li class="rise" style="--i:1"><strong>電池で家に置くのに向いている。</strong>表示が残る画面と、時刻で電源を入れ直すRTCの組み合わせが強い</li>
+    <li class="rise" style="--i:2"><strong>充電の頻度は更新の回数しだい。</strong>1時間ごとなら1〜2か月に1回、1日3回なら数か月に1回（どちらも自分の推定）</li>
+    <li class="rise" style="--i:3"><strong>画面は小さい。</strong>今日の予定3件＋天気くらいがちょうどいい</li>
+  </ul>
+  <p class="conclusion-close rise">作るなら、天気は気象庁のJSON、予定はGoogle Apps Scriptで今日の分だけ返し、朝・昼・夕の3回更新で冷蔵庫に貼る。最初の1か月は電池の電圧を画面の隅に出して、この見積もりが合っているか確かめる。</p>
+</section>
+
+</main>
+
+<footer class="back">
+  <div class="back-card">
+    <div class="back-msg">
+      <h2>調べたところ</h2>
+      <ul class="sources">
+        <li><a href="https://docs.m5stack.com/ja/core/CoreInk" rel="noopener">M5Stack Docs　CoreInk</a></li>
+        <li><a href="https://docs.m5stack.com/ja/arduino/m5coreink/wakeup" rel="noopener">M5Stack Docs　CoreInk Wakeup（Arduino）</a></li>
+        <li><a href="https://docs.m5stack.com/ja/arduino/m5coreink/battery" rel="noopener">M5Stack Docs　CoreInk Battery（Arduino）</a></li>
+        <li><a href="https://www.switch-science.com/products/6735" rel="noopener">スイッチサイエンス　M5Stack CoreInk 開発キット</a></li>
+        <li><a href="https://lang-ship.com/blog/work/m5stack-coreink-m5paper/" rel="noopener">lang-ship　M5Stack CoreInk、M5Paperのバッテリーについて</a></li>
+        <li><a href="https://nefastudio.net/2020/11/30/5078.html" rel="noopener">nefastudio　M5Stack CoreInkで時計を作ってみる</a></li>
+        <li><a href="https://msr-r.net/coreink-time/" rel="noopener">MSR合同会社　M5Stack CoreInkでできること</a></li>
+        <li><a href="https://cat-in-136.github.io/2022/05/note-m5paper-power-supply-management.html" rel="noopener">cat-in-136　Note: M5Paper Power Supply/Management</a></li>
+      </ul>
+    </div>
+    <div class="back-addr">
+      <p class="back-sign">気になったこと</p>
+      <ul class="back-links">
+        <li><a href="../../">記録の一覧へ</a></li>
+        <li><a href="../../?tag=電子工作">電子工作の記録</a></li>
+        <li><a href="../breadboard/">ブレッドボードとは何か</a></li>
+      </ul>
+    </div>
+    <p class="imprint">画像：表示のイメージと棒グラフは自分で作ったもの。きっかけの本は技術書典の『スマートホームをもう一歩進める技術』（うすゆきスタジオ、usuyuki）で、値段とおすすめ度はその表記による。情報は2026年11月24日時点。公式ドキュメントと各記事の本文は直接読めておらず、検索結果の要約で確認した。充電の頻度は実測ではなく、置いた前提からの計算。</p>
+  </div>
+</footer>
+
+<script src="../../js/rise.js"></script>
+</body>
+</html>

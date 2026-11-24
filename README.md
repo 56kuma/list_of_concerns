@@ -20,6 +20,8 @@ site/                     ← 公開するのはこのフォルダだけ
 
 | 日付 | 記事 | タグ |
 | --- | --- | --- |
+| 2026-11-24 | [M5Stack CoreInkで予定と天気を出すと、充電はどれくらいか](site/posts/coreink/index.html) | 電子工作, スマートホーム, 買うか迷い中 |
+| 2026-11-24 | [ブレッドボードとは何か](site/posts/breadboard/index.html) | 電子工作, スマートホーム |
 | 2026-11-22 | [Orcaのボット機能は何に使えるか](site/posts/orca-bots/index.html) | AI, 開発ツール |
 | 2026-11-15 | [楽天のこどもNISAはいつから、いつ引き出せるか](site/posts/kodomo-nisa-rakuten/index.html) | お金, 子育て |
 | 2026-11-14 | [DevinのSWE-2は本当に永久無料か](site/posts/devin-swe-2/index.html) | AI, 開発ツール |
