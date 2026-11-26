@@ -161,6 +161,7 @@
       d.link.tabIndex = k === 0 ? 0 : -1;
     });
     renderDetail(shown[active]);
+    document.querySelectorAll('.fan-nav button').forEach((b) => { b.disabled = n < 2; });
   }
 
   function renderDetail(d) {
@@ -225,7 +226,7 @@
   let lock = 0;
   wrap.addEventListener('wheel', (e) => {
     if (view !== 'fan') return;
-    const dx = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : 0;
+    const dx = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : (e.shiftKey ? e.deltaY : 0);
     if (Math.abs(dx) < 12) return;
     e.preventDefault();
     const now = Date.now();
@@ -234,16 +235,43 @@
     go(dx > 0 ? 1 : -1);
   }, { passive: false });
 
-  let sx = null;
-  let sy = null;
-  wrap.addEventListener('touchstart', (e) => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
-  wrap.addEventListener('touchend', (e) => {
-    if (sx === null) return;
-    const dx = e.changedTouches[0].clientX - sx;
-    const dy = e.changedTouches[0].clientY - sy;
-    sx = null;
-    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) go(dx < 0 ? 1 : -1);
+  // ドラッグ／スワイプでめくる（マウス・指・ペン共通）。
+  // touchstart/touchend だと、ブラウザがスクロールを取ったときに touchend が来ず（iOS Safari など）めくれないことがあるので、
+  // Pointer Events を使い、束の上では横の動きをブラウザに渡さない（touch-action: pan-y）。
+  let drag = null;
+  let dragged = false;
+  wrap.addEventListener('pointerdown', (e) => {
+    if (view !== 'fan' || (e.pointerType === 'mouse' && e.button !== 0)) return;
+    if (e.target.closest('.detail, .fan-nav')) return;
+    drag = { id: e.pointerId, x: e.clientX, y: e.clientY };
+    dragged = false;
   });
+  wrap.addEventListener('pointermove', (e) => {
+    if (!drag || e.pointerId !== drag.id) return;
+    const dx = e.clientX - drag.x;
+    const dy = e.clientY - drag.y;
+    if (!dragged && Math.abs(dx) > 10 && Math.abs(dx) > Math.abs(dy)) {
+      dragged = true;
+      try { wrap.setPointerCapture(e.pointerId); } catch (err) { /* noop */ }
+    }
+    // 1回のドラッグ／スワイプで1枚
+    if (dragged && !drag.done && Math.abs(dx) > 50) {
+      go(dx < 0 ? 1 : -1);
+      drag.done = true;
+    }
+  });
+  const endDrag = (e) => { if (drag && e.pointerId === drag.id) drag = null; };
+  wrap.addEventListener('pointerup', endDrag);
+  wrap.addEventListener('pointercancel', endDrag);
+  // ドラッグのあとのクリックで、記事に飛んだりカードを選び直したりしない
+  wrap.addEventListener('click', (e) => {
+    if (dragged) { e.preventDefault(); e.stopPropagation(); dragged = false; }
+  }, true);
+  // リンクや画像をつかんで、ブラウザのドラッグが始まらないように
+  wrap.addEventListener('dragstart', (e) => { if (view === 'fan') e.preventDefault(); });
+
+  // 前後のボタン
+  document.querySelectorAll('.fan-nav [data-step]').forEach((b) => b.addEventListener('click', () => go(Number(b.dataset.step))));
 
   let rt;
   addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(layout, 120); });

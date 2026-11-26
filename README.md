@@ -20,6 +20,7 @@ site/                     ← 公開するのはこのフォルダだけ
 
 | 日付 | 記事 | タグ |
 | --- | --- | --- |
+| 2026-11-26 | [4.2インチ電子ペーパーで日めくりカレンダーを作る](site/posts/epaper-calendar/index.html) | 電子工作, スマートホーム, 買うか迷い中 |
 | 2026-11-24 | [M5Stack CoreInkで予定と天気を出すと、充電はどれくらいか](site/posts/coreink/index.html) | 電子工作, スマートホーム, 買うか迷い中 |
 | 2026-11-24 | [ブレッドボードとは何か](site/posts/breadboard/index.html) | 電子工作, スマートホーム |
 | 2026-11-22 | [Orcaのボット機能は何に使えるか](site/posts/orca-bots/index.html) | AI, 開発ツール |

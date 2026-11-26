@@ -109,6 +109,23 @@ html:not(.js) .entry-tags { display: flex; padding: 0 var(--s3) var(--s3); }
 .is-fan .entry:hover { transform: var(--t); }
 .is-fan .entry.is-active { box-shadow: 0 1px 2px rgba(38, 55, 47, .08), 0 30px 60px -20px rgba(38, 55, 47, .4); }
 .is-fan .entry.is-off { pointer-events: none; }
+/* 束の上では、縦のスクロールだけブラウザに任せ、横の動きはめくる操作に使う */
+.is-fan .fan-wrap { touch-action: pan-y; -webkit-user-select: none; user-select: none; }
+.is-fan .entry-link, .is-fan .entry-photo { -webkit-user-drag: none; }
+.is-fan .entry-link { cursor: grab; }
+.is-fan .fan-wrap:active .entry-link { cursor: grabbing; }
+
+/* 前後のボタン（束の左下） */
+.fan-nav { display: none; }
+.is-fan .fan-nav { display: flex; gap: var(--s2); position: absolute; left: 0; bottom: 0; z-index: 60; }
+.fan-nav button {
+  display: grid; place-items: center; width: 48px; height: 48px; border: 0; border-radius: 50%;
+  background: var(--glass); color: var(--ink); box-shadow: var(--shadow-s); cursor: pointer; font-size: 1.125rem;
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  transition: background-color .2s var(--ease), color .2s var(--ease);
+}
+.fan-nav button:hover { background: var(--ink); color: var(--accent-ink); }
+.fan-nav button:disabled { opacity: .35; pointer-events: none; }
 .is-fan .entry-photo { aspect-ratio: 1.2 / 1; }
 .is-fan .entry-body p:not(.entry-date) { display: none; }
 .is-fan .entry-date { display: none; }
@@ -183,6 +200,7 @@ html:not(.js) .tabbar { display: none; }
   .is-fan .fan-wrap { height: auto; margin-top: calc(var(--s6) * -1); }
   .is-fan .entries { position: relative; height: 360px; }
   .is-fan .detail { position: relative; width: auto; min-height: 0; margin-top: var(--s3); }
+  .is-fan .fan-nav { position: relative; justify-content: center; margin-top: var(--s3); }
   .hint-keys { display: none !important; }
   .tab-count { display: none; }
 }

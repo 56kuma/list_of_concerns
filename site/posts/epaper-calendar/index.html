@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.2インチ電子ペーパーで日めくりカレンダーを作る ｜ 気になったこと</title>
+<meta name="description" content="ホワイトボードに毎日書いている日付を、4.2インチの白黒電子ペーパーに大きく出す。SeeedのXIAO ePaper Display Board EE04で、日本時間の午前0時過ぎに自動で書き換えてディープスリープする日めくりを作るための、買うものと組み立ての手順。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Shippori+Mincho:wght@500;600&family=Space+Grotesk:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/site.css">
+<link rel="stylesheet" href="../../css/article.css">
+<link rel="stylesheet" href="post.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+
+<header class="hero">
+  <img class="hero-photo" src="../../img/epaper-calendar/calendar.jpg" width="1440" height="900" alt="ホワイトボードに書いた11/25を消して、4.2インチ電子ペーパーに11/26と大きく出したイメージ">
+  <div class="hero-card">
+    <div class="hero-top">
+      <a class="hero-home" href="../../">気になったこと</a>
+      <ul class="tags" aria-label="タグ">
+        <li><a class="tag" href="../../?tag=電子工作">電子工作</a></li>
+        <li><a class="tag" href="../../?tag=スマートホーム">スマートホーム</a></li>
+        <li><a class="tag" href="../../?tag=買うか迷い中">買うか迷い中</a></li>
+      </ul>
+    </div>
+    <h1>4.2インチ電子ペーパーで日めくりカレンダーを作る</h1>
+    <p class="hero-lead">ホワイトボードに毎日書いている日付を、電子ペーパーに任せたい。ケーブルなしで置き、1〜2m離れて読めて、日本時間の午前0時過ぎに勝手にめくれるもの。買うものと、組み立てて動かすまでの手順をまとめた。</p>
+    <dl class="hero-facts">
+      <div><dt>画面</dt><dd>4.2インチ白黒、400×300</dd></div>
+      <div><dt>USBで試すまで</dt><dd>4,961円＋送料</dd></div>
+      <div><dt>電池まで</dt><dd>8,211円＋送料</dd></div>
+    </dl>
+    <div class="hero-foot">
+      <a class="btn" href="#steps-h">組み立ての手順を見る</a>
+      <a href="#conclusion">結論だけ読む</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section class="learn wrap" aria-labelledby="learn-h">
+  <h2 id="learn-h" class="rise">この記事でわかること</h2>
+  <div class="learn-body">
+    <ul class="learn-list">
+      <li class="rise" style="--i:1"><a href="#what-h">作りたいもの</a><span>何を、どこまで自動にするか</span></li>
+      <li class="rise" style="--i:2"><a href="#buy-h">買うもの</a><span>画面・基板・電池と合計</span></li>
+      <li class="rise" style="--i:3"><a href="#steps-h">組み立てと動作確認</a><span>5つの手順</span></li>
+      <li class="rise" style="--i:4"><a href="#faq-h">確認状況</a><span>確かめたこと、まだのこと</span></li>
+    </ul>
+    <p class="learn-short rise" style="--i:3"><strong>先に結論。</strong>SeeedのXIAO ePaper Display Board EE04（ESP32-S3 Plus搭載）に4.2インチの白黒電子ペーパーをつなげば、<strong>画面と基板だけなら4,961円＋送料</strong>で試せる。午前0時過ぎに起きて日付を描き、<strong>ディープスリープに入っても表示は残る</strong>。充電池まで入れると8,211円＋送料。ただし<strong>実機での表示と電池持ちはまだ確かめていない</strong>。まずUSBでつないで、1〜2m先から読めるかを見るところから。</p>
+  </div>
+</section>
+
+<section class="intro wrap" aria-labelledby="what-h">
+  <div class="intro-text">
+    <h2 id="what-h" class="rise">作りたいもの</h2>
+    <p class="rise" style="--i:1">毎朝ホワイトボードの日付を消して書き直している。地味に忘れるし、書き間違える。これを<strong>電子ペーパーの日めくり</strong>にしたい。</p>
+    <ul class="intro-points rise" style="--i:2">
+      <li><strong>大きく</strong>：ホワイトボードに書いている日付を、そのまま電子ペーパーに大きく出す</li>
+      <li><strong>ケーブルなし</strong>：普段は電池で動かし、置き場所を選ばない</li>
+      <li><strong>離れて読める</strong>：1〜2m離れた場所から日付が読める大きさにする</li>
+      <li><strong>勝手にめくれる</strong>：日本時間の午前0時過ぎに日付を自動で書き換える</li>
+      <li><strong>すぐ寝る</strong>：書き換えたらディープスリープに入る。電子ペーパーなので、寝ている間も画面に日付が残る</li>
+    </ul>
+  </div>
+  <figure class="intro-plates">
+    <div class="plate rise" style="--i:2">
+      <img src="../../img/epaper-calendar/calendar.jpg" width="1440" height="900" alt="ホワイトボードの日付と、電子ペーパーに出した日付のイメージ" loading="lazy" decoding="async">
+      <figcaption>ホワイトボードの日付を電子ペーパーに置き換えるイメージ（自分で描いた図）</figcaption>
+    </div>
+  </figure>
+</section>
+
+<section class="changes" aria-labelledby="buy-h">
+  <div class="wrap changes-inner">
+    <div class="changes-head">
+      <h2 id="buy-h" class="rise">買うもの</h2>
+      <p class="rise" style="--i:1">画面と基板はどちらもSeeed。<strong>まずはUSBで動かして見え方を確かめ</strong>、よければ充電池を足す、の2段階にする。価格は前回確認した掲載価格。</p>
+    </div>
+    <table class="diff stack">
+      <caption class="visually-hidden">日めくりカレンダーに買うものと値段</caption>
+      <thead><tr><th scope="col">もの</th><th scope="col">型番・仕様</th><th scope="col">値段</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">4.2インチ白黒電子ペーパー</th><td data-label="型番・仕様">Seeed 104990857、400×300</td><td data-label="値段">3,199円</td></tr>
+        <tr><th scope="row">XIAO ePaper Display Board EE04</th><td data-label="型番・仕様">Seeed 100075670、ESP32-S3 Plus搭載</td><td data-label="値段">1,762円</td></tr>
+        <tr><th scope="row">USB-Cデータケーブル</th><td data-label="型番・仕様">手持ちのもの。初回の書き込みと充電に使う</td><td data-label="値段">0円</td></tr>
+        <tr><th scope="row">充電池の候補</th><td data-label="型番・仕様">3.7V、2,000mAh、保護回路付き</td><td data-label="値段">3,250円</td></tr>
+      </tbody>
+      <tfoot>
+        <tr><th scope="row" colspan="2">USBで試す段階（画面＋基板）</th><td data-label="値段">4,961円＋送料</td></tr>
+        <tr><th scope="row" colspan="2">充電池の候補まで含める</th><td data-label="値段">8,211円＋送料</td></tr>
+      </tfoot>
+    </table>
+    <p class="rise" style="--i:2">充電池はコネクタの極性がEE04と合うかをまだ確かめていない。USBで動くのを見てから買えば、合わなかったときの損が小さい。</p>
+  </div>
+</section>
+
+<section class="verdict wrap" aria-labelledby="steps-h">
+  <h2 id="steps-h" class="rise">組み立てと動作確認</h2>
+  <p class="rise" style="--i:1">スケッチ（<code>EE04_Date_Display.ino</code>）と表示用ライブラリの入れ方は、手元のZIPのREADMEにまとめてある。順番は「見え方を確かめる → 時刻を合わせる → 電池にする」。</p>
+  <ol class="steps">
+    <li class="rise" style="--i:1">
+      <h3>画面をつなぐ</h3>
+      <p><strong>USBと電池を外した状態で</strong>、電子ペーパーのフレキケーブルをEE04につなぐ。接点の向きとジャンパーの位置は、Seeed公式の組み立てガイドの写真に合わせる。</p>
+    </li>
+    <li class="rise" style="--i:2">
+      <h3>書き込みの準備</h3>
+      <p>USB-CでPCにつなぐ。Arduino IDEでボードに <code>XIAO ESP32S3 Plus</code> を選び、<strong>PSRAMを有効</strong>にする。ZIP内のREADMEに沿って、表示用ライブラリを入れる。</p>
+    </li>
+    <li class="rise" style="--i:3">
+      <h3>テスト表示で見え方を確かめる</h3>
+      <p><code>EE04_Date_Display.ino</code> を開き、<strong>Wi-Fi設定を空欄にしたまま</strong>書き込む。テスト表示の <code>11/25</code> が出たら、置きたい場所から<strong>1〜2m離れて読めるか</strong>を見る。</p>
+    </li>
+    <li class="rise" style="--i:4">
+      <h3>Wi-Fiで時刻を合わせる</h3>
+      <p>スケッチに自宅の<strong>2.4GHzの</strong>Wi-FiのSSIDとパスワードを入れ、もう一度書き込む。起動時に時刻を合わせて日付を出し、以降は午前0時過ぎに起きて日付を書き換える。</p>
+    </li>
+    <li class="rise" style="--i:5">
+      <h3>電池にしてケーブルを外す</h3>
+      <p>見え方と自動の書き換えを確かめられたら、充電池をつないでケーブルなしで使う。<strong class="warn">つなぐ前に、電池の＋／−がEE04のBAT＋／GNDと合っているかを必ず見る。</strong></p>
+    </li>
+  </ol>
+</section>
+
+<section class="faq" aria-labelledby="faq-h">
+  <div class="wrap faq-inner faq-solo">
+    <div class="faq-left">
+      <h2 id="faq-h" class="rise">確認状況</h2>
+      <dl class="faq-facts rise" style="--i:1">
+        <div><dt>まとめた日</dt><dd>2026年11月26日</dd></div>
+        <div><dt>確認済み</dt><dd>月末・年末・うるう日の日付の切り替えの計算</dd></div>
+        <div><dt>未確認</dt><dd>Arduino向けの実際のビルド、実機での表示、電池の持ち、充電池候補のコネクタの極性</dd></div>
+      </dl>
+      <div class="qa">
+        <details class="rise">
+          <summary>なぜ4.2インチ？</summary>
+          <p>1〜2m離れて読むには、日付だけを画面いっぱいに出したい。400×300あれば「11/26」と曜日を大きく描ける。小さい画面だと数字が細くなり、離れると読みにくい。読めるかはテスト表示で確かめる。</p>
+        </details>
+        <details class="rise">
+          <summary>Wi-Fiが5GHzしかない場合は？</summary>
+          <p>ESP32-S3は2.4GHzにしかつながらない。ルーターの設定で2.4GHzを出しておく。時刻を合わせる起動時だけつながれば足りる。</p>
+        </details>
+        <details class="rise">
+          <summary>電池はどれくらい持つ？</summary>
+          <p>まだわからない。1日1回起きて描くだけなので長く持つ見込みだが、ディープスリープ中の消費は基板しだいで、実測していない。電池にしたら、しばらく電圧を見ておく。</p>
+        </details>
+        <details class="rise">
+          <summary>充電池をつなぐときの注意は？</summary>
+          <p>市販のリチウム電池はコネクタが同じ形でも＋と−が逆のことがある。逆につなぐと基板を壊すので、つなぐ前にEE04のBAT＋／GNDと電池の線の色・極性を見比べる。保護回路付きを選んでいるのも、そのための保険。</p>
+        </details>
+      </div>
+      <a class="btn faq-btn" href="https://wiki.seeedstudio.com/ja/epaper_ee04/" rel="noopener">Seeed公式の組み立てガイドを見る</a>
+    </div>
+  </div>
+</section>
+
+<section id="conclusion" class="conclusion wrap" aria-labelledby="conclusion-h">
+  <h2 id="conclusion-h" class="rise">結論</h2>
+  <ul class="conclusion-list">
+    <li class="rise"><strong>4.2インチの白黒電子ペーパーとEE04で作る。</strong>400×300の画面に、日付を大きく出す</li>
+    <li class="rise" style="--i:1"><strong>USBで試すなら4,961円＋送料。</strong>充電池の候補まで入れると8,211円＋送料（前回確認した掲載価格）</li>
+    <li class="rise" style="--i:2"><strong>午前0時過ぎに起きて描き、すぐ寝る。</strong>電子ペーパーなので寝ている間も日付が残る</li>
+    <li class="rise" style="--i:3"><strong>実機はまだ。</strong>確かめたのは日付の切り替えの計算だけ。表示、ビルド、電池の持ち、極性はこれから</li>
+  </ul>
+  <p class="conclusion-close rise">まず画面と基板だけ買い、Wi-Fiなしのテスト表示で1〜2m先から読めるかを見る。読めたらWi-Fiで時刻を合わせ、0時の書き換えを何日か見てから、極性を確かめて充電池をつなぐ。</p>
+</section>
+
+</main>
+
+<footer class="back">
+  <div class="back-card">
+    <div class="back-msg">
+      <h2>調べたところ</h2>
+      <ul class="sources">
+        <li><a href="https://jp.seeedstudio.com/4-2-Monochrome-ePaper-Display-with-400x300-Pixels-p-5784.html" rel="noopener">Seeed Studio　4.2インチ白黒電子ペーパー（400×300）</a></li>
+        <li><a href="https://jp.seeedstudio.com/XIAO-ePaper-Display-Board-EE04-p-6560.html" rel="noopener">Seeed Studio　XIAO ePaper Display Board EE04</a></li>
+        <li><a href="https://www.sengoku.co.jp/mod/sgk_cart/detail.php?code=EEHD-53KP" rel="noopener">千石電商　充電池の候補（3.7V 2,000mAh）</a></li>
+        <li><a href="https://wiki.seeedstudio.com/ja/epaper_ee04/" rel="noopener">Seeed Studio Wiki　EE04の組み立てガイド</a></li>
+      </ul>
+    </div>
+    <div class="back-addr">
+      <p class="back-sign">気になったこと</p>
+      <ul class="back-links">
+        <li><a href="../../">記録の一覧へ</a></li>
+        <li><a href="../../?tag=電子工作">電子工作の記録</a></li>
+        <li><a href="../coreink/">M5Stack CoreInkで予定と天気を出すと</a></li>
+      </ul>
+    </div>
+    <p class="imprint">画像：ホワイトボードと電子ペーパーのイメージは自分で作ったもの。値段は前回確認した各ショップの掲載価格で、2026年11月26日に改めて確かめてはいない。スケッチとREADMEは手元のZIPにあり、このページでは公開していない。実機での表示、ビルド、電池の持ち、充電池のコネクタの極性は未確認。</p>
+  </div>
+</footer>
+
+<script src="../../js/rise.js"></script>
+</body>
+</html>
